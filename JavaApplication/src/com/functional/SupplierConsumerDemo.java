@@ -1,5 +1,7 @@
 package com.functional;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -52,8 +54,60 @@ class FunctionalReference {
 
 }
 
-public class SupplierConsumerDemo {
+interface ObjectConsumer<T> extends Consumer<T> {
+	@Override
+	default void accept(T t) {
+		if (t instanceof String) {
+			System.out.println(t);
+		}
+		if (t instanceof Certification) {
+			System.out.println(t);
+		}
+	}
+}
 
+public class SupplierConsumerDemo{
+	public static void main(String[] args) {
+		System.out.println("Supplier Demo");
+		/*
+		System.out.println(printInfo(() -> {
+			return getSystemInfo();
+		}));
+		
+		constructorReferenceDemo();
+		methodReferenceDemo();
+		*/
+		consumerOverride();
+		
+	}
+	public static void consumerOverride()
+	{
+		String str="Naren";
+		ObjectConsumer<String> strCons = new ObjectConsumer<>() {
+			
+		};
+		
+		Consumer<String> strConsumer = strCons::accept;
+		List<String> strList = Arrays.asList("1","2","3");
+		strList.stream().forEach(strConsumer);
+		
+		
+		Certification c1 = new Certification("S001", "OCA", 87);
+        Certification c2 = new Certification("S002", "OCA", 82);
+        Certification c3 = new Certification("S001", "OCP", 79);
+        Certification c4 = new Certification("S002", "OCP", 89);
+        Certification c5 = new Certification("S003", "OCA", 60);
+        Certification c6 = new Certification("S004", "OCA", 88);
+        ObjectConsumer<Certification> certCons = new ObjectConsumer<>() {
+			@Override
+			public void accept(Certification t) {
+				System.out.println(t.getStudId());
+			}
+		};
+        Consumer<Certification> crtConsumer = certCons::accept;
+		List<Certification> list = Arrays.asList(c1,c2,c3,c4,c5,c6);
+		list.stream().forEach(crtConsumer);
+	}
 	public static void constructorReferenceDemo() {
 		Supplier<FunctionalReference> supRef = FunctionalReference::new;
 		FunctionalReference fref = supRef.get();
@@ -75,16 +129,6 @@ public class SupplierConsumerDemo {
 
 		Function<String, String> methRef = FunctionalReference.methodRef::genMethod;
 		System.out.println(methRef.apply(getSystemInfo()));
-	}
-
-	public static void main(String[] args) {
-		System.out.println("Supplier Demo");
-
-		System.out.println(printInfo(() -> {
-			return getSystemInfo();
-		}));
-		constructorReferenceDemo();
-		methodReferenceDemo();
 	}
 
 	public static String getSystemInfo() {

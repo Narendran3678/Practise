@@ -16,9 +16,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.*;
-import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.Callable;
-import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -123,10 +121,15 @@ public class TestJava2 {
 
 	public static void main(String[] args) {
 		TestJava2 tj = new TestJava2();
-		tj.test7();
+		tj.test8();
 	}
 
 	public void test8() {
+		List<Integer> v = new ArrayList<>();//Arrays.asList(1,2,3);
+		Stream<List<Integer>> stream = Stream.of(v);
+		Optional<List<Integer>> optional = stream.findFirst();
+		System.out.println(optional.orElse(null));
+		
 		
 	}
 
@@ -134,7 +137,7 @@ public class TestJava2 {
 		Consumer<Integer> consumer = System.out::print;
 		Integer i = 5;
 		consumer.andThen(consumer).accept(i++);
-		
+
 		Path root = Paths.get("E:");
 		BiPredicate<Path, BasicFileAttributes> predicate = (p, a) -> p.toString().endsWith("txt");
 		try (Stream<Path> paths = Files.find(root, 2, predicate)) {

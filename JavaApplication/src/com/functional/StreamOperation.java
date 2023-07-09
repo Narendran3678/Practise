@@ -3,7 +3,35 @@ package com.functional;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+class Certification {
+   String studId;
+   String test;
+   int marks;
+
+   Certification(String studId, String test, int marks) {
+       this.studId = studId;
+       this.test = test;
+       this.marks = marks;
+   }
+
+   public String toString() {
+       return "{" + studId + ", " + test + ", " + marks + "}";
+   }
+
+   public String getStudId() {
+       return studId;
+   }
+
+   public String getTest() {
+       return test;
+   }
+
+   public int getMarks() {
+       return marks;
+   }
+}
 class Person {
 	private String firstName;
 	private String lastName;
@@ -166,7 +194,22 @@ public class StreamOperation {
 		list.stream().sorted(Comparator.comparing(Person::getFirstName).reversed().thenComparing(Person::getLastName))
 				.forEach(System.out::println);
 	}
-
+	static void streamOf()
+	{
+		Certification c1 = new Certification("S001", "OCA", 87);
+        Certification c2 = new Certification("S002", "OCA", 82);
+        Certification c3 = new Certification("S001", "OCP", 79);
+        Certification c4 = new Certification("S002", "OCP", 89);
+        Certification c5 = new Certification("S003", "OCA", 60);
+        Certification c6 = new Certification("S004", "OCA", 88);
+ 
+        Stream<Certification> stream = Stream.of(c1, c2, c3, c4, c5, c6);
+        Map<Boolean, List<Certification>> map = stream.collect(Collectors.partitioningBy(s -> s.getTest().equals("OCA")));
+        System.out.println(map.get(true));
+	}
+	static void basicStreamOperation()
+	{
+	}
 	public static void main(String args[]) {
 		List<Book> listBook = new ArrayList<Book>();
 		listBook.addAll(DataPublisher.getFromAmazon("Java"));
@@ -177,12 +220,16 @@ public class StreamOperation {
 
 		// find(listBook);
 
-		reduce(listBook);
+		//reduce(listBook);
 
 		// collect(listBook);
 
 		// collectGroup(listBook);
 
 		//streamSort();
+		
+		//streamOf();
+		
+		basicStreamOperation();
 	}
 }
