@@ -9,10 +9,9 @@ enum TestEnum implements TestEnum1
 	TESTENUM1,
 	TESTENUM2,
 	TESTENUM3;
-
 	@Override
 	public void testIntfMethod() {
-		
+		System.out.println("Overrided Test Method");
 	}
 }
 public enum BookGenre 
@@ -41,7 +40,7 @@ public enum BookGenre
 	
 	BookGenre(int genreId) {
 		this.genreId=genreId;
-	}
+	}	
 
 	
 	public int getGenreId() {
@@ -49,6 +48,9 @@ public enum BookGenre
 	}
 	public static void main(String args[]) throws CloneNotSupportedException
 	{
+		TestEnum.TESTENUM1.testIntfMethod();
+		System.out.println( BookGenre.BookSubGenre.COMEDY_COMMERICAL);
+		
 		for(BookSubGenre bg:BookSubGenre.values())
 		{
 			System.out.print(bg.ordinal()+" ");

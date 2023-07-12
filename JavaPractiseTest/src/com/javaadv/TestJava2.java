@@ -25,6 +25,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 class MyThread implements Callable<Integer> {
@@ -111,14 +112,13 @@ class Counter implements Runnable {
 	}
 }
 
-@SuppressWarnings({ "resource", "unused", "hiding", "rawtypes", "unchecked" })
-public class TestJava2 {
-	private int num1 = 100;
 
+@SuppressWarnings({ "unused", "rawtypes" })
+public class TestJava2 {
+	private int num1 = 100;	
 	class N {
 		private int num2 = 200;
 	}
-
 	public static void main(String[] args) {
 		TestJava2 tj = new TestJava2();
 		tj.test8();
@@ -130,7 +130,9 @@ public class TestJava2 {
 		Optional<List<Integer>> optional = stream.findFirst();
 		System.out.println(optional.orElse(null));
 		
-		
+		int res = 1;
+        IntStream stream1 = IntStream.rangeClosed(1, 4);
+        System.out.println(stream1.reduce(res, (i, j) -> res * i * j));
 	}
 
 	public void test7() {
