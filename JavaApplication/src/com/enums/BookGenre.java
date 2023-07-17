@@ -9,6 +9,10 @@ enum TestEnum implements TestEnum1
 	TESTENUM1,
 	TESTENUM2,
 	TESTENUM3;
+	TestEnum()
+	{
+		System.out.println(this.toString());
+	}
 	@Override
 	public void testIntfMethod() {
 		System.out.println("Overrided Test Method");
