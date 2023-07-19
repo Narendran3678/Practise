@@ -12,9 +12,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,12 +25,15 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.rest.Entity.API;
 import com.rest.Entity.Employee;
 import com.rest.Service.EmployeeService;
-import com.rest.exception.GenericException;
 
 @Path("/")
 public class EmployeeController {
 	private static final ObjectMapper mapper = new ObjectMapper();
-
+	private static List<Employee> employeeList = new ArrayList<>();
+	static 
+	{
+		employeeList = EmployeeService.getInstance().getEmployeeList();
+	}
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response entryPoint() {
@@ -45,22 +51,31 @@ public class EmployeeController {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/employees")
-	public List<Employee>  getEmployees() {
-		//return Response.status(Response.Status.OK).entity(EmployeeService.getInstance().getEmployeeList()).build();
-		return EmployeeService.getInstance().getEmployeeList();
+	public List<Employee> getEmployees() {
+		return employeeList;
 	}
-
+	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/employee/{empId}")
-	public Response getEmployee(@PathParam("empId") @DefaultValue("0") Long empId) throws Throwable {
-		Employee employee = EmployeeService.getInstance().getEmployeeDetail(empId);
-		if(employee==null)
+	public Response getEmployeeWithCacheControl(@PathParam("empId") @DefaultValue("0") Long empId , @Context Request request) throws Throwable {
+		CacheControl cacheControl = new CacheControl();
+		cacheControl.setMaxAge(100);
+		
+		Optional<Employee> employee = Optional.ofNullable(employeeList.stream().filter( e -> e.getId()==empId).findFirst().orElse(null));
+		if(employee.isEmpty())
 		{
-			throw new Throwable("Employee Not Found -> [404 - Not Found]");
+			throw new Throwable("Employee ["+empId+"] Not Found -> [404 - Not Found]");
 		}
-		return Response.status(Response.Status.OK).entity(employee)
-				.build();
+		EntityTag entityTag = new EntityTag(employee.get().getLastmodified().toString());
+		Response.ResponseBuilder responseBuilder = request.evaluatePreconditions(entityTag);
+		if(responseBuilder != null)
+		{
+			return responseBuilder.cacheControl(cacheControl).tag(entityTag).build();
+		}
+		
+		responseBuilder = Response.status(Response.Status.OK).cacheControl(cacheControl).tag(entityTag).entity(employee.get());
+		return 	responseBuilder.build();
 	}
 
 	@POST

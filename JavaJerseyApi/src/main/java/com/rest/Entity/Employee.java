@@ -1,5 +1,6 @@
 package com.rest.Entity;
-import java.util.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Employee {
@@ -9,7 +10,8 @@ public class Employee {
 	private String emailid;
 	private String phonenumber;
 	private double salary;
-	private Date createtime;
+	private Timestamp createtime;
+	private Timestamp lastmodified;
 	public long getId() {
 		return id;
 	}
@@ -46,16 +48,24 @@ public class Employee {
 	public void setSalary(double salary) {
 		this.salary = salary;
 	}
-	public Date getCreatetime() {
+	public Timestamp getCreatetime() {
 		return createtime;
 	}
-	public void setCreatetime(Date createtime) {
+	public void setCreatetime(Timestamp createtime) {
 		this.createtime = createtime;
+	}
+	public Timestamp getLastmodified() {
+		return lastmodified;
+	}
+	public void setLastmodified(Timestamp lastmodified) {
+		this.lastmodified = lastmodified;
 	}
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", emailid=" + emailid
-				+ ", phonenumber=" + phonenumber + ", salary=" + salary + ", createtime=" + createtime + "]";
+				+ ", phonenumber=" + phonenumber + ", salary=" + salary + ", createtime=" + createtime
+				+ ", lastmodified=" + lastmodified + "]";
 	}
+	
 	
 }

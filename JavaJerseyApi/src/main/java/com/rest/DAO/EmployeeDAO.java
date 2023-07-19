@@ -61,7 +61,7 @@ public class EmployeeDAO {
 		ResultSet result = null;
 		Employee employee = null;
 		Connection connection = ConnectionManager.getInstance().getConnection();
-		String sql = "SELECT ID, FIRSTNAME, LASTNAME, EMAILID, PHONENUMBER, SALARY, CREATETIME FROM EMPLOYEE WHERE ID = ?";
+		String sql = "SELECT ID, FIRSTNAME, LASTNAME, EMAILID, PHONENUMBER, SALARY, CREATETIME ,LASTMODIFIED FROM EMPLOYEE WHERE ID = ?";
 		try {
 			preStatement = connection.prepareStatement(sql);
 			preStatement.setLong(1, empId);
@@ -74,7 +74,8 @@ public class EmployeeDAO {
 				employee.setEmailid(result.getString(4));
 				employee.setPhonenumber(result.getString(5));
 				employee.setSalary(result.getDouble(6));
-				employee.setCreatetime(result.getDate(7));
+				employee.setCreatetime(result.getTimestamp(7));
+				employee.setLastmodified(result.getTimestamp(8));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -98,7 +99,7 @@ public class EmployeeDAO {
 		ResultSet result = null;
 		List<Employee> employeeList = new ArrayList<>();
 		Connection connection = ConnectionManager.getInstance().getConnection();
-		String sql = "SELECT ID, FIRSTNAME, LASTNAME, EMAILID, PHONENUMBER, SALARY, CREATETIME FROM EMPLOYEE ";
+		String sql = "SELECT ID, FIRSTNAME, LASTNAME, EMAILID, PHONENUMBER, SALARY, CREATETIME, LASTMODIFIED FROM EMPLOYEE ";
 		try {
 			statement = connection.createStatement();
 			result = statement.executeQuery(sql);
@@ -110,7 +111,8 @@ public class EmployeeDAO {
 				employee.setEmailid(result.getString(4));
 				employee.setPhonenumber(result.getString(5));
 				employee.setSalary(result.getDouble(6));
-				employee.setCreatetime(result.getDate(7));
+				employee.setCreatetime(result.getTimestamp(7));
+				employee.setLastmodified(result.getTimestamp(8));
 				employeeList.add(employee);
 			}
 		} catch (SQLException e) {
