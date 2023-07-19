@@ -1,7 +1,7 @@
-package com.java.Entity;
-
+package com.rest.Entity;
 import java.util.Date;
-
+import javax.xml.bind.annotation.XmlRootElement;
+@XmlRootElement
 public class Employee {
 	private long id;
 	private String firstName;

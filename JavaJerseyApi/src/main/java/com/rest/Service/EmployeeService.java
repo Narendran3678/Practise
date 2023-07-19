@@ -1,7 +1,7 @@
-package com.java.Service;
+package com.rest.Service;
 import java.util.*;
-import com.java.DAO.EmployeeDAO;
-import com.java.Entity.Employee;
+import com.rest.DAO.EmployeeDAO;
+import com.rest.Entity.Employee;
 public class EmployeeService {
 	private static EmployeeService service = new EmployeeService();
 	

@@ -30,6 +30,7 @@
 		    <version>${servlet.api.version}</version>
 		    <scope>provided</scope>
 		</dependency>
+		
 		<!-- Need Jar For Jersey and Working Version is 2.36 Starts-->
 		<dependency>
 		    <groupId>org.glassfish.jersey.containers</groupId>
@@ -51,17 +52,12 @@
 		    <artifactId>jersey-hk2</artifactId>
 		    <version>${jersey.version}</version>
 		</dependency>
-	
 		<!-- Need Jar For Jersey and Working Version is 2.36 Ends-->
-		<dependency>
-			<groupId>org.glassfish.jersey.media</groupId>
-			<artifactId>jersey-media-json-jackson</artifactId>
-			<version>${jersey.version}</version>
-		</dependency>
-		<dependency>
-		    <groupId>com.google.code.gson</groupId>
-		    <artifactId>gson</artifactId>
-		    <version>${gson.version}</version>
+		
+		<dependency><!-- Supports JSON  -->
+		    <groupId>org.glassfish.jersey.media</groupId>
+		    <artifactId>jersey-media-json-jackson</artifactId>
+		    <version>${jersey.version}</version>
 		</dependency>
 		<dependency>
 		    <groupId>mysql</groupId>

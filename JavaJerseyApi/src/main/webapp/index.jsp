@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Index Page</title>
+<title>RestService</title>
 </head>
 <body>
-	Hello Rest Service
+	<center><h1>Jersey Rest Service</h1></center>
 </body>
 </html>

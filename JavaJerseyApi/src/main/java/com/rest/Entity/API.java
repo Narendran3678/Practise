@@ -1,5 +1,8 @@
-package com.java.Entity;
+package com.rest.Entity;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class API {
 	private String method;
 	private String url;
