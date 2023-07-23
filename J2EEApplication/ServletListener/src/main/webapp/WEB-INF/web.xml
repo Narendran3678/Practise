@@ -1,0 +1,58 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+	<display-name>Archetype Created Web Application</display-name>
+	<context-param>
+		<param-name>DbUser</param-name>
+		<param-value>root</param-value>
+	</context-param>
+	<context-param>
+		<param-name>DbPassword</param-name>
+		<param-value>rootuser</param-value>
+	</context-param>
+	<context-param>
+		<param-name>DbDriver</param-name>
+		<param-value>com.mysql.jc.jdbc.driver</param-value>
+	</context-param>
+	<listener>
+		<listener-class>com.listener.AppContextListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>com.listener.AppContextAttributeListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>com.listener.AppSessionListener</listener-class>
+	</listener>
+	
+	<servlet>
+		<servlet-name>ListenerServlet</servlet-name>
+		<display-name>ListenerServlet</display-name>
+		<description></description>
+		<servlet-class>com.servlet.ListenerServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AppExceptionHandler</servlet-name>
+		<display-name>AppExceptionHandler</display-name>
+		<description></description>
+		<servlet-class>com.exception.AppExceptionHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ListenerServlet</servlet-name>
+		<url-pattern>/ListenerServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AppExceptionHandler</servlet-name>
+		<url-pattern>/AppExceptionHandler</url-pattern>
+	</servlet-mapping>
+	
+	<error-page>
+	  	<error-code>404</error-code>
+	  	<location>/AppExceptionHandler</location>
+	  </error-page>
+	<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/AppExceptionHandler</location>
+	</error-page>
+</web-app>
