@@ -8,12 +8,14 @@
 		<property name="connection.url">jdbc:mysql://localhost:3306/devdb</property>
 		<property name="show_sql">true</property>
 		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
-		<!--
-        <property name="hbm2ddl.auto">create-drop</property>
-        -->
-
+		
+        <!--<property name="hbm2ddl.auto">create-drop</property>-->
+        
 		<mapping class="com.entity.Student" />
 		<mapping class="com.entity.User" />
+		<mapping class="com.entity.User" />
+		<mapping class="com.entity.Instructor" />
+		<mapping class="com.entity.InstructorDetail" />
 		
 	</session-factory>
 </hibernate-configuration>

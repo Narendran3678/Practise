@@ -13,8 +13,9 @@ public class StudentDao {
 
 	public void saveStudent(Student student) {
 		Transaction transaction = null;
+		Session session = null;
 		try {
-			Session session = HibernateUtil.getInstance().getSessionFactory().openSession();
+			session = HibernateUtil.getInstance().getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			session.persist(student); // or session.merge(student);
 			transaction.commit();
@@ -24,6 +25,13 @@ public class StudentDao {
 				transaction.rollback();
 			}
 			e.printStackTrace();
+		}
+		finally
+		{
+			if(session!=null)
+			{
+				session.close();
+			}
 		}
 	}
 
