@@ -1,13 +1,12 @@
 package com.entity;
 
 import java.sql.Timestamp;
-
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,7 +16,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="Instructor")
-public class Instructor {
+public class Instructor extends DAOI {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
@@ -34,15 +33,18 @@ public class Instructor {
 	@UpdateTimestamp
 	private Timestamp modifytime;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="id",referencedColumnName="instructor_id")
+	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@JoinColumn(name="id")  // Indicated that Instructor will have foriegn key column and name suggest that foriegn key mapping column name
 	private InstructorDetail instructorDetail;
 	
 	public Instructor()
 	{
 		
 	}
-	
+	public Instructor(String name) {
+		super();
+		this.name = name;
+	}
 	public Instructor(String name, InstructorDetail instructorDetail) {
 		super();
 		this.name = name;
