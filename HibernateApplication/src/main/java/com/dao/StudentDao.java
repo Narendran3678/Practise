@@ -153,7 +153,7 @@ public class StudentDao {
 		}
 		catch(Exception e)
 		{
-			if(entityMgr!=null)
+			if(transaction!=null)
 				transaction.rollback();
 			e.printStackTrace();
 		}
