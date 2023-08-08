@@ -10,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,13 +22,13 @@ public class Student {
 	@Column(name="id")
 	private long id;
 	
-	@Column(name="first_name")
+	@Column(name="first_name",unique=true)
 	private String firstname;
 	
 	@Column(name="last_name")
 	private String lastname;
 	
-	@Column(name="email_id")
+	@Column(name="email_id",unique=true)
 	private String emailId;
 	
 	@Column(name="grade")

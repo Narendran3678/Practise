@@ -1,10 +1,9 @@
-package com.dao.mappings;
+package com.mapping.onetoone;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.entity.DAOI;
-import com.entity.Instructor;
 import com.util.HibernateUtil;
 
 public class InstructorDao  {

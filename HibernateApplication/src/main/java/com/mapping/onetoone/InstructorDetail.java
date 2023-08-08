@@ -1,9 +1,11 @@
-package com.entity;
+package com.mapping.onetoone;
 
 import java.sql.Timestamp;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.entity.DAOI;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

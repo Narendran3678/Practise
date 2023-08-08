@@ -9,13 +9,22 @@
 		<property name="show_sql">true</property>
 		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
 		
-        <!-- <property name="hbm2ddl.auto">create-drop</property> -->
-        
+        <!--<property name="hbm2ddl.auto">create</property> -->
+      
+    	<mapping class="com.mapping.onetomany.Movie" />
+        <mapping class="com.mapping.onetomany.Director" />
+        <!--
+        <mapping class="com.composityandcollection.Warehouse" />
+    	<mapping class="com.composityandcollection.Customer" />
+        <mapping class="com.mapping.manytomany.Project" />
+     	<mapping class="com.mapping.manytomany.Technology" />
+        <mapping class="com.mapping.onetomany.Movie" />
+        <mapping class="com.mapping.onetomany.Director" />
 		<mapping class="com.entity.Student" />
 		<mapping class="com.entity.User" />
 		<mapping class="com.entity.User" />
 		<mapping class="com.entity.Instructor" />
 		<mapping class="com.entity.InstructorDetail" />
-		
+		-->
 	</session-factory>
 </hibernate-configuration>

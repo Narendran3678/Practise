@@ -12,8 +12,12 @@ public class StudentClient {
 		//studentDao.getStudents();
 		
 		
+		//studentDao.saveJPAStudent(new Student("John", "Wick", "johnwick@javaguides.com"));
+		//studentDao.saveJPAStudent(new Student("Bill", "Board", "Bill@javaguides.com"));
+		//studentDao.getJPAStudents();
+		studentDao.getJPAStudent(1L);
 		//Student student1  = studentDao.getStudent(5L);
-		studentDao.deleteStudent(4L);
+		//studentDao.deleteStudent(4L);
 		//student1.setGrade(3);
 		//studentDao.mergeStudent(student1);
 		

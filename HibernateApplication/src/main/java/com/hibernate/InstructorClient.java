@@ -1,8 +1,8 @@
 package com.hibernate;
 
-import com.dao.mappings.InstructorDao;
-import com.entity.Instructor;
-import com.entity.InstructorDetail;
+import com.mapping.onetoone.Instructor;
+import com.mapping.onetoone.InstructorDao;
+import com.mapping.onetoone.InstructorDetail;
 
 public class InstructorClient {
 	public static void main(String args[]) 

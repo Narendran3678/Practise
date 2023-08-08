@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation=
+"http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
+    <description>JPA Entity Mapping</description>
+	<entity class="com.mapping.onetomany.Director">
+		<named-native-query name="diretor_movie_join">
+			<query>
+				<![CDATA[
+				select dir.director_name,dir.movie_count,mov.movie_name from director dir left outer join movie mov on dir.id = mov.director_id where dir.id=:id
+				]]>
+			</query>
+		</named-native-query>
+	</entity>
+</entity-mappings>
