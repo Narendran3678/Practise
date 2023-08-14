@@ -1,15 +1,12 @@
 package com.dao;
 
 import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-
 import com.entity.Student;
 import com.util.HibernateUtil;
 import com.util.JPAUtil;
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
@@ -166,6 +163,7 @@ public class StudentDao {
 			
 		}
 	}
+	@SuppressWarnings("unchecked")
 	public List<Student> getJPAStudents() {
 		EntityManager entityMgr = JPAUtil.getJPASessionFactory().createEntityManager();
 		List<Student> studentList = null;

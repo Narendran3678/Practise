@@ -4,7 +4,8 @@
 	xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
 	version="3.0">
 	<persistence-unit name="persistence-xml">
-		<class>com.entity.Student</class>
+		<class>com.inheritance.CreditCard</class>
+		<class>com.inheritance.DebitCard</class>
 		<properties>
 			<property name="jakarta.persistence.jdbc.driver"
 				value="com.mysql.cj.jdbc.Driver" />
@@ -15,7 +16,7 @@
 				value="root" />
 			<property name="hibernate.dialect"
 				value="org.hibernate.dialect.MySQLDialect" />
-			<!-- <property name="hibernate.hbm2ddl.auto" value="create" /> -->
+			<!-- <property name="hibernate.hbm2ddl.auto" value="create-drop" /> -->
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.show_sql" value="true" />
 		</properties>

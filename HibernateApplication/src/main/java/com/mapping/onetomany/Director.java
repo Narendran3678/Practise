@@ -1,6 +1,11 @@
 package com.mapping.onetomany;
 
 import java.util.List;
+
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import com.entity.DAOI;
 
 import jakarta.persistence.CascadeType;
@@ -27,7 +32,9 @@ public class Director extends DAOI {
 	@Column(name="movie_count")
 	private int numberOfMovies;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="director",fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="director",fetch = FetchType.LAZY)
+	@Fetch(FetchMode.SELECT)
+	@BatchSize(size=3) // Solves N+1 Problem by using in clause in conidition rather than select statement for each id
 	private List<Movie> movieList;
 	
 	public Director()
@@ -78,8 +85,7 @@ public class Director extends DAOI {
 
 	@Override
 	public String toString() {
-		return "Director [id=" + id + ", directorName=" + directorName + ", numberOfMovies=" + numberOfMovies
-				+ ", movieList=" + movieList + "]";
+		return "Director [id=" + id + ", directorName=" + directorName + ", numberOfMovies=" + numberOfMovies+"]";
 	}
 
 	

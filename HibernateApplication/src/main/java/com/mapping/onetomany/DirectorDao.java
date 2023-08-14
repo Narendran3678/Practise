@@ -1,18 +1,14 @@
 package com.mapping.onetomany;
 
 import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
 import com.entity.DAOI;
 import com.util.HibernateUtil;
 import com.util.JPAUtil;
-
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
-
+@SuppressWarnings("unchecked")
 public class DirectorDao {
 	static Session session = null;
 	public static void persistDirector(DAOI daoI)
@@ -88,6 +84,8 @@ public class DirectorDao {
 			directorList = query.getResultList();
 			directorList.forEach(System.out::println);
 			*/
+			
+			/*
 			Query query = entityMgr.createNativeQuery("select dir.director_name,dir.movie_count,mov.movie_name from director dir left outer join movie mov on dir.id = mov.director_id");
 			listObj = query.getResultList();
 			for(Object[] objArr:listObj)
@@ -97,6 +95,14 @@ public class DirectorDao {
 					System.out.print(obj+"-");
 				}
 				System.out.println();
+			}
+			*/
+			
+			List<Director> directorList = entityMgr.createQuery("from Director").getResultList();
+			for(Director director : directorList)
+			{
+				System.out.println(director.toString());
+				director.getMovieList().forEach(System.out::println);
 			}
 			
 		}

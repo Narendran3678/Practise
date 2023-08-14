@@ -8,7 +8,7 @@ public class DirectorClient {
 	public static void main(String args[])
 	{
 		//persistDirector();
-		getDirectorDetail(2L);
+		getDirectorDetail(1L);
 		//persistMovie();
 		//addMovie(1L);
 	}
@@ -57,8 +57,8 @@ public class DirectorClient {
 	public static void getDirectorDetail(Long id)
 	{
 		//System.out.println(DirectorDao.getDirector(id));
-		//DirectorDao.getJpaDirectors();
-		DirectorDao.getJpaDirector(1L);
+		DirectorDao.getJpaDirectors();
+		//DirectorDao.getJpaDirector(1L);
 	}
 	public static void addMovie(Long id)
 	{
