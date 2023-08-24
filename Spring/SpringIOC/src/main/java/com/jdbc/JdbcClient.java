@@ -1,4 +1,4 @@
-package com.jdbc;
+	package com.jdbc;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -14,9 +14,8 @@ public class JdbcClient {
 			context.close();
 		}
 	}
-
+	
 	public static void getEmployees() {
-		
 		employeeDao.getEnities().forEach(System.out::println);
 	}
 	public static void getEmployee(Long id) {
