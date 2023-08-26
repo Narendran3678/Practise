@@ -11,25 +11,25 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:annotation-config /> <!-- To Enable Annotations Like Autowiring, etc. -->
-	<context:property-placeholder location="classpath:spring.properties" /> 
+	<context:property-placeholder
+		location="classpath:spring.properties" />
 
 	<!-- JDBC Template Starts -->
-	 <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
-		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" /> <property 
-		name="username" value="root" /> <property name="password" value="root" /> 
-		<property name="url" value="jdbc:mysql://localhost:3306/devdb" /> </bean> 
-	<!--  
-		Need org.apache.commons:commons-dbcp2 dependency
-		<bean id="dataSource"
-		class="org.apache.commons.dbcp2.BasicDataSource"
-		destroy-method="close">
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName"
 			value="com.mysql.cj.jdbc.Driver" />
 		<property name="username" value="root" />
 		<property name="password" value="root" />
 		<property name="url"
 			value="jdbc:mysql://localhost:3306/devdb" />
-	</bean> -->
+	</bean>
+	<!-- Need org.apache.commons:commons-dbcp2 dependency <bean id="dataSource" 
+		class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close"> 
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" /> <property 
+		name="username" value="root" /> <property name="password" value="root" /> 
+		<property name="url" value="jdbc:mysql://localhost:3306/devdb" /> </bean> -->
+		
 	<bean id="employeeDao" class="com.jdbc.EmployeeDao"
 		scope="singleton">
 		<constructor-arg name="jdbcTemplate"
@@ -56,6 +56,11 @@
 		</property>
 		<property name="packagesToScan" value="com.entity" />
 	</bean>
+ 	<!-- 
+ 	<bean class="org.springframework.orm.hibernate5.HibernateTemplate" id="hTemplate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    -->
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
@@ -65,9 +70,9 @@
 	<!-- Hibernate Configs Ends -->
 
 	<bean id="employeeHbmDao" class="com.hbm.EmployeeHbmDao">
-		<constructor-arg name="hibernateUtil" ref="hibernateUtil" />
+		<constructor-arg name="hibernateUtil" ref="hibernateUtil" />	
 	</bean>
 	<bean id="hibernateUtil" class="com.utils.HibernateUtils">
-		<constructor-arg name="sessionFactory" ref="sessionFactory"/>
+		<constructor-arg name="sessionFactory" ref="sessionFactory" />
 	</bean>
 </beans>

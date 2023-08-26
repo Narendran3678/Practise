@@ -19,20 +19,24 @@ public class JdbcClient {
 		if (context != null) {
 			employeeHbmDao = context.getBean("employeeHbmDao", EmployeeHbmDao.class);
 			getHbmEmployees();
+			//createHbmEmployee();
 			context.close();
 		}
 	}
 	public static void getHbmEmployees() {
 		employeeHbmDao.getEnities().forEach(System.out::println);
 	}
-
+	public static void createHbmEmployee() {
+		Employee employee = new Employee("Divya", "Naren", "divya@gmail.com", "8200212110", 30000d);
+		System.out.println("Insert Status..." + employeeHbmDao.createEnity(employee));
+	}
 
 	public static void jdbcTemplate() {
 		if (context != null) {
 			employeeDao = context.getBean("employeeDao", EmployeeDao.class);
-			getEmployees();
-			// getEmployee(101L);
-			// createEmployee();
+			//getEmployees();
+			//getEmployee(101L);
+			createEmployee();
 			context.close();
 		}
 	}

@@ -1,12 +1,13 @@
 package com.hbm;
 import java.util.*;
-
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import com.entity.Employee;
 import com.utils.HibernateUtils;
 
+@Transactional
 public class EmployeeHbmDao {
 
 	private HibernateUtils hibernateUtils;
@@ -15,8 +16,6 @@ public class EmployeeHbmDao {
 	public EmployeeHbmDao(HibernateUtils hibernateUtils) {
 		this.hibernateUtils = hibernateUtils;
 	}
-
-	@Transactional
 	public List<Employee> getEnities() {
 	
 		Session session = hibernateUtils.getHibernateSession().openSession();
@@ -30,6 +29,13 @@ public class EmployeeHbmDao {
 
 	public boolean createEnity(Employee employee) {
 		boolean insertStatus = false;
+		
+		Session session = hibernateUtils.getHibernateSession().openSession();
+		Transaction transaction  = session.beginTransaction();
+		session.persist(employee);
+		transaction.commit();
+		insertStatus=true;
+		
 		return insertStatus;
 	}
 
@@ -42,7 +48,14 @@ public class EmployeeHbmDao {
 		boolean deleteStatus = false;
 		return deleteStatus;
 	}
+	public HibernateUtils getHibernateUtils() {
+		return hibernateUtils;
+	}
+	public void setHibernateUtils(HibernateUtils hibernateUtils) {
+		this.hibernateUtils = hibernateUtils;
+	}
 
+	
 	public HibernateTemplate getHibernateTemplate() {
 		return hibernateTemplate;
 	}
@@ -50,5 +63,5 @@ public class EmployeeHbmDao {
 	public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
 		this.hibernateTemplate = hibernateTemplate;
 	}
-
+	
 }

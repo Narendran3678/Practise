@@ -4,7 +4,7 @@ import org.hibernate.SessionFactory;
 
 public class HibernateUtils {
 	private SessionFactory sessionFactory ;
-	private HibernateUtils(SessionFactory sessionFactory){
+	public HibernateUtils(SessionFactory sessionFactory){
 		this.sessionFactory = sessionFactory;
 	}
 	public SessionFactory getHibernateSession()
