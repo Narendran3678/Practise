@@ -9,15 +9,30 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>SpringMVC</artifactId>
+	<artifactId>SpringWebMvc</artifactId>
 	<packaging>war</packaging>
 
-	
+	<name>SpringWebMvc Maven Webapp</name>
+	<!-- FIXME change it to the project's website -->
+	<url>http://www.example.com</url>
 
-	<name>SpringMVC Maven Webapp</name>
-	<url>http://www.springmvc.com</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>18</maven.compiler.source>
+		<maven.compiler.target>18</maven.compiler.target>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<version>6.0.0</version>
+		</dependency>
+		
+	</dependencies>
+
 	<build>
-		<finalName>SpringMVC</finalName>
+		<finalName>SpringWebMvc</finalName>
 		<pluginManagement><!-- lock down plugins versions to avoid using Maven
 			defaults (may be moved to parent pom) -->
 			<plugins>

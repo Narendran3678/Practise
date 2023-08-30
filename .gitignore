@@ -30,3 +30,4 @@ replay_pid*
 **/bin
 **/target
 Servers
+**/.factorypath
