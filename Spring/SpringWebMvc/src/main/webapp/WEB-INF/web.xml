@@ -7,7 +7,7 @@
 	<display-name>Spring-MVC-Demo</display-name>
 	<absolute-ordering />
 	<servlet>
-		<servlet-name>dispatcher</servlet-name>
+		<servlet-name>dispatcher</servlet-name><!-- There should application content file to be present inside WEB-INF with ServletName appended to '-servlet.xml' -->
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
