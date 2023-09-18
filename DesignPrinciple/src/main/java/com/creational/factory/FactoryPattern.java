@@ -56,7 +56,9 @@ class Point {
 	}
 
 }
-
+/*
+Defining an interface or abstract class for creating object of a class but let subclass deciding which object to instantiate 
+*/
 public class FactoryPattern {
 	public static void main(String args[]) {
 		Point cartPoint = Point.PointFactory.getCartesionProduct(2, 3);

@@ -172,7 +172,9 @@ class CarFactory implements VehicleFactory {
 	}
 }
 
-
+/*
+ Defining an abstract or Interface to create a families of related object without specifying concrete subclasses.
+ */
 public class AbstractFactoryPattern {
 	public static void main(String args[]) {
 		Vehicle vehicle = new CarFactory().manufactureVehicle(VehicleType.MERCEDEZ_CAR);
