@@ -1,4 +1,4 @@
-package com.behavioural.state;
+package com.behavioral.state;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -143,6 +143,12 @@ class OrderContext {
 	}
 	
 }
+/*
+ * This pattern allows object to change it state when its internal state changes . Its has 3 parts
+ * 1. Context : Which hold the current instantiated concrete class.
+ * 2. State : Hold encapsulating behavior which need to be implemented in subclass
+ * 3. Concrete State : Implements the behavior of state 
+ */
 public class StatePattern {
 	public static void main(String args[])
 	{

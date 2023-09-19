@@ -1,4 +1,4 @@
-package com.behavioural.iterator;
+package com.behavioral.iterator;
 
 import java.util.*;
 

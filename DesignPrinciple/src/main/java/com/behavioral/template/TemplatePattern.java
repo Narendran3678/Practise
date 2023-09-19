@@ -1,4 +1,4 @@
-package com.behavioural.template;
+package com.behavioral.template;
 
 abstract class BuildingTemplate
 {
