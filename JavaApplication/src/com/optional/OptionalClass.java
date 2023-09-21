@@ -6,10 +6,10 @@ public class OptionalClass {
 
 	public static void main(String[] args) {
 		
-		String str =null;
+		String str ="1";
 		Optional<String> optStr =  Optional.ofNullable(str); 
-		
-		if(optStr.isPresent())	
+		System.out.println(optStr);
+		if(optStr.isEmpty())	
 			System.out.println(optStr);
 		else
 			System.out.println(optStr.get());

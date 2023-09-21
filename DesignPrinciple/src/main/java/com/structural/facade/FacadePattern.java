@@ -67,6 +67,9 @@ class BankFacade {
 	}
 	
 }
+/*
+ * Facade pattern hides the complexities of the system and provides an interface to the client using which the client can access the system.
+ */
 public class FacadePattern {
 	public static void main(String args[]) throws Exception {
 		BankFacade facade = new BankFacade("naren","naren");

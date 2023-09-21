@@ -117,7 +117,9 @@ class QualityAnalyst extends Employee {
 				+ ", salary=" + salary + "]";
 	}
 }
-
+/*
+ * If we need to create a structure where Objects in the structure are to be treated the same, a composite design pattern is preferred
+ */
 public class CompositePattern {
 	public static void main(String[] args) {
 		Project project = new Project("CAFE");
