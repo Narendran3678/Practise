@@ -27,6 +27,7 @@ public class DoubleCircularLinkedList<T> {
 	private int size = 0;
 
 	public void add(T value) {
+		
 		Node newNode = new Node(value);
 		if (size == 0) {
 			head = newNode;
