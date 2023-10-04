@@ -2,12 +2,14 @@ package com.stack;
 
 import java.util.Arrays;
 
+
 @SuppressWarnings("unchecked")
 public class Stack<T> {
 	private int size=5;
 	private T arr[];
 	private int pointer ;
-	
+	private int minValue = 99999;
+	private int maxValue = 0;
 	public Stack()
 	{
 		arr = (T[]) new Object[size];
@@ -20,6 +22,14 @@ public class Stack<T> {
 			arr = reinitializeArray(size+size);
 		}
 		arr[++pointer]=data;
+		if((int)data<minValue)
+		{
+			minValue=(int)data;
+		}
+		if((int)data>maxValue)
+		{
+			maxValue=(int)data;
+		}
 		System.out.println("Data inserted....."+arr[pointer]);
 	}
 	public void pop()
@@ -42,6 +52,14 @@ public class Stack<T> {
 		size=size+(tsize/2);
 		//System.out.println("Stack Size Changed to "+size);
 		return Arrays.copyOf(arr, size);
+	}
+	public int min()
+	{
+		return minValue;
+	}
+	public int max()
+	{
+		return maxValue;
 	}
 	public void iterate()
 	{
@@ -79,7 +97,7 @@ public class Stack<T> {
 		stack.push(5);
 		stack.push(6);
 		stack.push(7);
-		System.out.println("Stack Full Status..."+stack.isFull()+" isEmpty..."+stack.isEmpty());
+		System.out.println("Stack Full Status..."+stack.isFull()+" isEmpty..."+stack.isEmpty()+" Min..."+stack.min()+" Max.."+stack.max());
 		stack.iterate();
 		stack.pop();
 		stack.pop();
@@ -89,11 +107,12 @@ public class Stack<T> {
 		stack.push(3);
 		stack.push(4);
 		stack.push(5);
+		stack.push(8);
 		stack.push(6);
 		stack.push(7);
 		stack.pop();
 		stack.pop();
 		stack.iterate();
-		System.out.println("Stack Full Status..."+stack.isFull()+" isEmpty..."+stack.isEmpty());
+		System.out.println("Stack Full Status..."+stack.isFull()+" isEmpty..."+stack.isEmpty()+" Min..."+stack.min()+" Max.."+stack.max());
 	}
 }
