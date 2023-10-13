@@ -18,6 +18,7 @@ public class FileDemo {
 			
 			System.out.println(dir.getParentFile().getParent());
 			System.out.println(dir.getParentFile().getParentFile());
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
