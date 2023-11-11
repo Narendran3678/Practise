@@ -24,7 +24,7 @@ public class CacheTest {
 		
 		
 		Map<Object,Object> apiMap = genCache.getAll("API_BUCKET");
-		apiMap.forEach( (k,v) -> { System.out.println(((Entry)v).getLink()) ; } ) ;
+		apiMap.forEach( (k,v) -> { System.out.println(((Entry)v).getLink()	) ; } ) ;
 		
 	}
 }
