@@ -1,37 +1,14 @@
-package com.functional;
+package com.streams;
 
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import com.functional.Book;
+import com.functional.Certification;
+import com.functional.DataPublisher;
 
-class Certification {
-   String studId;
-   String test;
-   int marks;
-
-   Certification(String studId, String test, int marks) {
-       this.studId = studId;
-       this.test = test;
-       this.marks = marks;
-   }
-
-   public String toString() {
-       return "{" + studId + ", " + test + ", " + marks + "}";
-   }
-
-   public String getStudId() {
-       return studId;
-   }
-
-   public String getTest() {
-       return test;
-   }
-
-   public int getMarks() {
-       return marks;
-   }
-}
 class Person {
 	private String firstName;
 	private String lastName;
@@ -207,8 +184,80 @@ public class StreamOperation {
         Map<Boolean, List<Certification>> map = stream.collect(Collectors.partitioningBy(s -> s.getTest().equals("OCA")));
         System.out.println(map.get(true));
 	}
-	static void basicStreamOperation()
-	{
+	
+	public static void charactersCount() {
+		String str="online java Compiler";
+		Map<String,Long> mapV = Arrays.asList(str.split("")).stream().collect(Collectors.groupingBy(Function.identity(),Collectors.counting()));	
+		mapV.forEach((k,v)-> System.out.println(k+"="+v));
+	}
+	public static void characterCount() {
+		String str="online java Compiler";
+		char c = 'e';
+		//long charCount =  str.chars().filter(s-> s==c).count();
+		long charCount = Arrays.asList(str.split("")).stream().filter(s->(s.charAt(0)==c)).count();
+		System.out.println(charCount);
+	}
+	public static void stringReverse() {
+		String str="online java Compiler";
+		List<String> listS= Arrays.asList(str.split(" "));
+		List<String> reverseList = listS.stream().map(s-> { return new StringBuilder(s).reverse().toString();} ).collect(Collectors.toList());
+		reverseList.forEach(System.out::println);
+	}
+	public static void averageAndSumOfInteger() {
+		List<Integer> integerList = Arrays.asList(1,2,3,4,5,6);
+		DoubleSummaryStatistics sumValue = integerList.stream().mapToDouble(Integer::intValue).summaryStatistics();
+		System.out.println("Summary List..."+sumValue);
+		
+		OptionalDouble averageValue = integerList.stream().mapToDouble(Integer::intValue).average();
+		System.out.println("Average Value..."+averageValue);
+	}
+	public static void stringLowerToUpper() {
+		List<String> stringList =  Arrays.asList("naren","divya","divyanaren");
+		stringList.stream().map(String::toUpperCase).forEach(System.out::println);
+	}
+	public static void sumOfEvenAndOdd() {
+		List<Integer> integerList = Arrays.asList(1,2,3,4,5,6);
+		int sumOfEven = integerList.stream().filter( (s) -> {return s%2==0;}).mapToInt(Integer::intValue).sum();
+		System.out.println("Sum of Even..."+sumOfEven);
+		
+		int sumOfOdd = integerList.stream().filter( (s) -> {return s%2!=0;}).mapToInt(Integer::intValue).sum();
+		System.out.println("Sum of Odd..."+sumOfOdd);
+	}
+	public static void stringOperation() { 
+		List<String> stringList =  Arrays.asList("Java","Naren","Java","Naren","Divya","Divya");
+		stringList.stream().distinct().forEach(System.out::println);
+		
+		long size = stringList.stream().distinct().count();
+		System.out.println(size);
+		
+		List < String > colors = Arrays.asList("Red", "Green", "Blue", "Pink", "Brown");
+		colors.stream().filter(s-> s.startsWith("G")).forEach(System.out::println);
+		System.out.println("Ascending Order.....");
+		colors.stream().sorted().forEach(System.out::println);
+		System.out.println("Descending Order.....");
+		colors.stream().sorted(Comparator.reverseOrder()).forEach(System.out::println);
+		
+	}
+	public static void integerMaxMin() { 
+		List<Integer> integerList = Arrays.asList(1,2,3,4,5,6);
+		Optional<Integer> maxValue = integerList.stream().max(Integer::compare);
+		Optional<Integer> minValue = integerList.stream().min(Integer::compare);
+		System.out.println("Max Integer..."+maxValue.get());
+		System.out.println("Min Integer..."+minValue.get());
+		
+		List < String > colors = Arrays.asList("Red", "Green", "Blue", "Pink", "Brown","Zed");
+		String maxStr = colors.stream().max(Comparator.comparing((s) -> new String(s))).get();
+		String minStr = colors.stream().min(Comparator.comparing((s) -> new String(s))).get();
+		System.out.println("Max String..."+maxStr);
+		System.out.println("Min String..."+minStr);
+	}
+	public static void secondLargestAndSmallest() {
+		List<Integer> integerList = Arrays.asList(101,22,63,43,5,46);
+		Optional<Integer> secondMin = integerList.stream().sorted().skip(1).findFirst();
+		System.out.println("Second Minimum...."+secondMin);
+		
+		Optional<Integer> secondMax = integerList.stream().sorted(Comparator.reverseOrder()).skip(1).findFirst();
+		System.out.println("Second Maximum...."+secondMax);
 	}
 	public static void main(String args[]) {
 		List<Book> listBook = new ArrayList<Book>();
@@ -230,6 +279,16 @@ public class StreamOperation {
 		
 		//streamOf();
 		
-		basicStreamOperation();
+		//averageAndSumOfInteger();
+		
+		//stringLowerToUpper();
+		
+		//sumOfEvenAndOdd();
+		
+		//stringOperation();
+		
+		//integerMaxMin();
+		
+		secondLargestAndSmallest();
 	}
 }
