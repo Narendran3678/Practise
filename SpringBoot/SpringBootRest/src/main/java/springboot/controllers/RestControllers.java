@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springboot.ExceptionHandler.GenErrorResponse;
 import springboot.ExceptionHandler.GenException;
+import springboot.config.SpringConstants;
 import springboot.entity.Employee;
 import springboot.service.EmployeeServiceI;
 
@@ -22,14 +23,13 @@ public class RestControllers {
         }
         @RequestMapping(value = "/employees", method = RequestMethod.GET)
         public List<Employee> findAll() {
-
+            System.out.println(SpringConstants.ROLE.EMPLOYEE.toString());
             return employeeService.findAll();
         }
         @RequestMapping(value = "/employees/{employeeId}", method = RequestMethod.GET)
         public Employee find(@PathVariable long employeeId) {
             System.out.println("EmployeeId..."+employeeId);
             Employee employee = employeeService.find(employeeId);
-            int c=1/0;
             if(employee == null ) {
                 throw new GenException("Employee ID "+employeeId+" Not Found");
             }

@@ -1,13 +1,14 @@
 package springboot.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
-@Table(name="Employee")
+@Table(name="employee")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +30,10 @@ public class Employee {
     @Column(name="lastmodified")
     @UpdateTimestamp
     private Timestamp lastModified;
+    @Column(name="role_id")
+    @OneToMany
+    @BatchSize(size=3) // Solves N+1 Problem by using in clause in conidition rather than select statement for each id
+    private List<Role> role;
 
     public Employee() {}
     public Employee(String firstName, String lastName, String phoneNumber, String emailId, Double salary) {
@@ -95,16 +100,30 @@ public class Employee {
         return createTime;
     }
 
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
+    }
+
+    public List<Role> getRole() {
+        return role;
+    }
+
+    public void setRole(List<Role> role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
-                "firstName='" + firstName + '\'' +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", emailId='" + emailId + '\'' +
                 ", salary=" + salary +
                 ", createTime=" + createTime +
                 ", lastModified=" + lastModified +
+                ", role=" + role +
                 '}';
     }
 }
