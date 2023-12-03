@@ -4,54 +4,65 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+import javax.sql.DataSource;
 
 @Configuration
 public class SpringConfiguration {
-   /* @Bean
+    //JDBC Authentication
+    /*
+    @Bean
+    public UserDetailsManager userDetailsManager(DataSource dataSource)
+    {
+        //Table Users,Authorities need to same as exact with username,password,enabled as field in users and username,authority in authorities table
+        return new JdbcUserDetailsManager(dataSource);
+    }
+    */
+
+    //Declarative Authentication
+    @Bean
     public InMemoryUserDetailsManager userDetailsManager()
     {
         UserDetails userNaren = User.builder()
                 .username("naren")
-                .password("naren")
-                .roles("Employee","Manager")
+                .password("{noop}naren")
+                .roles("EMPLOYEE","MANAGER")
                 .build();
         UserDetails userDivya = User.builder()
                 .username("divya")
-                .password("divya")
-                .roles("Employee")
+                .password("{noop}divya")
+                .roles("EMPLOYEE")
                 .build();
-
         return new InMemoryUserDetailsManager(userNaren,userDivya);
     }
 
-    public SecurityFilterChain securityFilterChain(HttpSecurity security) throws Exception {
-        security.authorizeHttpRequests( condition -> {
-            condition.requestMatchers(HttpMethod.GET,SpringConstants.API.GET_EMPLOYEES.apiUrl)
-                        .hasRole(SpringConstants.ROLE.EMPLOYEE.toString())
-                    .requestMatchers(HttpMethod.GET,SpringConstants.API.GET_ALL_EMPLOYEES.apiUrl)
-                        .hasRole(SpringConstants.ROLE.EMPLOYEE.toString())
-                    .requestMatchers(HttpMethod.GET,SpringConstants.API.POST_EMPLOYEES.apiUrl)
-                        .hasRole(SpringConstants.ROLE.MANAGER.toString())
-                    .requestMatchers(HttpMethod.GET,SpringConstants.API.UPDATE_EMPLOYEES.apiUrl)
-                        .hasRole(SpringConstants.ROLE.MANAGER.toString())
-                    .requestMatchers(HttpMethod.GET,SpringConstants.API.DELETE_EMPLOYEES.apiUrl)
-                        .hasRole(SpringConstants.ROLE.ADMIN.toString());
-        });
-        // Use Http Basic Authentication
-        security.httpBasic(Customizer.withDefaults());
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.authorizeHttpRequests( condition -> { condition
+                        .requestMatchers(HttpMethod.GET,"/rest/employees").hasRole("MANAGER");
+            /*.requestMatchers(HttpMethod.GET,SpringConstants.API.GET_ALL_EMPLOYEES.apiUrl)
+                .hasRole(SpringConstants.ROLE.EMPLOYEE.toString())
+            .requestMatchers(HttpMethod.GET,SpringConstants.API.GET_EMPLOYEES.apiUrl)
+                .hasRole(SpringConstants.ROLE.EMPLOYEE.toString())
 
-        // Disabling Cross Site Request Forgery
-        security.csrf(new Customizer<CsrfConfigurer<HttpSecurity>> () {
-            @Override
-            public void customize(CsrfConfigurer<HttpSecurity> httpSecurityCsrfConfigurer) {
-                httpSecurityCsrfConfigurer.disable();
-            }
-        });
-        return security.build();
-    }*/
+            .requestMatchers(HttpMethod.GET,SpringConstants.API.POST_EMPLOYEES.apiUrl)
+                .hasRole(SpringConstants.ROLE.MANAGER.toString())
+
+            .requestMatchers(HttpMethod.GET,SpringConstants.API.UPDATE_EMPLOYEES.apiUrl)
+                .hasRole(SpringConstants.ROLE.MANAGER.toString())
+
+            .requestMatchers(HttpMethod.GET,SpringConstants.API.DELETE_EMPLOYEES.apiUrl)
+                .hasRole(SpringConstants.ROLE.ADMIN.toString());*/
+        }).httpBasic(Customizer.withDefaults())  // Use Http Basic Authentication
+                .csrf(AbstractHttpConfigurer::disable); // Disabling CSRF
+        return httpSecurity.build();
+    }
+
 }

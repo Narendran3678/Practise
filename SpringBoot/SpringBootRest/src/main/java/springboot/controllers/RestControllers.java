@@ -23,7 +23,6 @@ public class RestControllers {
         }
         @RequestMapping(value = "/employees", method = RequestMethod.GET)
         public List<Employee> findAll() {
-            System.out.println(SpringConstants.ROLE.EMPLOYEE.toString());
             return employeeService.findAll();
         }
         @RequestMapping(value = "/employees/{employeeId}", method = RequestMethod.GET)

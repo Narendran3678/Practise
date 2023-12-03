@@ -1,4 +1,4 @@
-package springboot.config;
+package com.springboot.SpringBootSecurity.config;
 
 public class SpringConstants {
     public enum ROLE {
