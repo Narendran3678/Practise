@@ -17,15 +17,15 @@ public class RestControllers {
         public SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
         @Autowired
         EmployeeServiceI employeeService;
-        @RequestMapping(value = "/", method = RequestMethod.GET)
+        @GetMapping(value = "/")
         public String indexMethod() {
             return "http://localhost:8081/rest";
         }
-        @RequestMapping(value = "/employees", method = RequestMethod.GET)
+        @GetMapping(value = "/employees")
         public List<Employee> findAll() {
             return employeeService.findAll();
         }
-        @RequestMapping(value = "/employees/{employeeId}", method = RequestMethod.GET)
+        @GetMapping(value = "/employees/{employeeId}")
         public Employee find(@PathVariable long employeeId) {
             System.out.println("EmployeeId..."+employeeId);
             Employee employee = employeeService.find(employeeId);
@@ -34,14 +34,18 @@ public class RestControllers {
             }
             return employee;
         }
-        @RequestMapping(value = "/employees", method = RequestMethod.POST)
+        @PostMapping(value = "/employees")
         public Employee save(@RequestBody Employee employee) {
             return employeeService.persist(employee);
         }
 
-        @RequestMapping(value = "/employees", method = RequestMethod.PUT)
+        @PutMapping(value = "/employees")
         public Employee update(@RequestBody Employee employee) {
             return employeeService.persist(employee);
+        }
+        @DeleteMapping(value = "/employees/{employeeId}")
+        public boolean delete(@PathVariable long employeeId) {
+            return employeeService.delete(employeeId);
         }
         @ExceptionHandler
         public ResponseEntity<GenErrorResponse> handleEmpleNotFoundException(GenException exception) {

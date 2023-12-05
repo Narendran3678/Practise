@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 @Configuration
 public class SpringConfiguration {
 
-
+    /*
     //JDBC Authentication with predefined Table
     @Bean
     public UserDetailsManager userDetailsManager(DataSource dataSource)
@@ -25,12 +25,12 @@ public class SpringConfiguration {
         JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
 
         jdbcUserDetailsManager.setUsersByUsernameQuery("SELECT FIRSTNAME,PASSWORD,ACTIVE_FLAG FROM EMPLOYEE WHERE FIRSTNAME=?");
-        jdbcUserDetailsManager.setAuthoritiesByUsernameQuery("SELECT DISTINCT E.FIRSTNAME,R.ROLENAME FROM EMPLOYEE E,EMPLOYEE_ROLE ER,ROLES R WHERE E.ID=ER.EMPLOYEE_ID AND R.ROLE_ID=ER.ROLE_ID AND E.FIRSTNAME=?");
+        jdbcUserDetailsManager.setAuthoritiesByUsernameQuery("SELECT FIRSTNAME,ROLENAME FROM EMPLOYEE E,EMPLOYEE_ROLE ER,ROLES R WHERE E.ID=ER.EMPLOYEE_ID AND R.ROLE_ID=ER.ROLE_ID AND E.FIRSTNAME=?");
 
         return jdbcUserDetailsManager;
     }
+    */
 
-    /*
     //Declarative Authentication
     @Bean
     public InMemoryUserDetailsManager userDetailsManager()
@@ -48,25 +48,17 @@ public class SpringConfiguration {
         return new InMemoryUserDetailsManager(userNaren,userDivya);
     }
 
-    @Bean
+    @Bean //Not Completely working need to test
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests( condition -> { condition
-                        .requestMatchers(HttpMethod.GET,"/rest/employees").hasRole("MANAGER");
-            /*.requestMatchers(HttpMethod.GET,SpringConstants.API.GET_ALL_EMPLOYEES.apiUrl)
-                .hasRole(SpringConstants.ROLE.EMPLOYEE.toString())
-            .requestMatchers(HttpMethod.GET,SpringConstants.API.GET_EMPLOYEES.apiUrl)
-                .hasRole(SpringConstants.ROLE.EMPLOYEE.toString())
-
-            .requestMatchers(HttpMethod.GET,SpringConstants.API.POST_EMPLOYEES.apiUrl)
-                .hasRole(SpringConstants.ROLE.MANAGER.toString())
-
-            .requestMatchers(HttpMethod.GET,SpringConstants.API.UPDATE_EMPLOYEES.apiUrl)
-                .hasRole(SpringConstants.ROLE.MANAGER.toString())
-
-            .requestMatchers(HttpMethod.GET,SpringConstants.API.DELETE_EMPLOYEES.apiUrl)
-                .hasRole(SpringConstants.ROLE.ADMIN.toString());
+                        .requestMatchers(HttpMethod.GET,"/").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/employees/**").hasRole("EMPLOYEE")
+                        .requestMatchers(HttpMethod.GET,"/employees").hasRole("MANAGER")
+                        .requestMatchers(HttpMethod.POST,"/employees").hasAnyRole("MANAGER","ADMIN")
+                        .requestMatchers(HttpMethod.PUT,"/employees").hasAnyRole("MANAGER","ADMIN")
+                        .requestMatchers(HttpMethod.DELETE,"/employees/**").hasRole("ADMIN");
         }).httpBasic(Customizer.withDefaults())  // Use Http Basic Authentication
                 .csrf(AbstractHttpConfigurer::disable); // Disabling CSRF
         return httpSecurity.build();
-    }*/
+    }
 }
