@@ -1,19 +1,17 @@
 package com.springboot.SpringBootMvc.controllers;
 
-import com.springboot.SpringBootMvc.SpringUtil;
+import com.springboot.SpringBootMvc.utils.SpringUtil;
 import com.springboot.SpringBootMvc.entity.Employee;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.Date;
-import java.util.List;
 
 @Controller
 public class IndexController {
@@ -39,5 +37,11 @@ public class IndexController {
         }
         else
             return "employeeportal";
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        StringTrimmerEditor editor = new StringTrimmerEditor(true);
+        binder.registerCustomEditor(String.class,editor);
     }
 }

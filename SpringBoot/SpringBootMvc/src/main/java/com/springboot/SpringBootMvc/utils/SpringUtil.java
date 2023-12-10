@@ -1,4 +1,4 @@
-package com.springboot.SpringBootMvc;
+package com.springboot.SpringBootMvc.utils;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
