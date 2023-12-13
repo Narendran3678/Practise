@@ -1,5 +1,6 @@
 package com.directory.entity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -13,17 +14,30 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id") private Long id;
+
+    @NotNull
+    @Size(min=1, message = "FirstName is Mandatory")
     @Column(name="firstname") private String firstName;
+
     @Column(name="lastname")  private String lastName;
+    @Size(max=10, message = "Phonenumber must Max is 10")
+    @Size(min=5, message = "Phonenumber must Atleast is 5")
     @Column(name="phonenumber") private String phoneNumber;
+
+    @Pattern(regexp = "^[A-Za-z0-9]*",message = "Contains Illegal Character")
     @Column(name="emailid") private String emailId;
+
     @Column(name="password") private String password;
+
     @Column(name="age") private Integer age;
+
     @Column(name="salary") private Double salary;
+
+    @NotNull
+    @Size(min=1, message = "Must Contain Atleast 1 Role")
     @OneToMany private List<Roles> roles;
     @Column(name="createtime")
-    @CreationTimestamp
-    private Timestamp createTime;
+    @CreationTimestamp private Timestamp createTime;
     @Column(name="lastmodified")
     @UpdateTimestamp
     private Timestamp lastModified;
