@@ -1,6 +1,7 @@
 package com.directory.entity;
 
 import jakarta.persistence.*;
+import org.json.JSONObject;
 
 @Entity
 @Table(name="roles")
@@ -17,7 +18,9 @@ public class Roles {
     public Roles() {
 
     }
-
+    public Roles(String rolename) {
+        this.rolename = rolename;
+    }
     public Roles(long role_id, String rolename) {
         this.role_id = role_id;
         this.rolename = rolename;
@@ -49,10 +52,10 @@ public class Roles {
 
     @Override
     public String toString() {
-        return "Roles{" +
-                "id=" + id +
-                ", role_id=" + role_id +
-                ", rolename='" + rolename + '\'' +
-                '}';
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id", id);
+        jsonObject.put("role_id", role_id);
+        jsonObject.put("rolename", rolename);
+        return jsonObject.toString();
     }
 }

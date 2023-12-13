@@ -24,13 +24,14 @@
                 <td><input type="text"  name="emailId" th:field="*{emailId}"  /></td>
             </tr>
             <tr>
-                <td>Role</td>
+                <td>Roles</td>
                 <td>
-                    <select th:field="*{roles}" >
-                        <option th:value="ADMIN">ADMIN</option>
-                        <option th:value="MANAGER">MANAGER</option>
-                        <option th:value="EMPLOYEE">EMPLOYEE</option>
-                    </select>
+                   <ul>
+                       <li th:each="role : ${rolesList}">
+                           <input type="checkbox" th:field="*{roles}" th:value="${role.toString()}" />
+                           <label th:text="${role.rolename}"></label>
+                       </li>
+                   </ul>
                 </td>
             </tr>
             <tr>

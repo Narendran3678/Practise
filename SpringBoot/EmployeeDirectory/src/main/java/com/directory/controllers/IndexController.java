@@ -6,8 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,14 +20,19 @@ public class IndexController {
     }
     @RequestMapping("/employeeform")
     public String employeeForm(Model model) {
+        List<Roles> rolesList = new ArrayList<>();
+        rolesList.add(new Roles(1L,"ADMIN"));
+        rolesList.add(new Roles(2L,"MANAGER"));
+        rolesList.add(new Roles(3L,"EMPLOYEE"));
         model.addAttribute("Currentime", new Date());
         model.addAttribute("employee", new Employee());
-        return "employeeform";
+        model.addAttribute("rolesList", rolesList);
+        return "employeeForm";
     }
     @PostMapping("/processform")
-    public String employeeForm(@ModelAttribute Employee employee ) {
+    public String employeeForm(@ModelAttribute Employee employee,Model model ) {
         System.out.println("Employee..."+employee);
-       // System.out.println("Role..."+roles);
-        return "employeeform";
+        model.addAttribute("employee",employee);
+        return "processEmployeeForm";
     }
 }

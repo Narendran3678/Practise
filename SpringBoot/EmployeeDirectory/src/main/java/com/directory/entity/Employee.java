@@ -20,8 +20,7 @@ public class Employee {
     @Column(name="password") private String password;
     @Column(name="age") private Integer age;
     @Column(name="salary") private Double salary;
-    @OneToMany
-    private List<Roles> roles;
+    @OneToMany private List<Roles> roles;
     @Column(name="createtime")
     @CreationTimestamp
     private Timestamp createTime;
@@ -113,7 +112,6 @@ public class Employee {
     public void setRoles(List<Roles> roles) {
         this.roles = roles;
     }
-
     public Timestamp getCreateTime() {
         return createTime;
     }
@@ -129,6 +127,8 @@ public class Employee {
     public void setLastModified(Timestamp lastModified) {
         this.lastModified = lastModified;
     }
+
+
 
     @Override
     public String toString() {
