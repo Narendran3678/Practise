@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index Page</title>
+    <link rel="stylesheet" th:href="@{css/page.css}"/>
+</head>
+<body>
+    <div class="textalign">
+        <h1>Welcome to Employee Directory</h1>
+        <p th:text="'The Current Time =>'+${Currentime}"></p>
+    </div>
+    <form action="employeeform" method="POST">
+        <a href="employeeform"> >> Got To Employee Form</a>
+    </form>
+</body>
+</html>
