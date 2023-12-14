@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Update Form</title>
+    <link rel="stylesheet" th:href="@{css/page.css}"/>
+</head>
+<body>
+    <div class="textalign">
+        <h1>Employee Update Form</h1>
+        <p th:text="'The Current Time =>'+${Currentime}"></p>
+    </div>
+    <form th:action="@{/processupdateform}" th:object="${employee}" method="POST">
+        <input type ="hidden" th:field="*{id}"/>
+        <table>
+            <tr>
+                <td>First Name</td>
+                <td><input type="text" name="firstName" th:field="*{firstName}" /></td>
+                <td>
+                    <span th:if="${#fields.hasErrors('firstName')}"
+                          th:errors="*{firstName}"
+                          class="error">
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>Last Name</td>
+                <td><input type="text" name="lastName" th:field="*{lastName}"  /></td>
+                <td>
+                    <span th:if="${#fields.hasErrors('lastName')}"
+                          th:errors="*{lastName}"
+                          class="error">
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>Email Id</td>
+                <td><input type="text"  name="emailId" th:field="*{emailId}"  /></td>
+                <td>
+                    <span th:if="${#fields.hasErrors('emailId')}"
+                          th:errors="*{emailId}"
+                          class="error">
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>Roles</td>
+                <td>
+                    <ul>
+                        <li th:each="role : ${rolesList}">
+                            <input type="checkbox" th:field="*{roles}" th:value="${role.rolename}" />
+                            <label th:text="${role.rolename}"></label>
+                        </li>
+                    </ul>
+                </td>
+                <td>
+                    <span th:if="${#fields.hasErrors('roles')}"
+                          th:errors="*{roles}"
+                          class="error">
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>Phone Number</td>
+                <td><input type="text"  name="phoneNumber" th:field="*{phoneNumber}" /></td>
+                <td>
+                    <span th:if="${#fields.hasErrors('phoneNumber')}"
+                          th:errors="*{phoneNumber}"
+                          class="error">
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>Age</td>
+                <td><input type="text"  name="age" th:field="*{age}"/></td>
+                <td>
+                    <span th:if="${#fields.hasErrors('age')}"
+                          th:errors="*{age}"
+                          class="error">
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>Salary</td>
+                <td><input type="text"  name="salary" th:field="*{salary}"/></td>
+                <td>
+                    <span th:if="${#fields.hasErrors('salary')}"
+                          th:errors="*{salary}"
+                          class="error">
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Submit"/></td>
+            </tr>
+        </table>
+        <p th:text="${formerrordetail}" class="error"></p>
+    </form>
+</body>
+</html>

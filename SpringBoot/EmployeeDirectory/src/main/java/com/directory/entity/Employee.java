@@ -3,7 +3,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -24,20 +23,26 @@ public class Employee {
     @Size(min=5, message = "Phonenumber must Atleast is 5")
     @Column(name="phonenumber") private String phoneNumber;
 
-    @Pattern(regexp = "^[A-Za-z0-9]*",message = "Contains Illegal Character")
+    @Pattern(regexp = "(\\w)*@{1}(\\w)*.(\\w){2,4}",message = "Contains Illegal Character")
+    //@Pattern(regexp = "(\\w)*",message = "Contains Illegal Character")
     @Column(name="emailid") private String emailId;
 
+    @Transient
     @Column(name="password") private String password;
 
-    @Column(name="age") private Integer age;
+    @Column(name="age")
+    private Integer age;
 
     @Column(name="salary") private Double salary;
 
     @NotNull
     @Size(min=1, message = "Must Contain Atleast 1 Role")
-    @OneToMany private List<Roles> roles;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private List<Roles> roles;
+
     @Column(name="createtime")
     @CreationTimestamp private Timestamp createTime;
+
     @Column(name="lastmodified")
     @UpdateTimestamp
     private Timestamp lastModified;

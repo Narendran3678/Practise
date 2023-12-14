@@ -56,7 +56,6 @@ public class Roles {
         jsonObject.put("id", id);
         jsonObject.put("role_id", role_id);
         jsonObject.put("rolename", rolename);
-        System.out.println("JsonStringRoles.."+jsonObject.toString());
         return jsonObject.toString();
     }
 }
