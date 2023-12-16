@@ -92,7 +92,12 @@
                 <td><input type="submit" value="Submit"/></td>
             </tr>
         </table>
-        <p th:text="${formerrordetail}" class="error"></p>
+        <!--<p th:text="${formerrordetail}" class="error"></p>-->
+
+
     </form>
+    <ul>
+        <li class="error" th:each="error: ${#fields.errors('employee.*')}" th:text="${error}"></li>
+    </ul>
 </body>
 </html>

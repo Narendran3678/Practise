@@ -16,13 +16,14 @@ public class IndexController {
 
     @Autowired
     EmployeeService employeeService;
-    @RequestMapping("/")
+    @RequestMapping(value = {"", "/" } )
     public String indexMethod(Model model) {
         model.addAttribute("Currentime", new Date());
         return "index";
     }
     @RequestMapping("/employeeform")
     public String employeeForm(Model model) {
+        model.addAttribute("employee",new Employee());
         model.addAttribute("rolesList", SpringUtils.getRoles());
         return "employeeForm";
     }
