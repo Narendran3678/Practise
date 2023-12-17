@@ -1,4 +1,5 @@
 package springboot.controllers;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,7 +8,9 @@ import springboot.ExceptionHandler.GenErrorResponse;
 import springboot.ExceptionHandler.GenException;
 import springboot.config.SpringConstants;
 import springboot.entity.Employee;
+import springboot.entity.Student;
 import springboot.service.EmployeeServiceI;
+import springboot.service.StudentServiceI;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -17,6 +20,10 @@ public class RestControllers {
         public SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
         @Autowired
         EmployeeServiceI employeeService;
+
+        @Autowired
+        StudentServiceI studentService;
+
         @GetMapping(value = "/")
         public String indexMethod() {
             return "http://localhost:8081/rest";
@@ -53,5 +60,18 @@ public class RestControllers {
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
 
-
+        @GetMapping(value = "/students")
+        public List<Student> findAllStudent() {
+        return studentService.findAll();
+    }
+        @PostMapping(value = "/students")
+        public Student saveStudent(@RequestBody Student student) {
+            System.out.println("Student..."+student);
+            return studentService.persist(student);
+        }
+        @GetMapping(value = "/stud-grade")
+        public List<Student> findByGrade(@RequestParam(name="grade") Double grade) {
+            System.out.println("Student..."+grade);
+            return studentService.findByGrade(grade);
+        }
 }

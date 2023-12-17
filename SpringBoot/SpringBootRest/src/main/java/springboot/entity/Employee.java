@@ -32,6 +32,10 @@ public class Employee {
     private Timestamp lastModified;
     @Column(name="role_id")
     @OneToMany
+    @JoinTable(name="employee_roles",
+            joinColumns ={@JoinColumn(name="employee_id",referencedColumnName = "id") },
+            inverseJoinColumns = {@JoinColumn(name="Roles_id",referencedColumnName = "id")}
+    )
     @BatchSize(size=3) // Solves N+1 Problem by using in clause in conidition rather than select statement for each id
     private List<Role> role;
 
