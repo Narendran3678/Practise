@@ -1,8 +1,4 @@
 package springboot.entity;
-
-import java.sql.Timestamp;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,10 +6,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.sql.Timestamp;
+
 @Entity
 @Table(name="student")
-public class Student {
-	//http://localhost:8081/rest/learners/students
+public class Student extends BaseEntity{
+	//http://localhost:8081/rest/students
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
@@ -30,18 +28,9 @@ public class Student {
 	
 	@Column(name="grade")
 	private double grade; 
-	
-	@Column(name="createtime")
-	@CreationTimestamp
-	private Timestamp createtime; 
-	
-	@Column(name="modifiedtime")
-	@UpdateTimestamp
-	private Timestamp modifiedtime;
-	
+
 	public Student()
 	{
-		
 	}
 	public Student(String firstname, String lastname, String emailId) {
 		super();
@@ -90,22 +79,18 @@ public class Student {
 		this.grade = grade;
 	}
 
-	public Timestamp getModifiedtime() {
-		return modifiedtime;
-	}
-
-	public void setModifiedtime(Timestamp modifiedtime) {
-		this.modifiedtime = modifiedtime;
-	}
-
-	public Timestamp getCreatetime() {
-		return createtime;
-	}
-
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", emailId=" + emailId
-				+ ", grade=" + grade + ", createtime=" + createtime + ", modifiedtime=" + modifiedtime + "]";
-	} 	
-	
+		return "Student{" +
+				"id=" + id +
+				", firstname='" + firstname + '\'' +
+				", lastname='" + lastname + '\'' +
+				", emailId='" + emailId + '\'' +
+				", grade=" + grade +
+				", createtime=" + createtime +
+				", createdby='" + createdby + '\'' +
+				", modifiedtime=" + modifiedtime +
+				", modifiedby='" + modifiedby + '\'' +
+				'}';
+	}
 }

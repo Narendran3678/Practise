@@ -38,22 +38,24 @@ public class SpringConfiguration {
         UserDetails userNaren = User.builder()
                 .username("naren")
                 .password("{noop}naren")
-               // .roles("EMPLOYEE","MANAGER")
+                .roles("EMPLOYEE","MANAGER")
                 .build();
         UserDetails userDivya = User.builder()
                 .username("divya")
                 .password("{noop}divya")
-               //.roles("EMPLOYEE")
+                .roles("EMPLOYEE")
                 .build();
         return new InMemoryUserDetailsManager(userNaren,userDivya);
     }
+
 
     @Bean //Not Completely working need to test
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests( condition -> { condition
                         .requestMatchers(HttpMethod.GET).permitAll()
-                        .requestMatchers(HttpMethod.POST).permitAll();
-                       // .requestMatchers(HttpMethod.GET,"/employees/**").hasRole("EMPLOYEE")
+                        .requestMatchers(HttpMethod.POST,"/students").hasRole("MANAGER");
+
+                    // .requestMatchers(HttpMethod.GET,"/employees/**").hasRole("EMPLOYEE")
                        // .requestMatchers(HttpMethod.GET,"/employees").hasRole("MANAGER")
                        // .requestMatchers(HttpMethod.POST,"/employees").hasAnyRole("MANAGER","ADMIN")
                        // .requestMatchers(HttpMethod.PUT,"/employees").hasAnyRole("MANAGER","ADMIN")
@@ -64,6 +66,5 @@ public class SpringConfiguration {
                 .csrf(AbstractHttpConfigurer::disable); // Disabling CSRF
         return httpSecurity.build();
     }
-
 
 }
