@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee List</title>
+    <link rel="stylesheet" th:href="@{css/page.css}"/>
+</head>
+<body>
+    <div class="textalign">
+        <form>
+            <table>
+                <tr>
+                    <td>
+                        <a th:href="@{'/page/showEmployeePage/1?sortField=firstName&sortDir='+${sortDirection}}">FirstName</a>
+                    </td>
+                    <td>
+                        <a th:href="@{'/page/showEmployeePage/1?sortField=lastName&sortDir='+${sortDirection}}">LastName</a>
+                    </td>
+                    <td>
+                        EmailId
+                    </td>
+                    <td>
+                        PhoneNumber
+                    </td>
+                    <td>
+                        Age
+                    </td>
+                    <td>
+                        Salary
+                    </td>
+                </tr>
+                <tr th:each="emp:${employeeList}">
+                    <td><label th:text="${emp.firstName}"></label></td>
+                    <td><label th:text="${emp.lastName}"></label></td>
+                    <td><label th:text="${emp.emailId}"></label></td>
+                    <td><label th:text="${emp.phoneNumber}"></label></td>
+                    <td><label th:text="${emp.age}"></label></td>
+                    <td><label th:text="${emp.salary}"></label></td>
+                </tr>
+            </table>
+        </form>
+        <a th:href="@{http://www.thymeleaf/documentation.html}">Go To ThymeLeaf Docs</a>
+    </div>
+</body>
+</html>

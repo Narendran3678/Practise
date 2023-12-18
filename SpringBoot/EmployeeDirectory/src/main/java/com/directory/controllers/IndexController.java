@@ -30,7 +30,7 @@ public class IndexController {
     @GetMapping("/showEmployee")
     public String showEmployee(Model model) {
         model.addAttribute("employee",new Employee());
-        model.addAttribute("employeeList", employeeService.findAll());
+        model.addAttribute("employeeList", employeeService.findAllByOrderByFirstName());
         return "showEmployee";
     }
     @PostMapping("/processform")

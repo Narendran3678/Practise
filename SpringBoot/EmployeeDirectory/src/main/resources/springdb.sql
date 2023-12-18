@@ -53,17 +53,65 @@ FOREIGN KEY (ROLES_ID) REFERENCES ROLES(ID),
 FOREIGN KEY (EMPLOYEE_ID) REFERENCES EMPLOYEE(ID)
 );
 
-INSERT INTO EMPLOYEE (salary, createtime, lastmodified, emailid, firstname, lastname, phonenumber,password)
-VALUES ('30000',sysdate(),  sysdate(), 'divya@gmail.com','Divya', 'Naren', '8200212110','Divya');
 
-INSERT INTO EMPLOYEE (salary, createtime, lastmodified, emailid, firstname, lastname, phonenumber,password)
-VALUES ('50000',sysdate(),  sysdate(), 'naren@gmail.com','Narendran', 'Naren', '7092802533','Narendran');
+INSERT INTO EMPLOYEE (salary, createtime, lastmodified, emailid, firstname, lastname, phonenumber,password,age,active_flag)
+VALUES ('30000',sysdate(),  sysdate(), 'divya@gmail.com','Divya', 'Naren', '8200212110','Divya',18,1);
 
-INSERT INTO EMPLOYEE (salary, createtime, lastmodified, emailid, firstname, lastname, phonenumber,password)
-VALUES ('100000',sysdate(),  sysdate(), 'sam@gmail.com','Sam', 'Sam', '8912428787','Sam');
+INSERT INTO EMPLOYEE (salary, createtime, lastmodified, emailid, firstname, lastname, phonenumber,password,age,active_flag)
+VALUES ('50000',sysdate(),  sysdate(), 'naren@gmail.com','Narendran', 'Naren', '7092802533','Narendran',18,1);
 
-INSERT INTO EMPLOYEE (salary, createtime, lastmodified, emailid, firstname, lastname, phonenumber,password)
-VALUES ('100000',sysdate(),  sysdate(), 'john@gmail.com','John', 'John', '8912428787','Sam');
+INSERT INTO EMPLOYEE (salary, createtime, lastmodified, emailid, firstname, lastname, phonenumber,password,age,active_flag)
+VALUES ('100000',sysdate(),  sysdate(), 'sam@gmail.com','Sam', 'Sam', '8912428787','Sam',18,1);
+
+INSERT INTO EMPLOYEE (salary, createtime, lastmodified, emailid, firstname, lastname, phonenumber,password,age,active_flag)
+VALUES ('100000',sysdate(),  sysdate(), 'john@gmail.com','John', 'John', '8912428787','Sam',18,1);
+
+INSERT INTO EMPLOYEE (salary, createtime, lastmodified, emailid, firstname, lastname, phonenumber,password,age,active_flag)
+VALUES ('110000',sysdate(),  sysdate(), 'Zeno@gmail.com','Zeno', 'Zeno', '8912428787','Zeno',38,1);
+
+INSERT INTO EMPLOYEE (salary, createtime, lastmodified, emailid, firstname, lastname, phonenumber,password,age,active_flag)
+VALUES ('120000',sysdate(),  sysdate(), 'Goku@gmail.com','Goku', 'Goku', '8123228787','Goku',28,1);
+
+INSERT INTO EMPLOYEE (salary, createtime, lastmodified, emailid, firstname, lastname, phonenumber,password,age,active_flag)
+VALUES ('140000',sysdate(),  sysdate(), 'Whis@gmail.com','Whis', 'Whis', '8133228787','Whis',48,1);
+
+INSERT INTO EMPLOYEE (salary, createtime, lastmodified, emailid, firstname, lastname, phonenumber,password,age,active_flag)
+VALUES ('125000',sysdate(),  sysdate(), 'Vegeta@gmail.com','Vegeta', 'Vegeta', '8133228787','Vegeta',29,1);
+
+INSERT INTO EMPLOYEE (salary, createtime, lastmodified, emailid, firstname, lastname, phonenumber,password,age,active_flag)
+VALUES ('115000',sysdate(),  sysdate(), 'Piccolo@gmail.com','Piccolo', 'Piccolo', '8132228717','Piccolo',69,1);
+
+
+INSERT INTO EMPLOYEE (salary, createtime, lastmodified, emailid, firstname, lastname, phonenumber,password,age,active_flag)
+VALUES ('30000',sysdate(),  sysdate(), 'divya@gmail.com','Divya', 'Naren', '8200212110','Divya',18,1);
+
+INSERT INTO EMPLOYEE (salary, createtime, lastmodified, emailid, firstname, lastname, phonenumber,password,age,active_flag)
+VALUES ('50000',sysdate(),  sysdate(), 'naren@gmail.com','Narendran', 'Naren', '7092802533','Narendran',18,1);
+
+INSERT INTO EMPLOYEE (salary, createtime, lastmodified, emailid, firstname, lastname, phonenumber,password,age,active_flag)
+VALUES ('100000',sysdate(),  sysdate(), 'sam@gmail.com','Sam', 'Sam', '8912428787','Sam',18,1);
+
+INSERT INTO EMPLOYEE (salary, createtime, lastmodified, emailid, firstname, lastname, phonenumber,password,age,active_flag)
+VALUES ('100000',sysdate(),  sysdate(), 'john@gmail.com','John', 'John', '8912428787','Sam',18,1);
+
+INSERT INTO EMPLOYEE (salary, createtime, lastmodified, emailid, firstname, lastname, phonenumber,password,age,active_flag)
+VALUES ('110000',sysdate(),  sysdate(), 'Zeno@gmail.com','Zeno', 'Zeno', '8912428787','Zeno',38,1);
+
+INSERT INTO EMPLOYEE (salary, createtime, lastmodified, emailid, firstname, lastname, phonenumber,password,age,active_flag)
+VALUES ('120000',sysdate(),  sysdate(), 'Goku@gmail.com','Goku', 'Goku', '8123228787','Goku',28,1);
+
+INSERT INTO EMPLOYEE (salary, createtime, lastmodified, emailid, firstname, lastname, phonenumber,password,age,active_flag)
+VALUES ('140000',sysdate(),  sysdate(), 'Whis@gmail.com','Whis', 'Whis', '8133228787','Whis',48,1);
+
+INSERT INTO EMPLOYEE (salary, createtime, lastmodified, emailid, firstname, lastname, phonenumber,password,age,active_flag)
+VALUES ('125000',sysdate(),  sysdate(), 'Vegeta@gmail.com','Vegeta', 'Vegeta', '8133228787','Vegeta',29,1);
+
+INSERT INTO EMPLOYEE (salary, createtime, lastmodified, emailid, firstname, lastname, phonenumber,password,age,active_flag)
+VALUES ('115000',sysdate(),  sysdate(), 'Piccolo@gmail.com','Piccolo', 'Piccolo', '8132228717','Piccolo',69,1);
+
+INSERT INTO EMPLOYEE (salary, createtime, lastmodified, emailid, firstname, lastname, phonenumber,password,age,active_flag)
+VALUES ('105000',sysdate(),  sysdate(), 'Jiren@gmail.com','Jiren', 'Jiren', '8132228717','Jiren',44,1);
+
 
 UPDATE EMPLOYEE SET AGE=18;
 
