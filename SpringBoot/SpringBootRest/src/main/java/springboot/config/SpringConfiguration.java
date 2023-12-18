@@ -55,7 +55,7 @@ public class SpringConfiguration {
                         .requestMatchers(HttpMethod.GET).permitAll()
                         .requestMatchers(HttpMethod.POST,"/students").hasRole("MANAGER");
 
-                    // .requestMatchers(HttpMethod.GET,"/employees/**").hasRole("EMPLOYEE")
+                       // .requestMatchers(HttpMethod.GET,"/employees/**").hasRole("EMPLOYEE")
                        // .requestMatchers(HttpMethod.GET,"/employees").hasRole("MANAGER")
                        // .requestMatchers(HttpMethod.POST,"/employees").hasAnyRole("MANAGER","ADMIN")
                        // .requestMatchers(HttpMethod.PUT,"/employees").hasAnyRole("MANAGER","ADMIN")

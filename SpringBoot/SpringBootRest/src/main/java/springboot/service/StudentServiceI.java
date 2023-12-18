@@ -10,4 +10,6 @@ public interface StudentServiceI {
     public Student persist(Student employee);
     public boolean delete(long id);
     public List<Student> findByGrade(Double grade);
+
+    public List<Student> findAllByOrderByGrade();
 }

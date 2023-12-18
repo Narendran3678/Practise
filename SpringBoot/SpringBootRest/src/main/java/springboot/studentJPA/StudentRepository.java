@@ -10,4 +10,7 @@ import java.util.List;
 @Repository
 public interface StudentRepository extends JpaRepository<Student,Long> {
     public List<Student> findByGrade(Double grade);
+    public List<Student> findAllByOrderByGrade();
+
+    public List<Student> findAllByOrderByGradeDesc();
 }

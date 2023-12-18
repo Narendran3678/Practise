@@ -48,4 +48,9 @@ public class StudentServiceImpl implements StudentServiceI{
 
         return studentRepository.findByGrade(grade);
     }
+
+    @Override
+    public List<Student> findAllByOrderByGrade() {
+        return studentRepository.findAllByOrderByGrade();
+    }
 }

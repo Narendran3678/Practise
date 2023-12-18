@@ -71,7 +71,11 @@ public class RestControllers {
         }
         @GetMapping(value = "/stud-grade")
         public List<Student> findByGrade(@RequestParam(name="grade") Double grade) {
-            System.out.println("Student..."+grade);
+            System.out.println("Grade Filter..."+grade);
             return studentService.findByGrade(grade);
+        }
+        @GetMapping(value = "/studentsbygrade")
+        public List<Student> findAllOrderByGrade() {
+            return studentService.findAllByOrderByGrade();
         }
 }
