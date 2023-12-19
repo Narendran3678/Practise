@@ -16,5 +16,8 @@
     <form action="showEmployee" method="GET">
         <a href="showEmployee"> >> Show Employee</a>
     </form>
+    <form th:action="@{page/showEmployeePage/1?sortField=firstName&sortDir=Asc}" method="GET">
+        <a th:href="@{page/showEmployeePage/1?sortField=firstName&sortDir=Asc}"> >> Show Employee By Page</a>
+    </form>
 </body>
 </html>

@@ -7,26 +7,27 @@
 </head>
 <body>
     <div class="textalign">
+    	<h1>Employee Form</h1>
         <form>
             <table>
                 <tr>
                     <td>
-                        <a th:href="@{'/page/showEmployeePage/1?sortField=firstName&sortDir='+${sortDirection}}">FirstName</a>
+                        <a th:href="@{'/page/showEmployeePage/'+${CurrentpageNum}+'?sortField=firstName&sortDir='+${sortDirection}}">FirstName</a>
                     </td>
                     <td>
-                        <a th:href="@{'/page/showEmployeePage/1?sortField=lastName&sortDir='+${sortDirection}}">LastName</a>
+                        <a th:href="@{'/page/showEmployeePage/'+${CurrentpageNum}+'?sortField=lastName&sortDir='+${sortDirection}}">LastName</a>
                     </td>
                     <td>
-                        EmailId
+                        <a th:href="@{'/page/showEmployeePage/'+${CurrentpageNum}+'?sortField=emailId&sortDir='+${sortDirection}}">EmailId</a>
                     </td>
                     <td>
-                        PhoneNumber
+                        <a th:href="@{'/page/showEmployeePage/'+${CurrentpageNum}+'?sortField=phoneNumber&sortDir='+${sortDirection}}">PhoneNumber</a>
                     </td>
                     <td>
-                        Age
+                        <a th:href="@{'/page/showEmployeePage/'+${CurrentpageNum}+'?sortField=age&sortDir='+${sortDirection}}">Age</a>
                     </td>
                     <td>
-                        Salary
+                        <a th:href="@{'/page/showEmployeePage/'+${CurrentpageNum}+'?sortField=salary&sortDir='+${sortDirection}}">Salary</a>
                     </td>
                 </tr>
                 <tr th:each="emp:${employeeList}">
@@ -39,6 +40,16 @@
                 </tr>
             </table>
         </form>
+        <table>
+        	<tr>
+        		<td th:each="i: ${ #numbers.sequence(0,totalpage-1) }">
+        			<p th:if="${CurrentpageNum-1==i}"  th:text="${i+1}" style="font-size:25px;color:red"></p>
+        			
+        			<a th:unless="${CurrentpageNum-1==i}" th:href="@{'/page/showEmployeePage/'+${i+1}+'?sortField='+${sortFieldName}+'&sortDir='+${sortDirection}}" 
+        			th:text="${i+1}"></a>
+        		</td>
+        	</tr>
+        </table>
         <a th:href="@{http://www.thymeleaf/documentation.html}">Go To ThymeLeaf Docs</a>
     </div>
 </body>

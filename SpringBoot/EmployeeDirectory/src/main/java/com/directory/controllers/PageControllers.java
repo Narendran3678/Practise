@@ -37,6 +37,7 @@ public class PageControllers {
         List<Employee> employeeList =  page.getContent();
         System.out.println("Total Page...."+page.getTotalPages());
         System.out.println("Total Elements...."+page.getTotalElements());
+        
         model.addAttribute("sortFieldName",sortField);
         model.addAttribute("sortDirection",sortDir.equalsIgnoreCase("ASC") ? "Desc":"Asc");
         model.addAttribute("CurrentpageNum",pageNum);
