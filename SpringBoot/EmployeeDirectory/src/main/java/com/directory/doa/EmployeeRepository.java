@@ -23,4 +23,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     @Modifying
     @Query("Update Employee set salary=salary+100 where age>=?1")
     public Integer updateSalary(Integer age);
+
+    public List<Employee> findByLastName(@Param("lastName") String lastName);
+
+    @Transactional
+    @Modifying
+    public Integer updateByLastName(@Param("lastName") String lastName);
 }

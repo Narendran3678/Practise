@@ -67,5 +67,15 @@ public class EmployeeServiceImpl implements EmployeeService{
         return employeeRepository.updateSalary(age);
     }
 
+    @Override
+    public List<Employee> findByLastName(String lastName) {
+        return employeeRepository.findByLastName(lastName);
+    }
+
+    @Override
+    public Integer updateByLastName(String lastName) {
+        return employeeRepository.updateByLastName(lastName);
+    }
+
 
 }

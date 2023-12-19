@@ -2,6 +2,8 @@ package com.directory.service;
 
 import com.directory.entity.Employee;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
+
 import java.util.List;
 
 public interface EmployeeService {
@@ -13,4 +15,6 @@ public interface EmployeeService {
     public Page<Employee> findAllByPage(int pageNum,String sortFieldName,String sortDirection);
     public List<Employee> findByAage(Integer age);
     public Integer updateSalary(Integer age);
+    public List<Employee> findByLastName(String lastName);
+    public Integer updateByLastName(String lastName);
 }

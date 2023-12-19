@@ -8,6 +8,12 @@ import java.util.List;
 
 @Entity
 @Table(name="employee")
+@NamedQueries({
+        @NamedQuery(name="Employee.findByLastName",query="select e from Employee e where e.lastName=:lastName")
+})
+@NamedNativeQueries({
+        @NamedNativeQuery(name="Employee.updateByLastName",query="update employee set age=age+1 where lastname=?1")
+})
 public class Employee {
 
     @Id

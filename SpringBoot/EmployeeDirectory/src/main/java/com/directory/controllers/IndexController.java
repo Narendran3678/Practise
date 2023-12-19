@@ -90,4 +90,19 @@ public class IndexController {
         model.addAttribute("employeeList", employeeService.findByAage(age));
         return "showEmployee";
     }
+
+    @RequestMapping("/employeelastname")
+    public String findByLastName(@RequestParam("lastName") String lastname, Model model){
+        System.out.println("Find By LastName..."+lastname);
+        model.addAttribute("employee",new Employee());
+        model.addAttribute("employeeList", employeeService.findByLastName(lastname));
+        return "showEmployee";
+    }
+    @RequestMapping("/updatebylastname")
+    public String updateByLastName(@RequestParam("lastName") String lastname, Model model){
+        System.out.println("Update By LastName..."+lastname);
+        model.addAttribute("employee",new Employee());
+        model.addAttribute("updateCount", employeeService.updateByLastName(lastname));
+        return "showEmployee";
+    }
 }
