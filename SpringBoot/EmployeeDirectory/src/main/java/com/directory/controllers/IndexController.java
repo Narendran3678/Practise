@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Date;
 
 @Controller
@@ -72,5 +71,23 @@ public class IndexController {
         }
 
         return showEmployee(model);
+    }
+
+    //http://localhost:8081/dir/employeeage?age=30
+    @RequestMapping("/employeeage")
+    public String findByAage(@RequestParam("age") Integer age, Model model){
+        System.out.println("Age..."+age);
+        model.addAttribute("employee",new Employee());
+        model.addAttribute("employeeList", employeeService.findByAage(age));
+        return "showEmployee";
+    }
+    //http://localhost:8081/dir/updatesalary?age=30
+    @RequestMapping("/updatesalary")
+    public String updateSalary(@RequestParam("age") Integer age, Model model){
+        System.out.println("Age..."+age);
+        model.addAttribute("employee",new Employee());
+        model.addAttribute("updateCount", employeeService.updateSalary(age));
+        model.addAttribute("employeeList", employeeService.findByAage(age));
+        return "showEmployee";
     }
 }

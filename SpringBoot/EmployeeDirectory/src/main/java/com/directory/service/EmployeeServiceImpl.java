@@ -57,5 +57,15 @@ public class EmployeeServiceImpl implements EmployeeService{
         return employeeRepository.findAll(pageable);
     }
 
+    @Override
+    public List<Employee> findByAage(Integer age) {
+        return employeeRepository.findByAage(age);
+    }
+
+    @Override
+    public Integer updateSalary(Integer age) {
+        return employeeRepository.updateSalary(age);
+    }
+
 
 }
