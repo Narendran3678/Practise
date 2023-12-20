@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Page</title>
+    <link rel="stylesheet" th:href="@{css/page.css}"/>
+</head>
+<body>
+	 <div class="textalign">
+        <h1>Welcome to Employee List</h1>
+        <p th:text="'The Current Time =>'+${Currentime}"></p>
+        <p th:text="${employeeList}"></p>
+    </div>
+</body>
+</html>
