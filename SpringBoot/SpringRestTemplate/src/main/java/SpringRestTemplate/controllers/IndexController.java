@@ -7,13 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import SpringRestTemplate.Service.RestServices;
+import SpringRestTemplate.restTemplates.RestTemplateClient;
 
 @Controller
 public class IndexController {
 	
 	@Autowired
-	RestServices restServices;
+	RestTemplateClient restServices;
 	
 	@RequestMapping(value={"","/"})
 	public String indexMethod(Model model) {
@@ -30,9 +30,11 @@ public class IndexController {
 
 	//http://localhost:8082/rest/createStudent
 	@GetMapping("/createStudent")
-	public String createEmployeeRest(Model model) {
+	public String createStudent(Model model) {
 		model.addAttribute("Currentime",new Date());
 		model.addAttribute("employeeList",restServices.addStudent());
 		return "employeelist.html";
 	}
+
+
 }

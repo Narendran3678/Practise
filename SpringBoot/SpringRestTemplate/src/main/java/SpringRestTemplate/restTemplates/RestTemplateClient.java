@@ -1,22 +1,21 @@
-package SpringRestTemplate.Service;
+package SpringRestTemplate.restTemplates;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+
 import java.util.*;
 import SpringRestTemplate.entity.Employee;
 import SpringRestTemplate.entity.Student;
 
 @Service
-public class RestServices {
-	
-	private RestTemplate restTemplate;
-	
+public class RestTemplateClient {
+	private org.springframework.web.client.RestTemplate restTemplate;
+
 	@Autowired
-	public RestServices(RestTemplate restTemplate) {
+	public RestTemplateClient(org.springframework.web.client.RestTemplate restTemplate) {
 		this.restTemplate=restTemplate;
 	}
 	
@@ -40,4 +39,5 @@ public class RestServices {
 		ResponseEntity<String> response =restTemplate.exchange(url, HttpMethod.POST,new HttpEntity<Student>(student),String.class);
 		return response.getBody();
 	}
+
 }

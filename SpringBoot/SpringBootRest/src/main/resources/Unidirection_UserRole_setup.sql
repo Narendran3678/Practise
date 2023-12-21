@@ -61,6 +61,10 @@ GRADE VARCHAR(20) DEFAULT '',
 CREATTIME TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
 MODIFYTIME TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+INSERT INTO STUDENTS (ID, FIRST_NAME, LAST_NAME, EMAIL_ID, GRADE, CREATETIME, CREATEDBY, MODIFIEDTIME, MODIFIEDBY) VALUES
+('1', 'Divya', 'Divya', 'divya3678@gmail.com', '87.3', '2023-12-17 22:21:04', 'naren', '2023-12-17 22:21:04', 'naren'),
+('2', 'Narendran', 'Narendran', 'narendran3678@gmail.com', '72.9', '2023-12-17 22:23:01', 'naren', '2023-12-17 22:23:01', 'naren'),
+('3', 'Bill', 'James', 'bill3678@gmail.com', '87.3', '2023-12-17 22:21:04', 'bill', '2023-12-17 22:21:04', 'bill');
 
 INSERT INTO EMPLOYEE (salary, createtime, lastmodified, emailid, firstname, lastname, phonenumber,password)
 VALUES ('30000',sysdate(),  sysdate(), 'divya@gmail.com','Divya', 'Naren', '8200212110','Divya');
