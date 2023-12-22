@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="DEBUG" monitorInterval="30">
+<Configuration sstatus="TRACE" monitorInterval="30">
     <properties>
-        <property name="LOG_PATTERN">%d %m%n</property>
-        <property name="LOG_ROOT_PATH">/Users/narendran.babu/Eclipse_Workspace</property>
+        <property name="LOG_PATTERN">[%d{dd-MM-YYYY hh:mm:ss}] [%t] [%p] [%F - %M - %L]$ %m%n%ex</property>
+        <property name="LOG_ROOT_PATH">E:\Logs</property>
     </properties>
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT" follow="true">
@@ -11,13 +11,24 @@
         <RollingFile name="server" fileName="${LOG_ROOT_PATH}/server.log" filePattern="${LOG_ROOT_PATH}/server.log.%i">
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
-                <SizeBasedTriggeringPolicy size="1000KB"/>
+                <SizeBasedTriggeringPolicy size="500KB"/>
+            </Policies>
+            <DefaultRolloverStrategy min="1" max="5"/> <!-- Backup count-->
+        </RollingFile>
+        <RollingFile name="system" fileName="${LOG_ROOT_PATH}/system.log" filePattern="${LOG_ROOT_PATH}/system.log.%i">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="500KB"/>
             </Policies>
             <DefaultRolloverStrategy min="1" max="5"/> <!-- Backup count-->
         </RollingFile>
     </Appenders>
     <Loggers>
-        <Logger name="Spring.Boot.Logging" level="debug" additivity="false">
+        <AsyncLogger  name="SYSTEM_ERR" level="error" additivity="false">
+            <AppenderRef ref="Console" />
+            <appender-ref ref="system"/>
+        </AsyncLogger>
+        <Logger name="SYSTEM_DEBUG" level="debug" additivity="false">
             <AppenderRef ref="Console" />
             <AppenderRef ref="server" />
         </Logger>
