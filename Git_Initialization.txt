@@ -14,5 +14,7 @@ Git Setup Commands:
 
 
 Note :
+- To Avoid Entering Cred all time , Then Generate GitToken and add as below
+	git remote set-url origin https://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@github.com/Narendran3678/Practise
 - To Unstage the Commited File
 		git restore --staged <File/Directory>
