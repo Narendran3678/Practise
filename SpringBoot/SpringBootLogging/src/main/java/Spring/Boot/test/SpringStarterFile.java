@@ -23,6 +23,8 @@ public class SpringStarterFile {
         //System.out.println("Customer Received..."+accountDoaI.getCustomerName());
         //accountDoaI.addCustomer("Naren");
         //accountDoaI.addCustomer(null);
-        accountDoaI.exceptionTest();
+        //accountDoaI.exceptionTest();
+        accountDoaI.customAopMethod1();
+        accountDoaI.customAopMethod2();
     }
 }

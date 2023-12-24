@@ -52,4 +52,11 @@ public class LoggerAopComponent {
     public void afterThrowingMethod(Exception ex) {
         System.out.println("AfterThrowing Method Exception ["+ex+"] Logged");
     }
+
+    @Around("@annotation(Spring.Boot.aop.CustomAopAnnotation)")
+    public void customAopAnnotation(ProceedingJoinPoint joinPoint) throws Throwable {
+        System.out.println("CustomAopAnnotation Method Before");
+        joinPoint.proceed();
+        System.out.println("CustomAopAnnotation Method After");
+    }
 }

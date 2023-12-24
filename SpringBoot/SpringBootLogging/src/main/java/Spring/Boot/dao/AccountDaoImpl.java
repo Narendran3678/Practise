@@ -1,4 +1,5 @@
 package Spring.Boot.dao;
+import Spring.Boot.aop.CustomAopAnnotation;
 import org.springframework.stereotype.Repository;
 @Repository
 public class AccountDaoImpl implements AccountDaoI {
@@ -19,5 +20,15 @@ public class AccountDaoImpl implements AccountDaoI {
     }
     public String exceptionTest() throws Exception {
         throw new Exception("Test After Throwning Exception");
+    }
+
+    @CustomAopAnnotation
+    public void customAopMethod1() {
+        System.out.println("AccountDao Custom Aop Method 1 Entered");
+    }
+
+    @CustomAopAnnotation
+    public void customAopMethod2() {
+        System.out.println("AccountDao Custom Aop Method 2 Entered");
     }
 }
