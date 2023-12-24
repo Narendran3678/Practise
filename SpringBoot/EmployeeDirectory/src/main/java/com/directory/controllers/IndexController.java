@@ -6,6 +6,7 @@ import com.directory.utils.SpringUtils;
 import com.google.gson.Gson;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,9 +22,13 @@ public class IndexController {
     @Autowired
     private ServerConfig serverConfig;
 
+    @Value("${spring.env}")
+    private String environment;
+
     @RequestMapping(value = {"", "/" } )
     public String indexMethod(Model model) {
         model.addAttribute("Currentime", new Date());
+        model.addAttribute("environment", environment);
         return "index";
     }
     @RequestMapping("/employeeform")
