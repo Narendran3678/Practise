@@ -19,5 +19,7 @@
     <form th:action="@{page/showEmployeePage/1?sortField=firstName&sortDir=Asc}" method="GET">
         <a th:href="@{page/showEmployeePage/1?sortField=firstName&sortDir=Asc}"> >> Show Employee By Page</a>
     </form>
+
+    <p th:text="${serverconfig}"></p>
 </body>
 </html>

@@ -1,7 +1,9 @@
 package com.directory.controllers;
 import com.directory.entity.Employee;
+import com.directory.entity.ServerConfig;
 import com.directory.service.EmployeeService;
 import com.directory.utils.SpringUtils;
+import com.google.gson.Gson;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +16,11 @@ import java.util.Date;
 public class IndexController {
 
     @Autowired
-    EmployeeService employeeService;
+    private EmployeeService employeeService;
+
+    @Autowired
+    private ServerConfig serverConfig;
+
     @RequestMapping(value = {"", "/" } )
     public String indexMethod(Model model) {
         model.addAttribute("Currentime", new Date());
@@ -104,5 +110,11 @@ public class IndexController {
         model.addAttribute("employee",new Employee());
         model.addAttribute("updateCount", employeeService.updateByLastName(lastname));
         return "showEmployee";
+    }
+
+    @RequestMapping("/serverconfig")
+    public String getServerConfig(Model model){
+        model.addAttribute("serverconfig", new Gson().toJson(serverConfig));
+        return "index";
     }
 }
