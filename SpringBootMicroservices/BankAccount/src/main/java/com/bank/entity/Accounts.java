@@ -2,6 +2,7 @@ package com.bank.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Value;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,6 +23,7 @@ public class Accounts extends BaseEntity {
     @Column(name="accounttype")
     private String accounttype;
 
-    @Column(name="branchAddress")
+    @Column(name="branchaddress")
     private String branchAddress;
+
 }

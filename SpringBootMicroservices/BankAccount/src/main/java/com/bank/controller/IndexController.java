@@ -1,5 +1,8 @@
 package com.bank.controller;
+import com.bank.dto.exception.ResponseDto;
 import com.bank.dto.exception.entity.CustomersDto;
+import com.bank.entity.Customers;
+import com.bank.mappers.CustomersMapper;
 import com.bank.services.Intf.AccountsServiceI;
 import com.bank.services.Intf.CustomersServiceI;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,14 +10,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.management.relation.RelationServiceNotRegisteredException;
+import java.time.LocalDateTime;
 import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class IndexController {
     @Autowired
     CustomersServiceI customersServiceI;
-    @Autowired
-    AccountsServiceI accountsServiceI;
 
     //http://localhost:8081/bank/api
     @RequestMapping(value={"","/"})
@@ -33,7 +35,10 @@ public class IndexController {
     }
 
     @PostMapping("/customers")
-    public ResponseEntity<CustomersDto> createCustomer(@RequestBody CustomersDto customersDto) {
-        return null;
+    public ResponseEntity<ResponseDto> createCustomer(@RequestBody CustomersDto customersDto) {
+        System.out.println("Customer Request..."+customersDto);
+        customersDto = customersServiceI.persist(customersDto);
+        ResponseDto dto = new ResponseDto(HttpStatus.CREATED.value(),"Customer ["+customersDto.getCustomerName()+"] Created", LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 }
