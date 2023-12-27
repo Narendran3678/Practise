@@ -1,6 +1,5 @@
-package com.bank.dto.exception.entity;
+package com.bank.dto.entity;
 
-import com.bank.entity.Accounts;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

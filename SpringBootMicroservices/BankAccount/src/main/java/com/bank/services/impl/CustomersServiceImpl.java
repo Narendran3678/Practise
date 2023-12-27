@@ -1,7 +1,6 @@
 package com.bank.services.impl;
-
 import com.bank.constant.BankConstants;
-import com.bank.dto.exception.entity.CustomersDto;
+import com.bank.dto.entity.CustomersDto;
 import com.bank.entity.Accounts;
 import com.bank.entity.Customers;
 import com.bank.exceptionhandler.ResourceNotFoundException;
@@ -22,9 +21,9 @@ import java.util.Optional;
 public class CustomersServiceImpl implements CustomersServiceI {
 
     @Autowired
-    CustomersRepository customersRepository;
+    private CustomersRepository customersRepository;
     @Autowired
-    AccountsRepository accountsRepository;
+    private AccountsRepository accountsRepository;
     @Value("${branch_address}")
     String branchAddress;
     @Override
@@ -66,7 +65,18 @@ public class CustomersServiceImpl implements CustomersServiceI {
     @Transactional
     @Override
     public Boolean delete(Long customerId) {
-        return null;
+        Optional<Accounts> accounts = accountsRepository.findById(customerId);
+        if (accounts.isPresent()) {
+            accountsRepository.delete(accounts.get());
+            Optional<Customers> customers = customersRepository.findById(customerId);
+            if (customers.isPresent()) {
+                customersRepository.delete(customers.get());
+            }
+        }
+        else {
+            throw new ResourceNotFoundException("Customers ["+customerId+"] not found");
+        }
+        return true;
     }
 
 }

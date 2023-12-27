@@ -1,6 +1,6 @@
 package com.bank.mappers;
-import com.bank.dto.exception.entity.AccountsDto;
-import com.bank.dto.exception.entity.CustomersDto;
+import com.bank.dto.entity.AccountsDto;
+import com.bank.dto.entity.CustomersDto;
 import com.bank.entity.Accounts;
 import com.bank.entity.Customers;
 import java.util.List;

@@ -1,5 +1,5 @@
 package com.bank.services.Intf;
-import com.bank.dto.exception.entity.AccountsDto;
+import com.bank.dto.entity.AccountsDto;
 
 import javax.management.relation.RelationServiceNotRegisteredException;
 import java.util.List;

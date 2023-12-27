@@ -1,9 +1,6 @@
 package com.bank.controller;
 import com.bank.dto.exception.ResponseDto;
-import com.bank.dto.exception.entity.CustomersDto;
-import com.bank.entity.Customers;
-import com.bank.mappers.CustomersMapper;
-import com.bank.services.Intf.AccountsServiceI;
+import com.bank.dto.entity.CustomersDto;
 import com.bank.services.Intf.CustomersServiceI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,7 +26,7 @@ public class IndexController {
         return ResponseEntity.status(HttpStatus.OK).body(customersServiceI.findAll());
     }
     @GetMapping("/customers/{customerId}")
-    public ResponseEntity<CustomersDto> getCustomers(@PathVariable("customerId") Long customerId) throws RelationServiceNotRegisteredException {
+    public ResponseEntity<CustomersDto> getCustomers(@PathVariable("customerId") Long customerId) {
         System.out.println("Customer Id..."+customerId);
         return ResponseEntity.status(HttpStatus.OK).body(customersServiceI.findById(customerId));
     }
@@ -40,5 +37,13 @@ public class IndexController {
         customersDto = customersServiceI.persist(customersDto);
         ResponseDto dto = new ResponseDto(HttpStatus.CREATED.value(),"Customer ["+customersDto.getCustomerName()+"] Created", LocalDateTime.now());
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
+    }
+
+    @DeleteMapping("/customers/{customerId}")
+    public ResponseEntity<ResponseDto> deleteCustomers(@PathVariable("customerId") Long customerId) {
+        System.out.println("Customer Id..."+customerId);
+        customersServiceI.delete(customerId);
+        ResponseDto dto = new ResponseDto(HttpStatus.OK.value(),"Customer Deleted", LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.OK).body(dto);
     }
 }
