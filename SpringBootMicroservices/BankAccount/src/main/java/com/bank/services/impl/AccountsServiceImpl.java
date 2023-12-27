@@ -4,6 +4,7 @@ import com.bank.dto.exception.entity.AccountsDto;
 import com.bank.dto.exception.entity.CustomersDto;
 import com.bank.entity.Accounts;
 import com.bank.entity.Customers;
+import com.bank.exceptionhandler.ResourceNotFoundException;
 import com.bank.mappers.AccountsMapper;
 import com.bank.mappers.CustomersMapper;
 import com.bank.services.Intf.AccountsServiceI;
@@ -11,6 +12,7 @@ import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.management.relation.RelationServiceNotRegisteredException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,11 +31,12 @@ public class AccountsServiceImpl implements AccountsServiceI {
 
     @Override
     public AccountsDto findById(Long customerId) {
-        Accounts accounts = entityManager.find(Accounts.class,customerId);
-        if(accounts!=null)
-            return AccountsMapper.entity_To_Account_Dto(accounts,new AccountsDto());
-        else
-            return new AccountsDto();
+        Accounts accounts = entityManager.find(Accounts.class, customerId);
+        if (accounts != null)
+            return AccountsMapper.entity_To_Account_Dto(accounts, new AccountsDto());
+        else {
+            throw new ResourceNotFoundException("Account ["+customerId+"] not found");
+        }
     }
 
     @Override

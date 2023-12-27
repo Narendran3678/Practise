@@ -2,11 +2,14 @@ package com.bank.services.impl;
 
 import com.bank.dto.exception.entity.CustomersDto;
 import com.bank.entity.Customers;
+import com.bank.exceptionhandler.ResourceNotFoundException;
 import com.bank.mappers.CustomersMapper;
 import com.bank.services.Intf.CustomersServiceI;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.management.relation.RelationServiceNotRegisteredException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,12 +27,13 @@ public class CustomersServiceImpl implements CustomersServiceI {
     }
 
     @Override
-    public CustomersDto findById(Long customerId) {
+    public CustomersDto findById(Long customerId)   {
         Customers customer = entityManager.find(Customers.class,customerId);
         if(customer != null)
             return CustomersMapper.entity_To_Customer_Dto(customer, new CustomersDto());
-        else
-            return new CustomersDto();
+        else {
+            throw new ResourceNotFoundException("Customer ["+customerId+"] not found");
+        }
     }
 
     @Override

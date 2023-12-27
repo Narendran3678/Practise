@@ -1,7 +1,6 @@
 package com.bank.dto.exception;
 
 import lombok.*;
-
 import java.time.LocalDateTime;
 
 @Getter
