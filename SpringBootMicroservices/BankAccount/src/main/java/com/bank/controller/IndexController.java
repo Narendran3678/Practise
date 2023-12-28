@@ -1,12 +1,12 @@
 package com.bank.controller;
-import com.bank.dto.exception.ResponseDto;
+import com.bank.dto.response.ResponseDto;
 import com.bank.dto.entity.CustomersDto;
 import com.bank.services.Intf.CustomersServiceI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import javax.management.relation.RelationServiceNotRegisteredException;
+
 import java.time.LocalDateTime;
 import java.util.List;
 @RestController
@@ -16,6 +16,7 @@ public class IndexController {
     CustomersServiceI customersServiceI;
 
     //http://localhost:8081/bank/api
+    //http://localhost:8081/bank/api/customers
     @RequestMapping(value={"","/"})
     public ResponseEntity<String> indexMethod() {
         return ResponseEntity.status(HttpStatus.OK).body("Welcome to Bank Account Service");

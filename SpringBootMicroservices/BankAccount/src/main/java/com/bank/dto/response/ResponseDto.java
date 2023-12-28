@@ -1,4 +1,4 @@
-package com.bank.dto.exception;
+package com.bank.dto.response;
 
 import lombok.*;
 import java.time.LocalDateTime;

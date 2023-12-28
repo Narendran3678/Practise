@@ -1,6 +1,6 @@
 package com.bank.exceptionhandler;
 
-import com.bank.dto.exception.ErrorResponseDto;
+import com.bank.dto.response.ErrorResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

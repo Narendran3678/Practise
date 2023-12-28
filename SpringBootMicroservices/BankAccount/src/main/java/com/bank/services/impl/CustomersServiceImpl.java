@@ -1,5 +1,6 @@
 package com.bank.services.impl;
 import com.bank.constant.BankConstants;
+import com.bank.dto.entity.AccountsDto;
 import com.bank.dto.entity.CustomersDto;
 import com.bank.entity.Accounts;
 import com.bank.entity.Customers;
@@ -19,18 +20,27 @@ import java.util.Optional;
 
 @Service
 public class CustomersServiceImpl implements CustomersServiceI {
-
     @Autowired
     private CustomersRepository customersRepository;
     @Autowired
     private AccountsRepository accountsRepository;
+    @Autowired
+    private AccountsServiceImpl accountsServiceImpl;
     @Value("${branch_address}")
     String branchAddress;
+    @Value("${customer.account.fetchpref}")
+    Boolean customerAccountFetchPref;
     @Override
     public List<CustomersDto> findAll() {
         List<Customers> customersList = customersRepository.findAll();
-        if(!customersList.isEmpty())
-            return CustomersMapper.entityList_To_CustomerList_Dto(customersList, new ArrayList<CustomersDto>());
+        if(!customersList.isEmpty()) {
+            List<CustomersDto> customerDtoList= CustomersMapper.entityList_To_CustomerList_Dto(customersList, new ArrayList<CustomersDto>());
+            if(customerAccountFetchPref) {
+                List<AccountsDto> accountsAtoList = accountsServiceImpl.findAll();
+                return CustomersMapper.list_customers_account_dto_map(customerDtoList,accountsAtoList);
+            }
+            return customerDtoList;
+        }
         else
             return new ArrayList<>();
     }
@@ -51,7 +61,6 @@ public class CustomersServiceImpl implements CustomersServiceI {
         customers.setCreatedBy("ADMIN");
         customers.setModifiedBy("ADMIN");
         customersRepository.save(customers);
-
         Accounts accounts = new Accounts();
         accounts.setCustomerId(customers.getCustomerId());
         accounts.setAccounttype(BankConstants.ACCOUNT_TYPE.SAVINGS.name());
@@ -60,6 +69,7 @@ public class CustomersServiceImpl implements CustomersServiceI {
         accounts.setCreatedBy("ADMIN");
         accounts.setModifiedBy("ADMIN");
         accountsRepository.save(accounts);
+
         return CustomersMapper.entity_AccountCustomer_Map_To_CustomerDto(customers,accounts,new CustomersDto());
     }
     @Transactional
