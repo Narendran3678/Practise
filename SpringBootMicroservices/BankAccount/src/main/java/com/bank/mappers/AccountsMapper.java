@@ -8,7 +8,7 @@ public class AccountsMapper {
 
     public static Accounts dto_To_Account_Entity(AccountsDto sourceDto, Accounts targetEntity) {
         targetEntity.setAccountnumber(sourceDto.getAccountnumber());
-        targetEntity.setAccounttype(sourceDto.getAccounttype());
+        targetEntity.setAccountType(sourceDto.getAccounttype());
         targetEntity.setBranchAddress(sourceDto.getBranchAddress());
         targetEntity.setCustomerId(sourceDto.getCustomerId());
         return targetEntity;
@@ -16,7 +16,7 @@ public class AccountsMapper {
 
     public static AccountsDto entity_To_Account_Dto(Accounts sourceEntity, AccountsDto targetDto) {
         targetDto.setAccountnumber(sourceEntity.getAccountnumber());
-        targetDto.setAccounttype(sourceEntity.getAccounttype());
+        targetDto.setAccounttype(sourceEntity.getAccountType());
         targetDto.setBranchAddress(sourceEntity.getBranchAddress());
         targetDto.setCustomerId(sourceEntity.getCustomerId());
         return targetDto;
@@ -26,7 +26,7 @@ public class AccountsMapper {
         for(Accounts accounts:sourceEntityList) {
             AccountsDto targetDto = new AccountsDto();
             targetDto.setAccountnumber(accounts.getAccountnumber());
-            targetDto.setAccounttype(accounts.getAccounttype());
+            targetDto.setAccounttype(accounts.getAccountType());
             targetDto.setBranchAddress(accounts.getBranchAddress());
             targetDto.setCustomerId(accounts.getCustomerId());
             targetDtoList.add(targetDto);

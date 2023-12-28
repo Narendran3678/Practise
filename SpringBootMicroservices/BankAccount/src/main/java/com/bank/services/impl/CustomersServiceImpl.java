@@ -63,7 +63,7 @@ public class CustomersServiceImpl implements CustomersServiceI {
         customersRepository.save(customers);
         Accounts accounts = new Accounts();
         accounts.setCustomerId(customers.getCustomerId());
-        accounts.setAccounttype(BankConstants.ACCOUNT_TYPE.SAVINGS.name());
+        accounts.setAccountType(BankConstants.ACCOUNT_TYPE.SAVINGS);
         accounts.setAccountnumber(Utility.getRandomAccountNumber());
         accounts.setBranchAddress(branchAddress);
         accounts.setCreatedBy("ADMIN");

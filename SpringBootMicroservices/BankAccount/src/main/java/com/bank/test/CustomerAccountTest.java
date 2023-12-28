@@ -1,7 +1,9 @@
 package com.bank.test;
 
+import com.bank.constant.BankConstants;
 import com.bank.entity.Accounts;
 import com.bank.entity.Customers;
+import com.bank.utils.Utility;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -12,8 +14,8 @@ import java.util.Random;
 public class CustomerAccountTest {
     static EntityManager entityManager;
     public static void main(String[] args) {
-        //createAccount();
-        accountNumberGenerator();
+        createAccount();
+        //accountNumberGenerator();
     }
     public static void accountNumberGenerator() {
         Random rand = new Random();
@@ -31,11 +33,11 @@ public class CustomerAccountTest {
         try {
             transaction = factory.getTransaction();
             transaction.begin();
-            Customers customer = new Customers("Divya","Divya@gmail.com","8220021216");
-            customer.setCreatedBy("Naren");
-            customer.setModifiedBy("Naren");
+            Customers customer = new Customers("Khadar","khadar@gmail.com","6768856543");
+            customer.setCreatedBy("Khadar");
+            customer.setModifiedBy("Khadar");
             factory.persist(customer);
-            Accounts accounts = new Accounts(customer.getCustomerId(),"232144","SAVINGS","CHENNAI");
+            Accounts accounts = new Accounts(customer.getCustomerId(), Utility.getRandomAccountNumber(), BankConstants.ACCOUNT_TYPE.SAVINGS,"CHENNAI");
             factory.persist(accounts);
             transaction.commit();
         }

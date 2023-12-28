@@ -1,5 +1,6 @@
 package com.bank.entity;
 
+import com.bank.constant.BankConstants;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +22,8 @@ public class Accounts extends BaseEntity {
     private String accountnumber;
 
     @Column(name="accounttype")
-    private String accounttype;
+    @Enumerated(EnumType.STRING)
+    private BankConstants.ACCOUNT_TYPE accountType;
 
     @Column(name="branchaddress")
     private String branchAddress;

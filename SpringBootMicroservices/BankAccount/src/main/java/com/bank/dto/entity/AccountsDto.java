@@ -1,5 +1,6 @@
 package com.bank.dto.entity;
 
+import com.bank.constant.BankConstants;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -16,7 +17,7 @@ public class AccountsDto {
 
     private String accountnumber;
 
-    private String accounttype;
+    private BankConstants.ACCOUNT_TYPE accounttype;
 
     private String branchAddress;
 }

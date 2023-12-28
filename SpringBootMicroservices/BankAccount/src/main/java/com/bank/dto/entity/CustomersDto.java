@@ -26,7 +26,7 @@ public class CustomersDto {
     @Size(min=5)
     @Pattern(regexp = "^[\\w]*@[a-z]{2,5}.[a-z]{1,3}" , message = "Invalid Email Format, Sample(name1234@gmail.com)")
     private String emailId;
-    
+
     @NotNull
     @Pattern(regexp = "^[0-9]*",message = "Mobile Number must Be Numbers")
     private String mobileNumber;
