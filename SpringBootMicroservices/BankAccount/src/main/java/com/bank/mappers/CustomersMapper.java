@@ -10,14 +10,14 @@ public class CustomersMapper {
     public static Customers dto_To_Customer_Entity(CustomersDto sourceDto, Customers targetEntity) {
         targetEntity.setCustomerId(sourceDto.getCustomerId());
         targetEntity.setCustomerName(sourceDto.getCustomerName());
-        targetEntity.setMobilenumber(sourceDto.getMobilenumber());
+        targetEntity.setMobilenumber(sourceDto.getMobileNumber());
         targetEntity.setEmailId(sourceDto.getEmailId());
         return targetEntity;
     }
     public static CustomersDto entity_To_Customer_Dto( Customers sourceEntity,CustomersDto targetDto) {
         targetDto.setCustomerId(sourceEntity.getCustomerId());
         targetDto.setCustomerName(sourceEntity.getCustomerName());
-        targetDto.setMobilenumber(sourceEntity.getMobilenumber());
+        targetDto.setMobileNumber(sourceEntity.getMobilenumber());
         targetDto.setEmailId(sourceEntity.getEmailId());
         return targetDto;
     }
@@ -27,7 +27,7 @@ public class CustomersMapper {
             CustomersDto targetDto = new CustomersDto();
             targetDto.setCustomerId(customers.getCustomerId());
             targetDto.setCustomerName(customers.getCustomerName());
-            targetDto.setMobilenumber(customers.getMobilenumber());
+            targetDto.setMobileNumber(customers.getMobilenumber());
             targetDto.setEmailId(customers.getEmailId());
             targetDtoList.add(targetDto);
         }
@@ -37,7 +37,7 @@ public class CustomersMapper {
     public static CustomersDto entity_AccountCustomer_Map_To_CustomerDto( Customers sourceCustomerEntity,Accounts embedAccountEntity,CustomersDto targetDto) {
         targetDto.setCustomerId(sourceCustomerEntity.getCustomerId());
         targetDto.setCustomerName(sourceCustomerEntity.getCustomerName());
-        targetDto.setMobilenumber(sourceCustomerEntity.getMobilenumber());
+        targetDto.setMobileNumber(sourceCustomerEntity.getMobilenumber());
         targetDto.setEmailId(sourceCustomerEntity.getEmailId());
         targetDto.setAccounts(AccountsMapper.entity_To_Account_Dto(embedAccountEntity, new AccountsDto()));
         return targetDto;

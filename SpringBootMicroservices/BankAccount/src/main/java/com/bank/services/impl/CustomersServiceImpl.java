@@ -89,4 +89,15 @@ public class CustomersServiceImpl implements CustomersServiceI {
         return true;
     }
 
+    @Override
+    public CustomersDto findByMobileNumber(String mobileNumber) {
+        Optional<Customers> customers = customersRepository.findBymobilenumber(mobileNumber);
+        if (customers.isPresent()) {
+            return CustomersMapper.entity_To_Customer_Dto(customers.get(),new CustomersDto());
+        }
+        else {
+            throw new ResourceNotFoundException("Mobile Number ["+mobileNumber+"] not found");
+        }
+    }
+
 }
