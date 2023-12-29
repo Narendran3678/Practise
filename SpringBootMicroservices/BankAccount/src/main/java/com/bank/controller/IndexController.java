@@ -21,7 +21,9 @@ public class IndexController {
 
     //http://localhost:8081/bank/api
     //http://localhost:8081/bank/api/customers
-    @RequestMapping(value={"","/"})
+    //http://localhost:8081/bank/swagger-ui/index.html
+    //http://localhost:8081/bank/api-docs
+    @GetMapping
     public ResponseEntity<String> indexMethod() {
         return ResponseEntity.status(HttpStatus.OK).body("Welcome to Bank Account Service");
     }
