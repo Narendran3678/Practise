@@ -1,6 +1,6 @@
 #Server Information
 server:
-  port: 9000
+  port: 8090
   servlet:
     context-path: /bank
 
