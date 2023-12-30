@@ -42,3 +42,33 @@ Step to setup MYSQL Database Docker Image
 	1. Docker run -p 3307:3306 --name accountsdb -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=accountsdb -d mysql	
 	   Docker run -p 3308:3306 --name loansdb -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=loansdb -d mysql
 	   Docker run -p 3309:3306 --name cardsdb -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=cardsdb -d mysql
+
+Step to Generate Docker Image using BuildPack:
+    1. Add Configuration inside plugin spring-boot-maven-plugin
+        <configuration>
+            <image>
+                <name>narendran3678/$(project.artifactId}:v1</name>
+            </image>
+        </configuration>
+
+    2. Execute the below maven command to download buildpack and build docker image.
+        mvn spring-boot:build-image
+
+Step to Generate Docker Image using Google Jib:
+1. Add Configuration inside plugin with image name
+    <plugin>
+            <groupId>com.google.cloud.tools</groupId>
+            <artifactId>jib-maven-plugin</artifactId>
+            <version>3.3.2</version>
+            <configuration>
+                <to>
+                    <image>narendran3678/card:v1</image>
+                </to>
+            </configuration>
+        </plugin>
+    </plugins>
+
+2. Execute the below maven command to download buildpack and build docker image.
+    mvn compile jib:dockerBuild
+Note:
+    Inside C:\Users\Narendran\.docker , Open config.json and remove ["credsStore": "desktop"] to solve unauthorized Error
