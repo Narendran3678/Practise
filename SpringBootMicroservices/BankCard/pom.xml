@@ -9,8 +9,8 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.springboot</groupId>
-	<artifactId>BankCard</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>Card</artifactId>
+	<version>2023.1</version>
 	<name>BankCard</name>
 	<description>Spring Boot Bank Card Microservices</description>
 	<properties>

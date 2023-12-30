@@ -9,8 +9,8 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.springboot</groupId>
-	<artifactId>BankLoan</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>Loan</artifactId>
+	<version>2023.1</version>
 	<name>BankLoan</name>
 	<description>Spring Boot Loan Microservices</description>
 	<properties>

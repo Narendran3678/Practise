@@ -9,8 +9,8 @@
 		<relativePath/>
 	</parent>
 	<groupId>com.springboot</groupId>
-	<artifactId>BankAccount</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>Account</artifactId>
+	<version>2023.1</version>
 	<name>Bank Account Microservices</name>
 	<description>Bank Account Microservices</description>
 	<properties>
