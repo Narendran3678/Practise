@@ -1,10 +1,5 @@
-spring:
-  config:
-    activate:
-      on-profile: "prod"
-
-account:
-  message: "Welcome to Account Prod Environment"
+card:
+  message: "Welcome to Card Prod Environment"
   owner: "Naren"
   userInfo:
     mail: "narendran3678@gmail.com"

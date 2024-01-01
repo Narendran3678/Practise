@@ -1,10 +1,5 @@
-spring:
-  config:
-    activate:
-      on-profile: "uat"
-
-account:
-  message: "Welcome to Account UAT Environment"
+card:
+  message: "Welcome to Loan UAT Environment"
   owner: "Divya"
   userInfo:
     mail: "divya3678@gmail.com"

@@ -1,10 +1,5 @@
-spring:
-  config:
-    activate:
-      on-profile: "prod"
-
-account:
-  message: "Welcome to Account Prod Environment"
+loan:
+  message: "Welcome to Loan Prod Environment"
   owner: "Naren"
   userInfo:
     mail: "narendran3678@gmail.com"

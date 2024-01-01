@@ -38,7 +38,7 @@ customer:
     fetchpref: true
 
 account:
-  message: "Welcome to Dev Environment"
+  message: "Welcome to Account Dev Environment"
   owner: "Naren"
   userInfo:
     mail: "narencena55@gmail.com"

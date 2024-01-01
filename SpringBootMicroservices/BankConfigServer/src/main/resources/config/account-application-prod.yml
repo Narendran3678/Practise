@@ -1,8 +1,3 @@
-spring:
-  config:
-    activate:
-      on-profile: "prod"
-
 account:
   message: "Welcome to Account Prod Environment"
   owner: "Naren"
