@@ -1,0 +1,90 @@
+Steps to Create DockerFile Image using CLI:
+	1. Create Dockerfile inside root directory with exact name as "Dockerfile".
+
+	2.  Add below command in Dockerfile
+		#Start with a base image containing Java runtime
+		FROM openjdk:17-jdk-slim
+		Ex: FROM <Tagname>:<version_needed>
+
+		#Information around who maintains the image
+		MAINTAINER narendran3678@gmail.com
+		Ex:MAINTAINER <user defined name>
+
+		# Add the application's jar to the image
+		COPY target/Account-2023.1.jar Account-2023.1.jar
+		Ex: COPY <Jar_Location> <Filename_used_in_docker_root_folder>
+
+		# execute the application
+		ENTRYPOINT ["java","-jar","Account-2023.1.jar"]
+		
+	3. Build Docker using below command
+		docker build E:\Eclipse_Workspace\SpringBootMicroservices\BankAccount -t narendran3678/accounts:v4
+		docker build <Project Root Location> -tag <username>/<jarname>:<tag>
+		
+	4. After Build Use below commands to list the docker image 
+		Docker images
+
+	5. To Get Details of image, execute below commands
+		Docker inspect image <image_id>
+		
+	6. To Run The Docker image
+		Docker run -d -p 8080:8080 narendran3678/accounts:v4 
+		Ex : Docker run -d(Detach) -p(port) <outside_docker_network_port>:<Container_Running_port> <username>/<jarname>:<tag>
+		Note : Get these info <username>/<jarname>:<tag> from "Docker images"
+		
+		Can also restart using below 
+		Docker start <DockerContainer_Id>
+		
+	7: Run below to get Running Docker Image.
+		Docker ps -a
+
+Step to setup MYSQL Database Docker Image
+	1. Docker run -p 3307:3306 --name accountsdb -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=accountsdb -d mysql	
+	   Docker run -p 3308:3306 --name loansdb -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=loansdb -d mysql
+	   Docker run -p 3309:3306 --name cardsdb -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=cardsdb -d mysql
+
+Step to Generate Docker Image using BuildPack:
+    1. Add Configuration inside plugin spring-boot-maven-plugin
+        <configuration>
+            <image>
+                <name>narendran3678/$(project.artifactId}:v1</name>
+            </image>
+        </configuration>
+
+    2. Execute the below maven command to download buildpack and build docker image.
+        mvn spring-boot:build-image
+
+Step to Generate Docker Image using Google Jib:
+    1. Add Configuration inside plugin with image name
+        <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.3.2</version>
+                <configuration>
+                    <to>
+                        <image>narendran3678/card:v1</image>
+                    </to>
+                </configuration>
+            </plugin>
+        </plugins>
+
+    2. Execute the below maven command to download buildpack and build docker image.
+        mvn compile jib:dockerBuild
+        Note:
+            Inside C:\Users\Narendran\.docker , Open config.json and remove ["credsStore": "desktop"] to solve unauthorized Error.
+
+Steps to push Local Docker image to Docker Hub
+    1. Docker image push docker.io/narendran3678/account:v1
+
+Step To Check Docker Compose:
+    1. Docker compose version
+    2. Create docker-compose.yml with same name.
+    3. Run Below Command to execute docker-compose.yml at place where you created the file, which create and start all image mentioned inside yml file.
+        Docker compose up -d
+    4. Run below Command to start the Container
+        Docker compose start
+    5. Run below to stop and remove all containers.
+        Docker compose down
+    6. Run below to only stop
+        Docker compose stop
+
