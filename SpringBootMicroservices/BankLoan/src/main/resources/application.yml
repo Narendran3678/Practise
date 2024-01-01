@@ -6,6 +6,13 @@ server:
 
 #Database Properties
 spring:
+  config:
+    import:
+      - "application_uat.yml"
+      - "application_prod.yml"
+  profiles:
+    active:
+      - "uat"
   datasource:
     url: jdbc:h2:mem:testdb
     driver-class-name: org.h2.Driver
@@ -28,3 +35,13 @@ springdoc:
 customer:
   account:
     fetchpref: true
+
+loan:
+  message: "Welcome to Loan Dev Environment"
+  owner: "Naren"
+  userInfo:
+    mail: "narencena55@gmail.com"
+    contact: "6385810492"
+  AddressLine[0]: "29, Nattar Street Main"
+  AddressLine[1]: "Murungapakkam"
+  AddressLine[2]: "Puducherry - 605004"

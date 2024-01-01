@@ -1,16 +1,20 @@
 package com.bank.controller;
+import com.bank.config.AccountInfo;
 import com.bank.dto.response.ResponseDto;
 import com.bank.dto.entity.CustomersDto;
 import com.bank.services.Intf.CustomersServiceI;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -19,10 +23,19 @@ public class IndexController {
     @Autowired
     CustomersServiceI customersServiceI;
 
+    @Autowired
+    AccountInfo accountInfo;
+
+    @Autowired
+    Environment environment;
+
     //http://localhost:8081/bank/api
     //http://localhost:8081/bank/api/customers
     //http://localhost:8081/bank/swagger-ui/index.html
     //http://localhost:8081/bank/api-docs
+    //java -jar Account-2023.1.jar --spring.profiles.active=prod   -> Command Line Argument
+    //java -Dspring.profiles.active=prod -jar Account-2023.1.jar   -> JVM Argument
+
     @GetMapping
     public ResponseEntity<String> indexMethod() {
         return ResponseEntity.status(HttpStatus.OK).body("Welcome to Bank Account Service");
@@ -64,5 +77,20 @@ public class IndexController {
         customersServiceI.delete(customerId);
         ResponseDto dto = new ResponseDto(HttpStatus.OK.value(),"Customer Deleted", LocalDateTime.now());
         return ResponseEntity.status(HttpStatus.OK).body(dto);
+    }
+
+    @GetMapping("/account-info")
+    public ResponseEntity<AccountInfo> getAccountInfo() {
+        return ResponseEntity.status(HttpStatus.OK).body(accountInfo);
+    }
+
+
+    @GetMapping("/system-info")
+    public ResponseEntity<Map<String,String>> getSystemInfo() {
+        Map<String,String> envInfo = new HashMap<>();
+        envInfo.put("Java Version",environment.getProperty("java.version"));
+        envInfo.put("OS Name",environment.getProperty("os.name"));
+        envInfo.put("OS Version",environment.getProperty("os.version"));
+        return ResponseEntity.status(HttpStatus.OK).body(envInfo);
     }
 }

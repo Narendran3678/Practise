@@ -7,6 +7,13 @@ server:
 #Database Properties
 #http://localhost:8080/bank/h2-console
 spring:
+  config:
+    import:
+      - "application_uat.yml"
+      - "application_prod.yml"
+  profile:
+    active:
+      - "uat"
   datasource:
     url: jdbc:h2:mem:testdb
     driver-class-name: org.h2.Driver
@@ -29,3 +36,13 @@ springdoc:
 customer:
   account:
     fetchpref: true
+
+account:
+  message: "Welcome to Dev Environment"
+  owner: "Naren"
+  userInfo:
+    mail: "narencena55@gmail.com"
+    contact: "6385810492"
+  AddressLine[0]: "29, Nattar Street Main"
+  AddressLine[1]: "Murungapakkam"
+  AddressLine[2]: "Puducherry - 605004"

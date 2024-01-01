@@ -1,5 +1,6 @@
 package com.springboot.BankLoan.controller;
 
+import com.springboot.BankLoan.config.LoanInfo;
 import com.springboot.BankLoan.constants.LoansConstants;
 import com.springboot.BankLoan.dto.ErrorResponseDto;
 import com.springboot.BankLoan.dto.LoansDto;
@@ -14,11 +15,16 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Eazy Bytes
@@ -36,6 +42,11 @@ public class  LoansController {
 
     private ILoansService iLoansService;
 
+    @Autowired
+    private LoanInfo loanInfo;
+
+    @Autowired
+    private Environment environment;
     @Operation(
             summary = "Create Loan REST API",
             description = "REST API to create new loan inside EazyBank"
@@ -163,5 +174,18 @@ public class  LoansController {
                     .body(new ResponseDto(LoansConstants.STATUS_417, LoansConstants.MESSAGE_417_DELETE));
         }
     }
+    @GetMapping("/account-info")
+    public ResponseEntity<LoanInfo> getAccountInfo() {
+        return ResponseEntity.status(HttpStatus.OK).body(loanInfo);
+    }
 
+
+    @GetMapping("/system-info")
+    public ResponseEntity<Map<String,String>> getSystemInfo() {
+        Map<String,String> envInfo = new HashMap<>();
+        envInfo.put("Java Version",environment.getProperty("java.version"));
+        envInfo.put("OS Name",environment.getProperty("os.name"));
+        envInfo.put("OS Version",environment.getProperty("os.version"));
+        return ResponseEntity.status(HttpStatus.OK).body(envInfo);
+    }
 }

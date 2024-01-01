@@ -6,6 +6,12 @@ server:
 
 #Database Properties
 spring:
+  config:
+    import:
+      - "application_uat.yml"
+      - "application_prod.yml"
+  profiles:
+    active: "dev"
   datasource:
     url: jdbc:h2:mem:testdb
     driver-class-name: org.h2.Driver
@@ -27,3 +33,13 @@ springdoc:
 customer:
   account:
     fetchpref: true
+
+card:
+  message: "Welcome to Card Dev Environment"
+  owner: "Naren"
+  userInfo:
+    mail: "narendran3678@gmail.com"
+    contact: "7092802533"
+  AddressLine[0]: "29, Nattar Street Main"
+  AddressLine[1]: "Murungapakkam"
+  AddressLine[2]: "Puducherry - 605004"
