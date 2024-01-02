@@ -5,9 +5,19 @@ spring:
   application:
     name: "ConfigServer"
   profiles:
-    active: native
+    active: "git"
+    #active: native   # Used Only when search-location wity classpath and Filepath
   cloud:
     config:
       server:
-        native:
-          search-location: "classpath:/config"
+        git:
+          uri: "https://github.com/Narendran3678/SpringBootMSConfig.git"
+          default-label: main
+          timeout: 5
+          clone-on-start: true
+        #native:
+          #search-location: "classpath:/config"
+          #search-location: "file:///Users/narendran.babu/Eclipse_Workspace/MyRepo/Practise/SpringBootMicroservices_V2/BankConfigServer/src/main/resources/config"
+
+encrypt:
+  key: "5C816A3B7A44A1825ACF9BB3BA37D"

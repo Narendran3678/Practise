@@ -1,5 +1,6 @@
 package com.springboot.BankCard.controller;
 
+import com.springboot.BankCard.config.CardContactInfo;
 import com.springboot.BankCard.config.CardInfo;
 import com.springboot.BankCard.constants.CardsConstants;
 import com.springboot.BankCard.dto.CardsDto;
@@ -43,7 +44,7 @@ public class CardsController {
     private ICardsService iCardsService;
 
     @Autowired
-    private CardInfo cardInfo;
+    private CardContactInfo cardContactInfo;
 
     @Autowired
     private Environment environment;
@@ -174,9 +175,9 @@ public class CardsController {
         }
     }
 
-    @GetMapping("/account-info")
-    public ResponseEntity<CardInfo> getAccountInfo() {
-        return ResponseEntity.status(HttpStatus.OK).body(cardInfo);
+    @GetMapping("/contact-info")
+    public ResponseEntity<CardContactInfo> getAccountInfo() {
+        return ResponseEntity.status(HttpStatus.OK).body(cardContactInfo);
     }
 
 

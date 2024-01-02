@@ -1,5 +1,6 @@
 package com.springboot.BankLoan.controller;
 
+import com.springboot.BankLoan.config.LoanContactInfo;
 import com.springboot.BankLoan.config.LoanInfo;
 import com.springboot.BankLoan.constants.LoansConstants;
 import com.springboot.BankLoan.dto.ErrorResponseDto;
@@ -43,7 +44,7 @@ public class  LoansController {
     private ILoansService iLoansService;
 
     @Autowired
-    private LoanInfo loanInfo;
+    private LoanContactInfo loanContactInfo;
 
     @Autowired
     private Environment environment;
@@ -174,9 +175,9 @@ public class  LoansController {
                     .body(new ResponseDto(LoansConstants.STATUS_417, LoansConstants.MESSAGE_417_DELETE));
         }
     }
-    @GetMapping("/account-info")
-    public ResponseEntity<LoanInfo> getAccountInfo() {
-        return ResponseEntity.status(HttpStatus.OK).body(loanInfo);
+    @GetMapping("/contact-info")
+    public ResponseEntity<LoanContactInfo> getAccountInfo() {
+        return ResponseEntity.status(HttpStatus.OK).body(loanContactInfo);
     }
 
 

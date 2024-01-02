@@ -37,3 +37,9 @@ springdoc:
 customer:
   account:
     fetchpref: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

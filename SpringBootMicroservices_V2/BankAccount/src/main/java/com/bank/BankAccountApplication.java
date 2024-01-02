@@ -1,5 +1,5 @@
 package com.bank;
-import com.bank.config.AccountInfo;
+import com.bank.config.AccountContactInfo;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
 @EnableJpaAuditing(auditorAwareRef = "auditAwareImpl")
-@EnableConfigurationProperties(value = {AccountInfo.class})
+@EnableConfigurationProperties(value = {AccountContactInfo.class})
 @OpenAPIDefinition(
 		info = @Info(
 				title = "Account Microservices",
@@ -33,8 +33,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 				url = "https://www.eazybytes.com/swagger-ui.html"
 		)
 )
-public class SpringBootMicroserviceApplication {
+public class BankAccountApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootMicroserviceApplication.class, args);
+		SpringApplication.run(BankAccountApplication.class, args);
 	}
 }

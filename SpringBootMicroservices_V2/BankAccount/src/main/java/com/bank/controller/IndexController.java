@@ -1,4 +1,5 @@
 package com.bank.controller;
+import com.bank.config.AccountContactInfo;
 import com.bank.config.AccountInfo;
 import com.bank.dto.response.ResponseDto;
 import com.bank.dto.entity.CustomersDto;
@@ -24,7 +25,7 @@ public class IndexController {
     CustomersServiceI customersServiceI;
 
     @Autowired
-    AccountInfo accountInfo;
+    AccountContactInfo accountContactInfo;
 
     @Autowired
     Environment environment;
@@ -79,9 +80,9 @@ public class IndexController {
         return ResponseEntity.status(HttpStatus.OK).body(dto);
     }
 
-    @GetMapping("/account-info")
-    public ResponseEntity<AccountInfo> getAccountInfo() {
-        return ResponseEntity.status(HttpStatus.OK).body(accountInfo);
+    @GetMapping("/contact-info")
+    public ResponseEntity<AccountContactInfo> getAccountInfo() {
+        return ResponseEntity.status(HttpStatus.OK).body(accountContactInfo);
     }
 
 
