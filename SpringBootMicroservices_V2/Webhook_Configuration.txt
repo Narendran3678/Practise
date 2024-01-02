@@ -1,2 +1,31 @@
-Command to Run RabbitMQ
-    docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.12-management
+Steps To Setup Webhook to keep config property sync
+    1. Add Below dependency in Config Server
+        spring-cloud-starter-bus-amqp
+        spring-cloud-config-monitor
+
+    2. Add Spring Config
+        spring:
+          rabbitmq:
+            host: "localhost"
+            port: 5672
+            username: "guest"
+            password: "guest"
+    3. Create a webhook in https://hookdeck.com/
+       1. Developer -> Hookdeck Console (https://console.hookdeck.com/)
+       2. Select Destination and Based on OS select command to install Hookdeck.
+       3. Use Below Command to login
+            - hookdeck login --cli-key 1a8k3repndixnkyw03mwgm5g80chc8ydzfvm6naciclyvujm8v
+       4. Enter Below Command with Config Server Port
+            - hookdeck listen 8070 Source
+       5. Enter the Endpoint as /monitor after entering the port info.
+            - What path should the webhooks be forwarded to (ie: /webhooks) /monitor
+            - What's your connection label (ie: My API)? localhost
+       6. Cophy the webhook url
+            - Webhook URL: https://hkdk.events/FITTvMsLPA8O
+
+    4. In Git Repo https://github.com/Narendran3678/SpringBootMSConfig.git
+            - Under Setting -> Webhooks, Enter the Webhook Url.
+    5. Command to Run RabbitMQ
+        docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.12-management
+
+    6. Then Start the Servers
