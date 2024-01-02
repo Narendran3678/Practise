@@ -87,4 +87,3 @@ Step To Check Docker Compose:
         Docker compose down
     6. Run below to only stop
         Docker compose stop
-
