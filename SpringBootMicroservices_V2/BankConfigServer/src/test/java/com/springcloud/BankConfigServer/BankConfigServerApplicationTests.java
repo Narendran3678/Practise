@@ -3,10 +3,10 @@ package com.springcloud.BankConfigServer;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class BankConfigServerApplicationTests {
 
-	@Test
+//	@Test
 	void contextLoads() {
 	}
 

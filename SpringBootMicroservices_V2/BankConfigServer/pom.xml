@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.springcloud</groupId>
 	<artifactId>BankConfigServer</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>2023.1</version>
 	<name>BankConfigServer</name>
 	<description>Bank Config Server</description>
 	<properties>

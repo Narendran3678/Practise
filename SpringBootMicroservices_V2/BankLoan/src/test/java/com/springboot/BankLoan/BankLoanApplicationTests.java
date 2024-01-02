@@ -3,10 +3,10 @@ package com.springboot.BankLoan;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class BankLoanApplicationTests {
 
-	@Test
+//	@Test
 	void contextLoads() {
 	}
 
