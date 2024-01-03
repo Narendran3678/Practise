@@ -1,0 +1,61 @@
+services:
+  configserver:
+    image: "narendran3678/configserver:v2"
+    container_name: configserver-ms-cnt
+    ports:
+      - "8070:8070"
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - bank
+  account:
+    image: "narendran3678/account:v2"
+    container_name: account-ms-cnt
+    ports:
+      - "8080:8080"
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - bank
+    environment:
+      SPRING_APPLICATION_NAME: "account-application"
+      SPRING_CONFIG_IMPORT: "configserver:http://configserver:8070/"
+      SPRING_PROFILES_ACTIVE: default
+
+  loan:
+    image: "narendran3678/loan:v2"
+    container_name: loan-ms-cnt
+    ports:
+      - "8090:8090"
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - bank
+    environment:
+      SPRING_APPLICATION_NAME: "loan-application"
+      SPRING_CONFIG_IMPORT: "configserver:http://configserver:8070/"
+      SPRING_PROFILES_ACTIVE: default
+  card:
+    image: "narendran3678/card:v2"
+    container_name: card-ms-cnt
+    ports:
+      - "9000:9000"
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - bank
+    environment:
+      SPRING_APPLICATION_NAME: "card-application"
+      SPRING_CONFIG_IMPORT: "configserver:http://configserver:8070/"
+      SPRING_PROFILES_ACTIVE: default
+networks:
+  bank:
+    driver: "bridge"
