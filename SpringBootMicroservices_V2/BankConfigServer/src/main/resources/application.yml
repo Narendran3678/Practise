@@ -8,7 +8,7 @@ spring:
     username: "guest"
     password: "guest"
   application:
-    name: "ConfigServer"
+    name: "configserver"
   profiles:
     active: "git"
     #active: native   # Used Only when search-location wity classpath and Filepath

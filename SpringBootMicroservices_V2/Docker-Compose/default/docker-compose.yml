@@ -1,15 +1,15 @@
 services:
   rabbit:
     image: rabbitmq:3.12-management
-    host: rabbitmq
+    hostname: rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"
     healthcheck:
       test: rabbitmq-diagnostics check_port_connectivity
-      start_period: 3s
-      timeout: 3s
-      retries: 3
+      start_period: 10s
+      timeout: 5s
+      retries: 10
       interval: 5s
     extends:
       file: common-config.yml
@@ -20,15 +20,18 @@ services:
     container_name: configserver-ms-cnt
     ports:
       - "8070:8070"
+    depends_on:
+      rabbit: #Depends on rabbitmq server to be startup first
+        condition: service_healthy
     healthcheck:
-      test: "curl --fail --silent http://localhost:8070/actuator/health/readiness | grep 'UP1' || exit 1"
-      start_period: 3s
+      test: "curl --fail --silent localhost:8070/actuator/health/readiness | grep UP || exit 1"
+      start_period: 10s
       timeout: 5s
-      retries: 3
-      interval: 5s
+      retries: 10
+      interval: 10s
     extends:
       file: common-config.yml
-      service: bank-config-ms-network
+      service: microservice-base-config
 
   account:
     image: "narendran3678/account:v2"
@@ -37,12 +40,9 @@ services:
       - "8080:8080"
     environment:
       SPRING_APPLICATION_NAME: "account-application"
-    depends_on:
-      configserver:
-        condition: service_healthy
     extends:
       file: common-config.yml
-      service: bank-app-ms-network
+      service: microservice-configserver-config
 
   loan:
     image: "narendran3678/loan:v2"
@@ -53,7 +53,7 @@ services:
       SPRING_APPLICATION_NAME: "loan-application"
     extends:
       file: common-config.yml
-      service: bank-app-ms-network
+      service: microservice-configserver-config
 
   card:
     image: "narendran3678/card:v2"
@@ -64,7 +64,7 @@ services:
       SPRING_APPLICATION_NAME: "card-application"
     extends:
       file: common-config.yml
-      service: bank-app-ms-network
+      service: microservice-configserver-config
 
 networks:
   bank:

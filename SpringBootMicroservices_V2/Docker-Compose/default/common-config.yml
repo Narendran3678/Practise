@@ -1,29 +1,24 @@
 services:
   network-deploy-service:
-    network:
+    networks:
       - bank    #Made Other Services to extends network-deploy-service to connect rabbit,configserver,3 app in same network
 
-  bank-config-ms-network:    ##User Defined name which will be used inside docker-compose extended by configserver service to extend above property to work in bank network along with memory(700) &
+  microservice-base-config:    ##User Defined name which will be used inside docker-compose extended by configserver service to extend above property to work in bank network along with memory(700) &
     extends:
-      service:
-        network-deploy-service
+      service: network-deploy-service
     deploy:
       resources:
         limits:
-          memory: 700m
-    depends_on:
-      rabbit:  #Depends on rabbitmq server to be startup first
-        condition: service_healthy
+          memory: 1000m
 
-  bank-app-ms-network:  #User Defined name which will be used inside docker-compose 3 apps
+  microservice-configserver-config:  #User Defined name which will be used inside docker-compose 3 apps
     extends:
-      service:
-        bank-config-ms-network
+      service: microservice-base-config
     environment:
-      SPRING_CONFIG_IMPORT: "configserver:http://configserver:8070/"  # first configserver is mentioned as config server and second configserver is same as docker-compose service name of 8070
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:8070/  # first configserver is mentioned as config server and second configserver is same as docker-compose service name of 8070
       SPRING_PROFILES_ACTIVE: default
     depends_on:
-      configserver:  #Depends on rabbitmq and config server server to be startup first
+      configserver:
         condition: service_healthy
 
 
