@@ -1,61 +1,71 @@
 services:
+  rabbit:
+    image: rabbitmq:3.12-management
+    host: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      start_period: 3s
+      timeout: 3s
+      retries: 3
+      interval: 5s
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
+
   configserver:
     image: "narendran3678/configserver:v2"
     container_name: configserver-ms-cnt
     ports:
       - "8070:8070"
-    deploy:
-      resources:
-        limits:
-          memory: 700m
-    networks:
-      - bank
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8070/actuator/health/readiness | grep 'UP1' || exit 1"
+      start_period: 3s
+      timeout: 5s
+      retries: 3
+      interval: 5s
+    extends:
+      file: common-config.yml
+      service: bank-config-ms-network
+
   account:
     image: "narendran3678/account:v2"
     container_name: account-ms-cnt
     ports:
       - "8080:8080"
-    deploy:
-      resources:
-        limits:
-          memory: 700m
-    networks:
-      - bank
     environment:
       SPRING_APPLICATION_NAME: "account-application"
-      SPRING_CONFIG_IMPORT: "configserver:http://configserver:8070/"
-      SPRING_PROFILES_ACTIVE: default
+    depends_on:
+      configserver:
+        condition: service_healthy
+    extends:
+      file: common-config.yml
+      service: bank-app-ms-network
 
   loan:
     image: "narendran3678/loan:v2"
     container_name: loan-ms-cnt
     ports:
       - "8090:8090"
-    deploy:
-      resources:
-        limits:
-          memory: 700m
-    networks:
-      - bank
     environment:
       SPRING_APPLICATION_NAME: "loan-application"
-      SPRING_CONFIG_IMPORT: "configserver:http://configserver:8070/"
-      SPRING_PROFILES_ACTIVE: default
+    extends:
+      file: common-config.yml
+      service: bank-app-ms-network
+
   card:
     image: "narendran3678/card:v2"
     container_name: card-ms-cnt
     ports:
-      - "9000:9000"
-    deploy:
-      resources:
-        limits:
-          memory: 700m
-    networks:
-      - bank
+      - "9001:9001"
     environment:
       SPRING_APPLICATION_NAME: "card-application"
-      SPRING_CONFIG_IMPORT: "configserver:http://configserver:8070/"
-      SPRING_PROFILES_ACTIVE: default
+    extends:
+      file: common-config.yml
+      service: bank-app-ms-network
+
 networks:
   bank:
     driver: "bridge"

@@ -11,7 +11,7 @@ spring:
   profiles:
     active: "prod"
   config:
-    import: "configserver:http://localhost:8070/"
+    import: "configserver:http://localhost:8070/"  # Making 8070 Mandatory to be required to start this server
     #import: "optional:configserver:http://localhost:8070/"
   datasource:
     url: jdbc:h2:mem:testdb
