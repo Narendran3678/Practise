@@ -1,0 +1,2 @@
+docker login -u narendran3678
+dckr_pat_jkGPDI5Q7SvtKOvQSF5r-beurng

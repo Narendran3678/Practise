@@ -56,7 +56,8 @@ Step to Generate Docker Image using BuildPack:
 
 Step to Generate Docker Image using Google Jib:
     1. Add Configuration inside plugin with image name
-        <plugin>
+       <plugins>
+            <plugin>
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
                 <version>3.3.2</version>
