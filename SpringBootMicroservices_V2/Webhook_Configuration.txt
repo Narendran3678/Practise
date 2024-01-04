@@ -13,14 +13,14 @@ Steps To Setup Webhook to keep config property sync
     3. Create a webhook in https://hookdeck.com/
        1. Developer -> Hookdeck Console (https://console.hookdeck.com/)
        2. Select Destination and Based on OS select command to install Hookdeck.
-       3. Use Below Command to login
+       3. Use Command displayed at right pane to login
             - hookdeck login --cli-key 1a8k3repndixnkyw03mwgm5g80chc8ydzfvm6naciclyvujm8v
        4. Enter Below Command with Config Server Port
             - hookdeck listen 8070 Source
        5. Enter the Endpoint as /monitor after entering the port info.
             - What path should the webhooks be forwarded to (ie: /webhooks) /monitor
             - What's your connection label (ie: My API)? localhost
-       6. Cophy the webhook url
+       6. Copy the webhook url
             - Webhook URL: https://hkdk.events/FITTvMsLPA8O
 
     4. In Git Repo https://github.com/Narendran3678/SpringBootMSConfig.git

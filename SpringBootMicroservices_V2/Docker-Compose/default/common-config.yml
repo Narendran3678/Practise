@@ -10,6 +10,8 @@ services:
       resources:
         limits:
           memory: 1000m
+    environment:
+      SPRING_RABBITMQ_HOST: "rabbit" #Adding Rabbit MQ Service
 
   microservice-configserver-config:  #User Defined name which will be used inside docker-compose 3 apps
     extends:
