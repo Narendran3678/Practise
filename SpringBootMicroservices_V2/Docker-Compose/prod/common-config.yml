@@ -11,7 +11,8 @@ services:
         limits:
           memory: 1000m
     environment:
-      SPRING_RABBITMQ_HOST: "rabbit" #Adding Rabbit MQ Service to make rabbit mq to work in same network
+      SPRING_RABBITMQ_HOST: "rabbit" #Adding Rabbit MQ Service
+
   microservice-configserver-config:  #User Defined name which will be used inside docker-compose 3 apps
     extends:
       service: microservice-base-config
@@ -19,7 +20,7 @@ services:
       configserver:
         condition: service_healthy
     environment:
-      SPRING_PROFILES_ACTIVE: default
+      SPRING_PROFILES_ACTIVE: prod
       SPRING_CONFIG_IMPORT: configserver:http://configserver:8070/  # first configserver is mentioned as config server and second configserver is same as docker-compose service name of 8070
 
 

@@ -14,6 +14,7 @@ Steps To Setup Webhook to keep config property sync
        1. Developer -> Hookdeck Console (https://console.hookdeck.com/)
        2. Select Destination and Based on OS select command to install Hookdeck.
        3. Use Command displayed at right pane to login
+            - hookdeck logout <If already Login>
             - hookdeck login --cli-key 1a8k3repndixnkyw03mwgm5g80chc8ydzfvm6naciclyvujm8v
        4. Enter Below Command with Config Server Port
             - hookdeck listen 8070 Source
@@ -26,6 +27,7 @@ Steps To Setup Webhook to keep config property sync
     4. In Git Repo https://github.com/Narendran3678/SpringBootMSConfig.git
             - Under Setting -> Webhooks, Enter the Webhook Url.
     5. Command to Run RabbitMQ
-        docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.12-management
+        docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 -e RABBITMQ_DEFAULT_USER=rabbit -e RABBITMQ_DEFAULT_PASS=rabbit rabbitmq:3.12-management  -<To User Default User/Password : guest/guest/>
+        docker run -d --hostname localhost --name rabbitmq -e RABBITMQ_DEFAULT_USER=rabbit -e RABBITMQ_DEFAULT_PASS=rabbit rabbitmq:3-management
 
     6. Then Start the Servers
