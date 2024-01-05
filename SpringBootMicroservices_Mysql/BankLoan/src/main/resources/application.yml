@@ -1,0 +1,45 @@
+#Server Information
+server:
+  port: 8090
+  servlet:
+    context-path: /bank
+
+#Database Properties
+spring:
+  application:
+    name: "loan-application"
+  profiles:
+    active:
+      - "prod"
+  config:
+    #import: "configserver:http://configserver:8070/" #For Docker Container Url
+    import: "optional:configserver:http://localhost:8070/"
+  datasource:
+    url: jdbc:mysql://localhost:3308/loandb
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+  jpa:
+    show-sql: true
+    hibernate:
+      #ddl-auto: update
+      format-sql: true
+  sql:
+    init:
+      mode: always
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "rabbit"
+    password: "rabbit"
+
+#OpenApi
+springdoc:
+  api-docs:
+    path: /api-docs
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

@@ -1,0 +1,47 @@
+services:
+  network-deploy-service:
+    networks:
+      - bank    #Made Other Services to extends network-deploy-service to connect rabbit,configserver,3 app in same network
+
+  microservice-db-config:
+    extends:
+      service: network-deploy-service
+    deploy:
+      resources:
+        limits:
+          memory: 1000m
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    healthcheck:
+      test: [ "CMD","mysqladmin","ping","-h","localhost" ]
+      timeout: 10s
+      retries: 10
+      interval: 10s
+      start_period: 10s
+
+  microservice-base-config:    ##User Defined name which will be used inside docker-compose extended by configserver service to extend above property to work in bank network along with memory(700) &
+    extends:
+      service: network-deploy-service
+    deploy:
+      resources:
+        limits:
+          memory: 1000m
+    environment:
+      SPRING_RABBITMQ_HOST: "rabbit" #Adding Rabbit MQ Service to make rabbit mq to work in same network
+
+  microservice-configserver-config:  #User Defined name which will be used inside docker-compose 3 apps
+    extends:
+      service: microservice-base-config
+    depends_on:
+      configserver:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: default
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:8070/  # first configserver is mentioned as config server and second configserver is same as docker-compose service name of 8070
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+
+
+
+

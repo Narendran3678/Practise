@@ -1,0 +1,37 @@
+services:
+  account:
+    image: "narendran3678/account:v1"
+    container_name: account-ms-cnt
+    ports:
+      - "8080:8080"
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - bank
+  loan:
+    image: "narendran3678/loan:v1"
+    container_name: loan-ms-cnt
+    ports:
+      - "8090:8090"
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - bank
+  card:
+    image: "narendran3678/card:v1"
+    container_name: card-ms-cnt
+    ports:
+      - "9000:9000"
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - bank
+networks:
+  bank:
+    driver: "bridge"

@@ -1,0 +1,73 @@
+services:
+  rabbit:
+    image: rabbitmq:3.12-management
+    hostname: rabbitmq
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      start_period: 10s
+      timeout: 5s
+      retries: 10
+      interval: 5s
+    environment:
+      - RABBITMQ_DEFAULT_USER=rabbit
+      - RABBITMQ_DEFAULT_PASS=rabbit
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
+  configserver:
+    image: "narendran3678/configserver:v2"
+    container_name: configserver-ms-cnt
+    ports:
+      - "8070:8070"
+    depends_on:
+      rabbit: #Depends on rabbitmq server to be startup first
+        condition: service_healthy
+    healthcheck:
+      test: "curl --fail --silent localhost:8070/actuator/health/readiness | grep UP || exit 1"
+      start_period: 10s
+      timeout: 5s
+      retries: 10
+      interval: 10s
+    extends:
+      file: common-config.yml
+      service: microservice-base-config
+
+  account:
+    image: "narendran3678/account:v2"
+    container_name: account-ms-cnt
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_APPLICATION_NAME: "account-application"
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+
+  loan:
+    image: "narendran3678/loan:v2"
+    container_name: loan-ms-cnt
+    ports:
+      - "8090:8090"
+    environment:
+      SPRING_APPLICATION_NAME: "loan-application"
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+
+  card:
+    image: "narendran3678/card:v2"
+    container_name: card-ms-cnt
+    ports:
+      - "9001:9001"
+    environment:
+      SPRING_APPLICATION_NAME: "card-application"
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+networks:
+  bank:
+    driver: "bridge"

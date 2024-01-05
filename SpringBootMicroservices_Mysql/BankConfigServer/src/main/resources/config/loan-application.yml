@@ -1,0 +1,9 @@
+loan:
+  message: "Welcome to Loan Dev Environment"
+  owner: "Naren"
+  userInfo:
+    mail: "narencena55@gmail.com"
+    contact: "6385810492"
+  AddressLine[0]: "29, Nattar Street Main"
+  AddressLine[1]: "Murungapakkam"
+  AddressLine[2]: "Puducherry - 605004"
