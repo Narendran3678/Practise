@@ -1,0 +1,428 @@
+{
+	"info": {
+		"_postman_id": "a2f77d4a-0b26-4af5-88a7-4ce74807369a",
+		"name": "Bank",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28557417"
+	},
+	"item": [
+		{
+			"name": "Bank_Account",
+			"item": [
+				{
+					"name": "CreateCustomer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customerName\": \"Michael\",\n    \"emailId\": \"Michael@gmail.com\",\n    \"mobileNumber\": \"6385810492\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/bank/api/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bank",
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Account-Contact-Info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/bank/api/contact-info",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bank",
+								"api",
+								"contact-info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Account_Property_Refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/bank/actuator/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bank",
+								"actuator",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Account-Bus-Refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/bank/actuator/busrefresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bank",
+								"actuator",
+								"busrefresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCustomer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/bank/api/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bank",
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bank_Loan",
+			"item": [
+				{
+					"name": "Loan-Contact-Info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/bank/api/contact-info",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"bank",
+								"api",
+								"contact-info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Loan-Property-Refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/bank/actuator/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"bank",
+								"actuator",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LoanCreation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/bank/api/create?mobileNumber=6385810492",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"bank",
+								"api",
+								"create"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "6385810492"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bank_Card",
+			"item": [
+				{
+					"name": "Card-Contact-Info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9001/bank/api/contact-info",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9001",
+							"path": [
+								"bank",
+								"api",
+								"contact-info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Card-Property-Refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9001/bank/actuator/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9001",
+							"path": [
+								"bank",
+								"actuator",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Card-Bus-Refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9001/bank/actuator/busrefresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9001",
+							"path": [
+								"bank",
+								"actuator",
+								"busrefresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CardCreation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9001/bank/api/create?mobileNumber=6385810492",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9001",
+							"path": [
+								"bank",
+								"api",
+								"create"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "6385810492"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bank_Config",
+			"item": [
+				{
+					"name": "Decrypt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "447b7dcdc77a8d13c4bd4cfb83c3a13b09620a28765d4dc3ca74cdb3e3a5bedf5e3be803b74880a9afb41daac2f35bef"
+						},
+						"url": {
+							"raw": "http://localhost:8070/decrypt",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8070",
+							"path": [
+								"decrypt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Encrypt",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "divya3678@gmail.com"
+						},
+						"url": {
+							"raw": "http://localhost:8070/encrypt",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8070",
+							"path": [
+								"encrypt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AccountConfig",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8070/account-application/prod",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8070",
+							"path": [
+								"account-application",
+								"prod"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CardConfig",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8070/Card-application/prod",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8070",
+							"path": [
+								"Card-application",
+								"prod"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LoanConfig",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8070/Loan-application/prod",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8070",
+							"path": [
+								"Loan-application",
+								"prod"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ConfigServer-Helath-Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8070/actuator/health",
+							"host": [
+								"localhost"
+							],
+							"port": "8070",
+							"path": [
+								"actuator",
+								"health"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
