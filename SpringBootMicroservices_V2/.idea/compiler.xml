@@ -8,9 +8,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Account" />
+        <module name="Loan" />
         <module name="BankAccount" />
         <module name="BankLoan" />
-        <module name="Loan" />
+        <module name="BankConfigServer" />
         <module name="BankCard" />
         <module name="Card" />
       </profile>
@@ -21,6 +22,7 @@
       <module name="Account" options="-parameters" />
       <module name="BankAccount" options="-parameters" />
       <module name="BankCard" options="-parameters" />
+      <module name="BankConfigServer" options="-parameters" />
       <module name="BankLoan" options="-parameters" />
       <module name="Card" options="-parameters" />
       <module name="Loan" options="-parameters" />
