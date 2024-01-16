@@ -106,7 +106,7 @@
 						<mainClass>com.bank.BankAccountApplication</mainClass>
 					</container>
 					<to>
-						<image>narendran3678/account:v2</image>
+						<image>narendran3678/account:v4</image>
 					</to>
 				</configuration>
 			</plugin>

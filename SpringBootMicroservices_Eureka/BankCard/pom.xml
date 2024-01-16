@@ -96,7 +96,7 @@
 				<version>3.3.2</version>
 				<configuration>
 					<to>
-						<image>narendran3678/card:v2</image>
+						<image>narendran3678/card:v4</image>
 					</to>
 				</configuration>
 			</plugin>

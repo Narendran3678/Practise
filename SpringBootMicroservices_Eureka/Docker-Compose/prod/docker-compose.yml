@@ -1,31 +1,9 @@
 services:
-  rabbit:
-    image: rabbitmq:3.12-management
-    hostname: rabbitmq
-    container_name: rabbitmq
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    healthcheck:
-      test: rabbitmq-diagnostics check_port_connectivity
-      start_period: 10s
-      timeout: 5s
-      retries: 10
-      interval: 5s
-    environment:
-      - RABBITMQ_DEFAULT_USER=rabbit
-      - RABBITMQ_DEFAULT_PASS=rabbit
-    extends:
-      file: common-config.yml
-      service: network-deploy-service
   configserver:
-    image: "narendran3678/configserver:v2"
+    image: "narendran3678/configserver:v4"
     container_name: configserver-ms-cnt
     ports:
       - "8070:8070"
-    depends_on:
-      rabbit: #Depends on rabbitmq server to be startup first
-        condition: service_healthy
     healthcheck:
       test: "curl --fail --silent localhost:8070/actuator/health/readiness | grep UP || exit 1"
       start_period: 10s
@@ -36,38 +14,55 @@ services:
       file: common-config.yml
       service: microservice-base-config
 
+  eurekaserver:
+    image: "narendran3678/eurekaserver:v4"
+    container_name: eurekaserver-ms-cnt
+    ports:
+      - "8060:8060"
+    environment:
+      SPRING_APPLICATION_NAME: "eurekaserver"   #Should be same as yml file in Git
+    healthcheck:
+      test: "curl --fail --silent localhost:8060/actuator/health/readiness | grep UP || exit 1"
+      start_period: 10s
+      timeout: 5s
+      retries: 10
+      interval: 10s
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+
   account:
-    image: "narendran3678/account:v2"
+    image: "narendran3678/account:v4"
     container_name: account-ms-cnt
     ports:
       - "8080:8080"
     environment:
-      SPRING_APPLICATION_NAME: "account-application"
+      SPRING_APPLICATION_NAME: "account-application" #Should be same as yml file in Git
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eurekaserver-config
 
   loan:
-    image: "narendran3678/loan:v2"
+    image: "narendran3678/loan:v4"
     container_name: loan-ms-cnt
     ports:
       - "8090:8090"
     environment:
-      SPRING_APPLICATION_NAME: "loan-application"
+      SPRING_APPLICATION_NAME: "loan-application" #Should be same as yml file in Git
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eurekaserver-config
 
   card:
-    image: "narendran3678/card:v2"
+    image: "narendran3678/card:v4"
     container_name: card-ms-cnt
     ports:
       - "9001:9001"
     environment:
-      SPRING_APPLICATION_NAME: "card-application"
+      SPRING_APPLICATION_NAME: "card-application" #Should be same as yml file in Git
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eurekaserver-config
 networks:
   bank:
     driver: "bridge"
