@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a2f77d4a-0b26-4af5-88a7-4ce74807369a",
+		"_postman_id": "43bd9e0a-460c-4929-9dbf-f21e7130db6a",
 		"name": "Bank",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "28557417"
@@ -196,6 +196,33 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "LoanFetch",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/bank/api/fetch?mobileNumber=6385810492",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"bank",
+								"api",
+								"fetch"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "6385810492"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -281,6 +308,33 @@
 								"bank",
 								"api",
 								"create"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "6385810492"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CardFetch",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9001/bank/api/fetch?mobileNumber=6385810492",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9001",
+							"path": [
+								"bank",
+								"api",
+								"fetch"
 							],
 							"query": [
 								{
@@ -417,6 +471,140 @@
 							"path": [
 								"actuator",
 								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EurekaConfig",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8070/eurekaserver/default",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8070",
+							"path": [
+								"eurekaserver",
+								"default"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bank_Eureka",
+			"item": [
+				{
+					"name": "Eureka_Home",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8060/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8060",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eureka_Account_Unregister",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/bank/actuator/shutdown",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bank",
+								"actuator",
+								"shutdown"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eureka_Card_Unregister",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9001/bank/actuator/shutdown",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9001",
+							"path": [
+								"bank",
+								"actuator",
+								"shutdown"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eureka_Loan_Unregister",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/bank/actuator/shutdown",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"bank",
+								"actuator",
+								"shutdown"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CustomerDetails",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/bank/api/fetchCustomerDetails?mobileNumber=6385810492",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bank",
+								"api",
+								"fetchCustomerDetails"
+							],
+							"query": [
+								{
+									"key": "mobileNumber",
+									"value": "6385810492"
+								}
 							]
 						}
 					},
