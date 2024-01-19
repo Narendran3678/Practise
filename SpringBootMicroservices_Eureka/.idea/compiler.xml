@@ -13,6 +13,7 @@
         <module name="BankAccount" />
         <module name="BankLoan" />
         <module name="BankConfigServer" />
+        <module name="BankGatewayServer" />
         <module name="BankCard" />
         <module name="Card" />
       </profile>
@@ -25,6 +26,7 @@
       <module name="BankCard" options="-parameters" />
       <module name="BankConfigServer" options="-parameters" />
       <module name="BankEureka" options="-parameters" />
+      <module name="BankGatewayServer" options="-parameters" />
       <module name="BankLoan" options="-parameters" />
       <module name="Card" options="-parameters" />
       <module name="Loan" options="-parameters" />

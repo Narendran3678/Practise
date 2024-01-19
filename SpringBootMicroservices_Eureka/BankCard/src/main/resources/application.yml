@@ -62,3 +62,9 @@ info:
     name: "Card Microservice"
     Description: "Bank Application's Card Application"
     version: "2023.1"
+
+logging:
+  level:
+    com:
+      springboot:
+        BankCard: DEBUG

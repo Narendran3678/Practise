@@ -6,6 +6,8 @@ import com.bank.dto.entity.CustomersDto;
 import com.bank.services.Intf.CustomersServiceI;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -30,6 +32,7 @@ public class IndexController {
     @Autowired
     Environment environment;
 
+    private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
     //http://localhost:8081/bank/api
     //http://localhost:8081/bank/api/customers
     //http://localhost:8081/bank/swagger-ui/index.html
@@ -38,34 +41,36 @@ public class IndexController {
     //java -Dspring.profiles.active=prod -jar Account-2023.1.jar   -> JVM Argument
 
     @GetMapping
-    public ResponseEntity<String> indexMethod() {
+    public ResponseEntity<String> indexMethod(@RequestHeader("bank-corr-id") String correlationId) {
         return ResponseEntity.status(HttpStatus.OK).body("Welcome to Bank Account Service");
     }
 
     //http://localhost:8081/bank/api/customers
     @GetMapping("/customers")
-    public ResponseEntity<List<CustomersDto>> getAllCustomer() {
-        System.out.println("All Customer Fetch");
+    public ResponseEntity<List<CustomersDto>> getAllCustomer(@RequestHeader("bank-corr-id") String correlationId) {
+        System.out.println("All Customer Fetch, CorrelationId["+correlationId+"]");
         return ResponseEntity.status(HttpStatus.OK).body(customersServiceI.findAll());
     }
 
     //http://localhost:8081/bank/api/customers/2
     @GetMapping(value = "/customers/{customerId}")
-    public ResponseEntity<CustomersDto> getCustomersById(@PathVariable("customerId") Long customerId) {
+    public ResponseEntity<CustomersDto> getCustomersById(@RequestHeader("bank-corr-id") String correlationId,
+                                                         @PathVariable("customerId") Long customerId) {
         System.out.println("Customer Id..."+customerId);
         return ResponseEntity.status(HttpStatus.OK).body(customersServiceI.findById(customerId));
     }
 
     //http://localhost:8081/bank/api/customers?mobileNumber=7092802533
     @GetMapping(value = "/customers",params="mobileNumber")
-    public ResponseEntity<CustomersDto> getCustomersByMobileNumber(@RequestParam("mobileNumber")
-                                                                       @Valid String mobileNumber) {
+    public ResponseEntity<CustomersDto> getCustomersByMobileNumber(@RequestHeader("bank-corr-id") String correlationId,
+                                                                   @RequestParam("mobileNumber") @Valid String mobileNumber) {
         System.out.println("Mobile Number..."+mobileNumber);
         return ResponseEntity.status(HttpStatus.OK).body(customersServiceI.findByMobileNumber(mobileNumber));
     }
 
     @PostMapping("/customers")
-    public ResponseEntity<ResponseDto> createCustomer(@Valid @RequestBody CustomersDto customersDto) {
+    public ResponseEntity<ResponseDto> createCustomer(@RequestHeader("bank-corr-id") String correlationId,
+                                                      @Valid @RequestBody CustomersDto customersDto) {
         System.out.println("Customer Request..."+customersDto);
         customersDto = customersServiceI.persist(customersDto);
         ResponseDto dto = new ResponseDto(HttpStatus.CREATED.value(),"Customer ["+customersDto.getCustomerName()+"] Created", LocalDateTime.now());
@@ -73,7 +78,8 @@ public class IndexController {
     }
 
     @DeleteMapping("/customers")
-    public ResponseEntity<ResponseDto> deleteCustomers(@RequestParam("customerId") @Pattern(regexp = "^[0-9]*") Long customerId) {
+    public ResponseEntity<ResponseDto> deleteCustomers(@RequestHeader("bank-corr-id") String correlationId,
+                                                       @RequestParam("customerId") @Pattern(regexp = "^[0-9]*") Long customerId) {
         System.out.println("Customer Id..."+customerId);
         customersServiceI.delete(customerId);
         ResponseDto dto = new ResponseDto(HttpStatus.OK.value(),"Customer Deleted", LocalDateTime.now());
@@ -81,13 +87,13 @@ public class IndexController {
     }
 
     @GetMapping("/contact-info")
-    public ResponseEntity<AccountContactInfo> getAccountInfo() {
+    public ResponseEntity<AccountContactInfo> getAccountInfo(@RequestHeader("bank-corr-id") String correlationId) {
         return ResponseEntity.status(HttpStatus.OK).body(accountContactInfo);
     }
 
 
     @GetMapping("/system-info")
-    public ResponseEntity<Map<String,String>> getSystemInfo() {
+    public ResponseEntity<Map<String,String>> getSystemInfo(@RequestHeader("bank-corr-id") String correlationId) {
         Map<String,String> envInfo = new HashMap<>();
         envInfo.put("Java Version",environment.getProperty("java.version"));
         envInfo.put("OS Name",environment.getProperty("os.name"));

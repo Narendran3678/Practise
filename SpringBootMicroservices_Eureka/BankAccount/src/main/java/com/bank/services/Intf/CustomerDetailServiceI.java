@@ -3,5 +3,5 @@ package com.bank.services.Intf;
 import com.bank.dto.entity.CustomerDetailsDto;
 
 public interface CustomerDetailServiceI {
-    public CustomerDetailsDto fetchCustomerDetail(String mobileNumber) ;
+    public CustomerDetailsDto fetchCustomerDetail(String correlationId,String mobileNumber) ;
 }

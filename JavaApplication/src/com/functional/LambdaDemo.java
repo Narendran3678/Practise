@@ -2,7 +2,8 @@ package com.functional;
 
 import java.util.*;
 
-interface FunctionalInterface
+@FunctionalInterface
+interface FunctionalInterfaceClass
 {
 	public void functionalDemo(String str,Integer in);
 	public default void defaultMethod() {
@@ -14,7 +15,7 @@ public class LambdaDemo
 {
 	public static void main(String args[])
 	{
-		FunctionalInterface fu = (s1,i1)->{
+		FunctionalInterfaceClass fu = (s1,i1)->{
 			System.out.println(s1+"-"+i1);
 		};
 		fu.defaultMethod();

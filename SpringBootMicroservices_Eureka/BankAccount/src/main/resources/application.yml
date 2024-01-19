@@ -69,3 +69,8 @@ info:
     name: "Account Microservice"
     Description: "Bank Application's Account Application"
     version: "2023.1"
+
+logging:
+  level:
+    com:
+      bank: DEBUG

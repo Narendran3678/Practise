@@ -32,7 +32,7 @@ class VolatileTest implements Runnable
 }
 class Counter implements Runnable
 {
-	static volatile int counter=1;
+	static int counter=1;
 
 	public int increaseCounter() {
 		return counter++;

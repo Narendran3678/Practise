@@ -18,6 +18,15 @@ class RFP extends Document {
 		System.out.println("RFP-Author");
 	}
 }
+class StringToIntegerAndSum {
+	static String intStr ;
+	public StringToIntegerAndSum(String s) {
+		intStr=s; 
+	}
+	public static Integer getSum() {
+		return 10 + Integer.valueOf(intStr);
+	}
+}
 
 class FunctionalReference {
 	String s;
@@ -68,17 +77,15 @@ interface ObjectConsumer<T> extends Consumer<T> {
 
 public class SupplierConsumerDemo{
 	public static void main(String[] args) {
-		System.out.println("Supplier Demo");
+		System.out.println("Supplier Consumer Demo");
 		/*
 		System.out.println(printInfo(() -> {
 			return getSystemInfo();
 		}));
-		
-		constructorReferenceDemo();
-		methodReferenceDemo();
 		*/
-		consumerOverride();
-		
+		constructorReferenceDemo();
+		//methodReferenceDemo();
+		//consumerOverride();	
 	}
 	public static void consumerOverride()
 	{
@@ -114,12 +121,16 @@ public class SupplierConsumerDemo{
 		System.out.println(fref.toString());
 
 		Consumer<String> setValue = fref::setS;
-		setValue.accept("SetValue for S in Default Constructor");
+		setValue.accept("Calling Parameterized Constructor and Just Sending Value");
 		System.out.println(fref.toString());
 
 		Function<String, FunctionalReference> supParRef = FunctionalReference::new;
-		FunctionalReference fpRef = supParRef.apply("Creating Parameterized Constructor");
+		FunctionalReference fpRef = supParRef.apply("Creating Parameterized Constructor & Send & Receive Value");
 		System.out.println(fpRef.toString());
+		
+		Function<String, StringToIntegerAndSum> customFuncInt = StringToIntegerAndSum::new;
+		StringToIntegerAndSum stInt = customFuncInt.apply("1");
+		System.out.println("StringToInteger Sum.."+stInt.getSum());
 
 	}
 

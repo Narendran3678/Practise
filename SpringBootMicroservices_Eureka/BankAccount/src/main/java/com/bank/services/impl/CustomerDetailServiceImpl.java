@@ -24,13 +24,13 @@ public class CustomerDetailServiceImpl implements CustomerDetailServiceI {
     @Autowired
     private LoanFeignClient loanFeignClient;
     @Override
-    public CustomerDetailsDto fetchCustomerDetail(String mobileNumber) {
+    public CustomerDetailsDto fetchCustomerDetail(String correlationId,String mobileNumber) {
 
         CustomersDto customersDto = customersService.findByMobileNumber(mobileNumber);
         AccountsDto accountDto = accountsService.findById(customersDto.getCustomerId());
-        LoansDto loanDto = loanFeignClient.fetchLoanDetails(mobileNumber).getBody();
+        LoansDto loanDto = loanFeignClient.fetchLoanDetails(correlationId,mobileNumber).getBody();
         System.out.println("Loan..."+loanDto);
-        CardsDto cardsDto = cardFeignClient.fetchCardDetails(mobileNumber).getBody();
+        CardsDto cardsDto = cardFeignClient.fetchCardDetails(correlationId,mobileNumber).getBody();
         System.out.println("Card..."+cardsDto);
         CustomerDetailsDto customerDetailsDto = CustomerDetailMapper.AccCust_dto_to_CustomerDetailDto(customersDto,accountDto,loanDto, cardsDto);
         return customerDetailsDto;

@@ -1,5 +1,6 @@
 package com.timedate;
 
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -42,7 +44,7 @@ public class DateTimeDemo
 		for(String tz:timeZones)
 		{
 			Calendar allCal = new GregorianCalendar(TimeZone.getTimeZone(tz));
-			System.out.println(tz+" - "+allCal.getTime());
+			//System.out.println(tz+" - "+allCal.getTime());
 		}
 		Calendar londonCal = new GregorianCalendar(TimeZone.getTimeZone("Europe/London"));
 		System.out.println("London time -- MONTH/DAY at hr:min:sec (AM/PM) -- " + (londonCal.get(Calendar.MONTH) + 1) + "/" + londonCal.get(Calendar.DAY_OF_MONTH) 
@@ -53,6 +55,12 @@ public class DateTimeDemo
 		System.out.println("Asian time -- MONTH/DAY at hr:min:sec (AM/PM) -- " + (indianTime.get(Calendar.MONTH) + 1) + "/" + indianTime.get(Calendar.DAY_OF_MONTH)
 		+ " at " + indianTime.get(Calendar.HOUR) + ":" + indianTime.get(Calendar.MINUTE) + " (" + ((indianTime.get(Calendar.AM_PM) == 0) ? "AM" : "PM") + ")");
 		
+	}
+	private static void testDateTimeNextMentionedDay(String day) {
+		LocalDate today = LocalDate.now();
+		LocalDate nextWednesday = 
+		today.with(TemporalAdjusters.next(DayOfWeek.valueOf(day) ));
+		System.out.println("Next Wednesday on : " + nextWednesday);
 	}
 	private static void testDateTimeAPI() {
 
@@ -131,7 +139,7 @@ public class DateTimeDemo
 	}
 	public static void main(String args[])
 	{
-		
 		testDateTimeAPI();
+		testDateTimeNextMentionedDay(DayOfWeek.FRIDAY.name());
 	}
 }

@@ -3,9 +3,6 @@ package com.streams;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import io.jsonwebtoken.lang.Objects;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -165,6 +162,7 @@ class EmployeeFirstNameSort implements Comparator<Employee> {
 	}
 
 }
+
 class EmployeeFactory extends Employee {
 
 	ArrayList<Employee> employees = new ArrayList<>();
@@ -203,7 +201,6 @@ class EmployeeFactory extends Employee {
 	}
 }
 
-
 class EmployeeSalarySort implements Comparator<Employee> {
 
 	@Override
@@ -224,27 +221,27 @@ public class StreamClassDemo {
 	public static void main(String[] args) throws Exception {
 		EmployeeFactory employeeFactory = new EmployeeFactory();
 		employeeList = employeeFactory.getAllEmployee();
-		method1();
-		// thirdLargestSalaryEmployee();
+		// method1();
+		method2();
+		//thirdLargestSalaryEmployee();
 		// minimumSalaryEmployee();
 		// employeeWorkingMoreProject();
 		// employeesLaptopCount();
-		//specifiedPMprojectCount();
-		employeeWithYear();
+		// specifiedPMprojectCount();
+		// employeeWithYear();
 	}
 	
-	public static void employeeWithYear() //Not working Completely 
+	public static void employeeWithYear() // Not working Completely
 	{
-		 employeeList.stream().collect(HashMap::new ,
-				 						(acc_map,emp) -> { acc_map.put(emp.getId().substring(0, 4), emp);},
-				 						Map::putAll)
-		 							.forEach( (k,v) -> System.out.println(k+"="+v));
+		employeeList.stream().collect(HashMap::new, (acc_map, emp) -> {
+			acc_map.put(emp.getId().substring(0, 4), emp);
+		}, Map::putAll).forEach((k, v) -> System.out.println(k + "=" + v));
 	}
+
 	public static void specifiedPMprojectCount() {
 		long count = employeeList.stream().flatMap(s -> s.getProjects().stream()).distinct()
 				.filter(s -> s.getProjectManager().equals("Shaktiman")).count();
-		
-		
+
 		System.out.println("PM Project Count..." + count);
 	}
 
@@ -270,7 +267,7 @@ public class StreamClassDemo {
 						return -1;
 					else
 						return 0;
-				}).map( k -> k.getValue()).findFirst().get();
+				}).map(k -> k.getValue()).findFirst().get();
 		salaryGroupEmp.forEach(System.out::println);
 	}
 
@@ -284,12 +281,34 @@ public class StreamClassDemo {
 						return -1;
 					else
 						return 0;
-				}).skip(2).findFirst().map(Map.Entry::getValue).get();
+				}).skip(2).findFirst()
+				// .map(Map.Entry::getValue)
+				.map((map) -> {
+					return map.getValue();
+				}).get();
 
 		salaryGroupEmp.forEach(System.out::println);
 
 	}
-
+	public static void method2() {
+		List<String> listArr = new ArrayList<String>();
+	    listArr.add("Naren");
+	    listArr.add("Divya");
+	    listArr.add("Vinoth");
+	    listArr.stream().collect( () ->{ 
+								    	return new HashMap<String,Integer>();
+								    },
+    								(hmap,str) -> {
+								    	hmap.put(str,str.length());
+    									},
+    										(map1,map2) -> {
+    											map1.putAll(map2);
+    										}
+									).forEach( (key,value) -> {
+										System.out.println(key+"="+value);
+									} 
+								);
+	}
 	public static void method1() {
 		System.out.println("Employee Initial Count...." + employeeList.size());
 		long uniqueCount = employeeList.stream().distinct().count();
