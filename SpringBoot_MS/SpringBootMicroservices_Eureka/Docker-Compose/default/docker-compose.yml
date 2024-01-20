@@ -1,7 +1,7 @@
 services:
   configserver:
     image: "narendran3678/configserver:v4"
-    container_name: configserver-ms-cnt
+    container_name: configserver-ms-cntr
     ports:
       - "8070:8070"
     healthcheck:
@@ -16,7 +16,7 @@ services:
 
   eurekaserver:
     image: "narendran3678/eurekaserver:v4"
-    container_name: eurekaserver-ms-cnt
+    container_name: eurekaserver-ms-cntr
     ports:
       - "8060:8060"
     environment:
@@ -33,9 +33,15 @@ services:
 
   account:
     image: "narendran3678/account:v4"
-    container_name: account-ms-cnt
+    container_name: account-ms-cntr
     ports:
       - "8080:8080"
+    healthcheck:
+      test: "curl --fail --silent localhost:8080/bank/actuator/health/readiness | grep UP || exit 1"
+      start_period: 10s
+      timeout: 5s
+      retries: 10
+      interval: 10s
     environment:
       SPRING_APPLICATION_NAME: "account-application" #Should be same as yml file in Git
     extends:
@@ -44,9 +50,15 @@ services:
 
   loan:
     image: "narendran3678/loan:v4"
-    container_name: loan-ms-cnt
+    container_name: loan-ms-cntr
     ports:
       - "8090:8090"
+    healthcheck:
+      test: "curl --fail --silent localhost:8090/bank/actuator/health/readiness | grep UP || exit 1"
+      start_period: 10s
+      timeout: 5s
+      retries: 10
+      interval: 10s
     environment:
       SPRING_APPLICATION_NAME: "loan-application" #Should be same as yml file in Git
     extends:
@@ -55,14 +67,39 @@ services:
 
   card:
     image: "narendran3678/card:v4"
-    container_name: card-ms-cnt
+    container_name: card-ms-cntr
     ports:
       - "9001:9001"
+    healthcheck:
+      test: "curl --fail --silent localhost:9001/bank/actuator/health/readiness | grep UP || exit 1"
+      start_period: 10s
+      timeout: 5s
+      retries: 10
+      interval: 10s
     environment:
       SPRING_APPLICATION_NAME: "card-application" #Should be same as yml file in Git
     extends:
       file: common-config.yml
       service: microservice-eurekaserver-config
+
+  gatewayserver:
+    image: "narendran3678/gatewayserver:v4"
+    container_name: gateway-ms-cntr
+    ports:
+      - "8050:8050"
+    depends_on:
+      account:
+        condition: service_healthy
+      loan:
+        condition: service_healthy
+      card:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATION_NAME: "gatewayserver" #Should be same as yml file in Git
+    extends:
+      file: common-config.yml
+      service: microservice-eurekaserver-config
+
 networks:
   bank:
     driver: "bridge"
