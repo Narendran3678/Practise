@@ -29,6 +29,10 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
 
 #OpenApi
 springdoc:
@@ -82,3 +86,11 @@ logging:
   level:
     com:
       bank: DEBUG
+
+resilience4j.circuitbreaker:
+  configs:
+    default:  #Circuit Breaker Name used in Gateway Config Name or Default for all circuit
+      slidingWindowSize: 10  # Number of Failure times required change closed to other status
+      permittedNumberOfCallsInHalfOpenState: 2  # Number of call need to be send to check service availability
+      failureRateThreshold: 50  #(50 Percentage call rate)
+      waitDurationInOpenState: 10000  # 10 Seconds

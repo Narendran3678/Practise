@@ -9,6 +9,7 @@ import com.bank.services.Intf.CustomerDetailServiceI;
 import com.bank.services.Intf.CustomersServiceI;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
@@ -25,14 +26,17 @@ public class CustomerDetailServiceImpl implements CustomerDetailServiceI {
     private LoanFeignClient loanFeignClient;
     @Override
     public CustomerDetailsDto fetchCustomerDetail(String correlationId,String mobileNumber) {
-
+        LoansDto loanDto = null;
+        CardsDto cardsDto = null;
         CustomersDto customersDto = customersService.findByMobileNumber(mobileNumber);
         AccountsDto accountDto = accountsService.findById(customersDto.getCustomerId());
-        LoansDto loanDto = loanFeignClient.fetchLoanDetails(correlationId,mobileNumber).getBody();
-        System.out.println("Loan..."+loanDto);
-        CardsDto cardsDto = cardFeignClient.fetchCardDetails(correlationId,mobileNumber).getBody();
-        System.out.println("Card..."+cardsDto);
-        CustomerDetailsDto customerDetailsDto = CustomerDetailMapper.AccCust_dto_to_CustomerDetailDto(customersDto,accountDto,loanDto, cardsDto);
-        return customerDetailsDto;
+
+        ResponseEntity<LoansDto> loanEntity   = loanFeignClient.fetchLoanDetails(correlationId,mobileNumber);
+        ResponseEntity<CardsDto> cardsEntity  = cardFeignClient.fetchCardDetails(correlationId,mobileNumber);
+        if(loanEntity!=null)
+            loanDto = loanEntity.getBody();
+        if(cardsEntity!=null)
+            cardsDto = cardsEntity.getBody();
+        return CustomerDetailMapper.AccCust_dto_to_CustomerDetailDto(customersDto,accountDto,loanDto, cardsDto);
     }
 }
