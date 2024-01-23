@@ -5,7 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -25,7 +27,7 @@ public class BankGatewayServerApplication {
 								return filter.rewritePath("/account/(?<segment>.*)","/${segment}")
 										.addResponseHeader("X-Response-Time", LocalDateTime.now().toString())
 										.circuitBreaker( config -> config.setName("account-circuit-breaker")
-												.setFallbackUri("forward:/contactsupport"));
+										.setFallbackUri("forward:/contactsupport"));
 							})
 							.uri("lb://ACCOUNT-APPLICATION");
 				})
@@ -34,8 +36,9 @@ public class BankGatewayServerApplication {
 							.filters((filter) -> {
 								return filter.rewritePath("/loan/(?<segment>.*)","/${segment}") // First Parameter will be replace to second one
 										.addResponseHeader("X-Response-Time", LocalDateTime.now().toString())
-										.circuitBreaker( config -> config.setName("loan-circuit-breaker")
-												.setFallbackUri("forward:/contactsupport"));
+										.retry(retry -> retry.setRetries(3)
+												.setMethods(HttpMethod.GET)
+												.setBackoff(Duration.ofMillis(100), Duration.ofMillis(1000),2,true) );
 							})
 							.uri("lb://LOAN-APPLICATION"); // MENTIONED UNDER EUREKA APPLICATION NAME
 				})
@@ -43,9 +46,9 @@ public class BankGatewayServerApplication {
 					return p.path("/card/**")
 							.filters((filter) -> {
 								return filter.rewritePath("/card/(?<segment>.*)","/${segment}")
-										.addResponseHeader("X-Response-Time", LocalDateTime.now().toString())
-										.circuitBreaker( config -> config.setName("card-circuit-breaker")
-												.setFallbackUri("forward:/contactsupport"));
+										.addResponseHeader("X-Response-Time", LocalDateTime.now().toString());
+										//.circuitBreaker( config -> config.setName("card-circuit-breaker"));
+										//.setFallbackUri("forward:/contactsupport"));
 							})
 							.uri("lb://CARD-APPLICATION");
 				})
