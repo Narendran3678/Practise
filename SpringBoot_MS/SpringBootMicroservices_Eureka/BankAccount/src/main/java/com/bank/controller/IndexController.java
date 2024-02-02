@@ -4,6 +4,7 @@ import com.bank.config.AccountInfo;
 import com.bank.dto.response.ResponseDto;
 import com.bank.dto.entity.CustomersDto;
 import com.bank.services.Intf.CustomersServiceI;
+import io.github.resilience4j.retry.annotation.Retry;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,11 +88,20 @@ public class IndexController {
         return ResponseEntity.status(HttpStatus.OK).body(dto);
     }
 
+    @Retry(name="contact-info-fallback",fallbackMethod = "getAccountInfoFallback")
     @GetMapping("/contact-info")
     public ResponseEntity<AccountContactInfo> getAccountInfo(@RequestHeader("bank-corr-id") String correlationId) {
         return ResponseEntity.status(HttpStatus.OK).body(accountContactInfo);
     }
 
+    public ResponseEntity<AccountContactInfo> getAccountInfoFallback(String correlationId,Throwable throwable) {
+        logger.debug("Fallback Account Contact Info");
+        Map<String,String> userInfo = new HashMap<>();
+        userInfo.put("Mail Id","trinity@gmail.com");
+        userInfo.put("Phone Number","44-22645332");
+        accountContactInfo = new AccountContactInfo("Account ContactInfo Callback","Trinity Team",userInfo, List.of("Mexicos"));
+        return ResponseEntity.status(HttpStatus.OK).body(accountContactInfo);
+    }
 
     @GetMapping("/system-info")
     public ResponseEntity<Map<String,String>> getSystemInfo(@RequestHeader("bank-corr-id") String correlationId) {

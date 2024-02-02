@@ -94,3 +94,11 @@ resilience4j.circuitbreaker:
       permittedNumberOfCallsInHalfOpenState: 2  # Number of call need to be send to check service availability
       failureRateThreshold: 50  #(50 Percentage call rate)
       waitDurationInOpenState: 10000  # 10 Seconds
+
+resilience4j.retry:
+  config:
+    default:
+      maxRetryAttempts: 3
+      waitDuration: 100  #Milli seconds
+      enableExponentialBackoff: true
+      exponentialBackOffMultiplier: 2
