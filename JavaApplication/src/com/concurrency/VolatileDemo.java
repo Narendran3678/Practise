@@ -32,7 +32,7 @@ class VolatileTest implements Runnable
 }
 class Counter implements Runnable
 {
-	static int counter=1;
+	private volatile int counter=0;
 
 	public int increaseCounter() {
 		return counter++;
@@ -41,21 +41,27 @@ class Counter implements Runnable
 	@Override
 	public void run() 
 	{
-		for(int i=0;i<10;i++)
+		for(int i=0;i<10000;i++)
 		{
 			System.out.println(Thread.currentThread().getName()+"-"+increaseCounter());
 		}
+	}
+	public int getCounter() {
+		return counter;
 	}
 }
 public class VolatileDemo 
 {
 	public static void main(String args[]) throws InterruptedException
 	{
-		Thread thread= new Thread(new Counter(),"TA");
-		Thread thread1= new Thread(new Counter(),"TB");
+		Counter counter = new Counter();
+		Thread thread= new Thread(counter,"TA");
+		Thread thread1= new Thread(counter,"TB");
 		thread.start();
 		thread1.start();
-		
+		Thread.sleep(1000);
+		System.out.println(counter.getCounter());
+			
 		/*
 		VolatileTest vt= new VolatileTest(false);
 		Thread thread1 = new Thread(vt,"Thread-1");
