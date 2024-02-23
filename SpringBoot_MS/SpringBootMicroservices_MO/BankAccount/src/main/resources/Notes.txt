@@ -1,0 +1,11 @@
+{
+    "customerName": "Divya",
+    "emailId": "Divya@gmail.com",
+    "mobilenumber": "8220021216"
+}
+
+{
+    "customerName": "Naren",
+    "emailId": "Naren@gmail.com",
+    "mobilenumber": "7092802533"
+}

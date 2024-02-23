@@ -1,0 +1,21 @@
+#Port will be fetched from eurekaserver.yml from configserver which pointing to git url.
+spring:
+  application:
+    name: "eurekaserver"  #Must be same as yml file in configserver git
+  config:
+    import: "optional:configserver:http://localhost:8070/"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-statue:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true

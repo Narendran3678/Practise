@@ -1,0 +1,104 @@
+#Server Information
+server:
+  port: 8080
+  servlet:
+    context-path: /bank
+
+#Database Properties
+#http://localhost:8080/bank/h2-console
+spring:
+  application:
+    name: "account-application"
+  profiles:
+    active:
+      - "prod"
+  config:
+    #import: "configserver:http://localhost:8070/"
+    #import: "configserver:http://configserver:8070/"  #For Docker Container Url
+    import: "optional:configserver:http://localhost:8070/"
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ''
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+
+#OpenApi
+springdoc:
+  api-docs:
+    path: /api-docs
+
+customer:
+  account:
+    fetchpref: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  info:
+    env:
+      enabled: true
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true
+    shutdown:
+      enabled: true
+
+endpoints:
+  shutdown:
+    enabled: true;
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: "http://localhost:8060/eureka"
+
+info:
+  app:
+    name: "Account Microservice"
+    Description: "Bank Application's Account Application"
+    version: "2023.1"
+
+logging:
+  level:
+    com:
+      bank: DEBUG
+
+resilience4j.circuitbreaker:
+  configs:
+    default:  #Circuit Breaker Name used in Gateway Config Name or Default for all circuit
+      slidingWindowSize: 10  # Number of Failure times required change closed to other status
+      permittedNumberOfCallsInHalfOpenState: 2  # Number of call need to be send to check service availability
+      failureRateThreshold: 50  #(50 Percentage call rate)
+      waitDurationInOpenState: 10000  # 10 Seconds
+
+resilience4j.retry:
+  config:
+    default:
+      maxRetryAttempts: 3
+      waitDuration: 100  #Milli seconds
+      enableExponentialBackoff: true
+      exponentialBackOffMultiplier: 2

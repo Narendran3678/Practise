@@ -1,0 +1,9 @@
+card:
+  message: "Welcome to Loan UAT Environment"
+  owner: "Divya"
+  userInfo:
+    mail: "divya3678@gmail.com"
+    contact: "8220021216"
+  AddressLine[0]: "31, Nattar Street Main"
+  AddressLine[1]: "Murungapakkam"
+  AddressLine[2]: "Puducherry - 605004"
