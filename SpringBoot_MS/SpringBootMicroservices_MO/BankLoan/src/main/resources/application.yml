@@ -53,6 +53,9 @@ management:
         enabled: true
     shutdown:
       enabled: true
+  metrics: # For Prometheus
+    tags:
+      application: ${spring.application.name}
 
 endpoints:
   shutdown:

@@ -29,6 +29,9 @@ management:
     health:
       probes:
         enabled: true
+  metrics: # For Prometheus
+    tags:
+      application: ${spring.application.name}
 
 encrypt:
   key: "5C816A3B7A44A1825ACF9BB3BA37D"
