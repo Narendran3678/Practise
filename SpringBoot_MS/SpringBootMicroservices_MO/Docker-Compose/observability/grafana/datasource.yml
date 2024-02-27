@@ -4,8 +4,7 @@ deleteDataSources:
   - name: Prometheus
   - name: Loki
 
-datas
-ources:
+datasources:
   - name: Prometheus
     type: prometheus
     uid: prometheus
