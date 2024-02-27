@@ -1,1 +1,11 @@
-1. http://localhost:9000/  -> For Accessing Grafana Portal
+1. http://localhost:3000  -> For Accessing Grafana Portal
+   UserName: admin
+   Password: admins
+
+2. http://localhost:9090  -> For Accessing Prometheus Portal
+3. Account Application Port -> 8080
+4. Card Application Port -> 9001
+5. Loan Application Port -> 8090
+6. ConfigServer Application Port -> 8070
+7. Eureka Application Port -> 8060
+8. Gateway Application Port -> 8050
