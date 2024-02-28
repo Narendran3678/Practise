@@ -89,6 +89,19 @@ services:
       file: common-config.yml
       service: network-deploy-service
 
+  tempo:
+    image: grafana/tempo
+    container_name: tempo
+    command: -config.file /etc/tempo-config.yml
+    ports:
+      - "3110:3100"
+      - "4317:4317"
+    volumes:
+      - ../observability/tempo/tempo.yml:/etc/tempo-config.yml
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
+
   grafana:
     image: grafana/grafana:latest
     environment:
@@ -199,14 +212,14 @@ services:
     extends:
       file: common-config.yml
       service: microservice-base-config
+    environment:
+      OTEL_SERVICE_NAME: "configserver"
 
   eurekaserver:
     image: "narendran3678/eurekaserver:v4"
     container_name: eurekaserver-ms-cntr
     ports:
       - "8060:8060"
-    environment:
-      SPRING_APPLICATION_NAME: "eurekaserver"   #Should be same as yml file in Git
     healthcheck:
       test: "curl --fail --silent localhost:8060/actuator/health/readiness | grep UP || exit 1"
       start_period: 10s
@@ -216,6 +229,9 @@ services:
     extends:
       file: common-config.yml
       service: microservice-configserver-config
+    environment:
+      SPRING_APPLICATION_NAME: "eurekaserver"   #Should be same as yml file in Git
+      OTEL_SERVICE_NAME: "eurekaserver"
 
   account:
     image: "narendran3678/account:v4"
@@ -230,6 +246,7 @@ services:
       interval: 10s
     environment:
       SPRING_APPLICATION_NAME: "account-application" #Should be same as yml file in Git
+      OTEL_SERVICE_NAME: "account-application"
     extends:
       file: common-config.yml
       service: microservice-eurekaserver-config
@@ -247,6 +264,7 @@ services:
       interval: 10s
     environment:
       SPRING_APPLICATION_NAME: "loan-application" #Should be same as yml file in Git
+      OTEL_SERVICE_NAME: "loan-application"
     extends:
       file: common-config.yml
       service: microservice-eurekaserver-config
@@ -264,6 +282,7 @@ services:
       interval: 10s
     environment:
       SPRING_APPLICATION_NAME: "card-application" #Should be same as yml file in Git
+      OTEL_SERVICE_NAME: "card-application"
     extends:
       file: common-config.yml
       service: microservice-eurekaserver-config
@@ -282,6 +301,7 @@ services:
         condition: service_healthy
     environment:
       SPRING_APPLICATION_NAME: "gatewayserver" #Should be same as yml file in Git
+      OTEL_SERVICE_NAME: "gatewayserver"
     extends:
       file: common-config.yml
       service: microservice-eurekaserver-config

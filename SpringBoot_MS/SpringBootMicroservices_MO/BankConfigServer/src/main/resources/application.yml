@@ -35,3 +35,7 @@ management:
 
 encrypt:
   key: "5C816A3B7A44A1825ACF9BB3BA37D"
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"

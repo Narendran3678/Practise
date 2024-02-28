@@ -22,7 +22,7 @@ public class CustomerController {
     @GetMapping("/fetchCustomerDetails")
     public ResponseEntity<CustomerDetailsDto> getCustomerDetails(@RequestHeader("bank-corr-id") String correlationId,
                                                                  @RequestParam(value = "mobileNumber") String mobileNumber) {
-        logger.debug("CustomerController CorrelationId ["+correlationId+"]");
+        logger.debug("CustomerController getCustomerDetails");
         return ResponseEntity.status(HttpStatus.OK).body(customerDetailService.fetchCustomerDetail(correlationId,mobileNumber));
     }
 }

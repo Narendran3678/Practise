@@ -22,3 +22,7 @@ management:
   metrics: # For Prometheus
     tags:
       application: ${spring.application.name}
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
