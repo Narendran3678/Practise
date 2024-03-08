@@ -1,0 +1,37 @@
+services:
+  network-deploy-service:
+    networks:
+      - bank    #Made Other Services to extends network-deploy-service to connect rabbit,configserver,3 app in same network
+
+  microservice-base-config:    ##User Defined name which will be used inside docker-compose extended by configserver service to extend above property to work in bank network along with memory(700) &
+    extends:
+      service: network-deploy-service
+    deploy:
+      resources:
+        limits:
+          memory: 1000m
+    environment:
+      JAVA_TOOL_OPTIONS: "-javaagent:/app/libs/opentelemetry-javaagent-1.27.0.jar"
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://tempo:4317
+      OTEL_METRICS_EXPORTER: none
+
+  microservice-configserver-config:  #User Defined name which will be used inside docker-compose 3 apps
+    extends:
+      service: microservice-base-config
+    depends_on:
+      configserver:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: default
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:8070/  # first configserver is mentioned as config server and second configserver is same as docker-compose service name of 8070
+
+  microservice-eurekaserver-config:
+    extends:
+      service: microservice-configserver-config
+    depends_on:
+      eurekaserver:
+        condition: service_healthy
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8060/eureka
+
+
