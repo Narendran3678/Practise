@@ -1,0 +1,9 @@
+card:
+  message: "Welcome to Card Prod Environment"
+  owner: "Naren"
+  userInfo:
+    mail: "narendran3678@gmail.com"
+    contact: "7092802533"
+  AddressLine[0]: "29, Nattar Street Main"
+  AddressLine[1]: "Murungapakkam"
+  AddressLine[2]: "Puducherry - 605004"

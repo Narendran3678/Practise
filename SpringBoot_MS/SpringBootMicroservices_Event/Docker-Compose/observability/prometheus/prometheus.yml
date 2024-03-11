@@ -1,0 +1,34 @@
+global:
+  scrape_interval: 5s  #Time to read metrics every 5s
+  evaluation_interval: 5s
+
+scrape_configs:
+  - job_name: 'configserver'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['configserver:8070']
+
+  - job_name: 'eurekaserver'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: [ 'eurekaserver:8060' ]
+
+  - job_name: 'account'
+    metrics_path: '/bank/actuator/prometheus'
+    static_configs:
+      - targets: [ 'account:8080' ]
+
+  - job_name: 'loan'
+    metrics_path: '/bank/actuator/prometheus'
+    static_configs:
+      - targets: [ 'loan:8090' ]
+
+  - job_name: 'card'
+    metrics_path: '/bank/actuator/prometheus'
+    static_configs:
+      - targets: [ 'card:9001' ]
+
+  - job_name: 'gatewayserver'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: [ 'gatewayserver:8050' ]
