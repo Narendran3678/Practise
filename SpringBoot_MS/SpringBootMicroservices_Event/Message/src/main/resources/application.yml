@@ -6,4 +6,15 @@ spring:
     name: "message"
   cloud:
     function:
-      definition: email|sms
+      definition: email|sms  # Act as Rest Api with localhost:9020/emailsms
+    stream:
+      bindings:
+        emailsms-in-0:  #If not provided, spring provid eits default value which is same as provided
+          destination: send-communication #User Defined Queue-name
+          group: ${spring.application.name}
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    connection-timeout: 10s

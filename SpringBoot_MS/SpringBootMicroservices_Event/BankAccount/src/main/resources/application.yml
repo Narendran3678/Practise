@@ -33,6 +33,16 @@ spring:
     openfeign:
       circuitbreaker:
         enabled: true
+    stream:
+      bindings:
+        sendcommunication-out-0:  #If not provided, spring provide its default value which is same as provided
+          destination: send-communication #Must Be same queue name mentioned in Message Application Yml
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    connection-timeout: 10s
 
 #OpenApi
 springdoc:

@@ -1,4 +1,5 @@
 package com.bank.services.impl;
+import com.bank.config.message.AccountMsgDto;
 import com.bank.constant.BankConstants;
 import com.bank.dto.entity.AccountsDto;
 import com.bank.dto.entity.CustomersDto;
@@ -11,8 +12,10 @@ import com.bank.repository.CustomersRepository;
 import com.bank.services.Intf.CustomersServiceI;
 import com.bank.utils.Utility;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +25,19 @@ import java.util.Optional;
 public class CustomersServiceImpl implements CustomersServiceI {
     @Autowired
     private CustomersRepository customersRepository;
+
     @Autowired
     private AccountsRepository accountsRepository;
+
     @Autowired
     private AccountsServiceImpl accountsServiceImpl;
+
+    @Autowired
+    private StreamBridge streamBridge;
+
     @Value("${branch_address}")
     String branchAddress;
+
     @Value("${customer.account.fetchpref}")
     Boolean customerAccountFetchPref;
     @Override
@@ -69,8 +79,14 @@ public class CustomersServiceImpl implements CustomersServiceI {
         accounts.setCreatedBy("ADMIN");
         accounts.setModifiedBy("ADMIN");
         accountsRepository.save(accounts);
-
+        sendCommunication(accounts,customers);
         return CustomersMapper.entity_AccountCustomer_Map_To_CustomerDto(customers,accounts,new CustomersDto());
+    }
+    private void sendCommunication(Accounts account, Customers customer) {
+        AccountMsgDto accountMsgDto = new AccountMsgDto(Long.valueOf(account.getAccountnumber()),customer.getCustomerName(),customer.getEmailId(),customer.getMobilenumber());
+        System.out.println("Sending Communication request for the details: {}"+ accountMsgDto);
+        var result = streamBridge.send(BankConstants.EVENT_EXCHANGE.SENDCOMMUNICATION_OUT_0.getExchangeName(),accountMsgDto);
+        System.out.println("Is the Communication request successfully triggered ? : {}"+ result);
     }
     @Transactional
     @Override
