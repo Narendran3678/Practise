@@ -12,6 +12,8 @@ spring:
         emailsms-in-0:  #If not provided, spring provid eits default value which is same as provided
           destination: send-communication #User Defined Queue-name
           group: ${spring.application.name}
+        emailsms-out-0:
+          destination: communication-sent
   rabbitmq:
     host: localhost
     port: 5672

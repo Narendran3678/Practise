@@ -33,10 +33,16 @@ spring:
     openfeign:
       circuitbreaker:
         enabled: true
+    function:
+      definition: updateCommunication
     stream:
       bindings:
+        updatecommunication-in-0:
+          destination: communication-sent
+          group: ${spring.application.name}
         sendcommunication-out-0:  #If not provided, spring provide its default value which is same as provided
           destination: send-communication #Must Be same queue name mentioned in Message Application Yml
+
   rabbitmq:
     host: localhost
     port: 5672

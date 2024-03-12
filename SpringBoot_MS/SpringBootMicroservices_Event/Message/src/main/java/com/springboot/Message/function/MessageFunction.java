@@ -16,10 +16,10 @@ public class MessageFunction {
     }
 
     @Bean
-    public Function<AccountMsgDto,Long> sms() {
+    public Function<AccountMsgDto,String> sms() {
         return accountsMsgDto -> {
             System.out.println("Sending SMS with the details : " +  accountsMsgDto.toString());
-            return accountsMsgDto.accountNumber();
+            return accountsMsgDto.mobileNumber();
         };
     }
 }

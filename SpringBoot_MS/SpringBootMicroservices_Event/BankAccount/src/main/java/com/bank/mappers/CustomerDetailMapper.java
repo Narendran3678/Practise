@@ -8,6 +8,7 @@ public class CustomerDetailMapper {
         customerDetailsDto.setCustomerName(customersDto.getCustomerName());
         customerDetailsDto.setEmailId(customersDto.getEmailId());
         customerDetailsDto.setMobilenumber(customersDto.getMobileNumber());
+        customerDetailsDto.setCommunicationSwitch(customersDto.getCommunicationSwitch());
         if(accountsDto!=null)
             customerDetailsDto.setAccountsDto(accountsDto);
         if(loansDto!=null)

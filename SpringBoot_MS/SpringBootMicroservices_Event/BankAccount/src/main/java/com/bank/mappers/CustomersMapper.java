@@ -19,6 +19,7 @@ public class CustomersMapper {
         targetDto.setCustomerName(sourceEntity.getCustomerName());
         targetDto.setMobileNumber(sourceEntity.getMobilenumber());
         targetDto.setEmailId(sourceEntity.getEmailId());
+        targetDto.setCommunicationSwitch(sourceEntity.getCommunicationSwitch());
         return targetDto;
     }
 
@@ -29,6 +30,7 @@ public class CustomersMapper {
             targetDto.setCustomerName(customers.getCustomerName());
             targetDto.setMobileNumber(customers.getMobilenumber());
             targetDto.setEmailId(customers.getEmailId());
+            targetDto.setCommunicationSwitch(customers.getCommunicationSwitch());
             targetDtoList.add(targetDto);
         }
         return targetDtoList;
@@ -39,6 +41,7 @@ public class CustomersMapper {
         targetDto.setCustomerName(sourceCustomerEntity.getCustomerName());
         targetDto.setMobileNumber(sourceCustomerEntity.getMobilenumber());
         targetDto.setEmailId(sourceCustomerEntity.getEmailId());
+        targetDto.setCommunicationSwitch(sourceCustomerEntity.getCommunicationSwitch());
         targetDto.setAccounts(AccountsMapper.entity_To_Account_Dto(embedAccountEntity, new AccountsDto()));
         return targetDto;
     }

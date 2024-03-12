@@ -12,4 +12,5 @@ public interface CustomersServiceI {
     public CustomersDto persist(CustomersDto customersDto);
     public Boolean delete(Long customerId);
     public CustomersDto findByMobileNumber(String mobileNumber) ;
+    public void updateCommunication(String mobileNumber) ;
 }

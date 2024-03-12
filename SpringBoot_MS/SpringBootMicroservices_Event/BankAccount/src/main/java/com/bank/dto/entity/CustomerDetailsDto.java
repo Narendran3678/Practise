@@ -25,5 +25,7 @@ public class CustomerDetailsDto {
     private LoansDto loansDto;
     @JsonProperty("Card-Info")
     private CardsDto cardDto;
+    @JsonProperty("Communication_Switch")
+    private Boolean communicationSwitch;
 
 }

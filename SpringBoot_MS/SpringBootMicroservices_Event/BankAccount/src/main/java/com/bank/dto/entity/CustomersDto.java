@@ -31,5 +31,7 @@ public class CustomersDto {
     @Pattern(regexp = "^[0-9]*",message = "Mobile Number must Be Numbers")
     private String mobileNumber;
 
+    private Boolean communicationSwitch;
+
     private AccountsDto accounts;
 }

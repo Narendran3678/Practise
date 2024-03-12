@@ -27,6 +27,9 @@ public class Customers extends BaseEntity {
     @Column(name="activeflag")
     private Integer activeflag;
 
+    @Column(name="communication_sw")
+    private Boolean communicationSwitch;
+
     public Customers(String customerName, String emailId, String mobilenumber) {
         this.customerName = customerName;
         this.emailId = emailId;

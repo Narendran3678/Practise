@@ -57,6 +57,7 @@ public class CustomersServiceImpl implements CustomersServiceI {
 
     @Override
     public CustomersDto findById(Long customerId)   {
+        System.out.println("Customer Service findById Called");
         Optional<Customers> customer = customersRepository.findById(customerId);
         if(customer.isPresent())
             return CustomersMapper.entity_To_Customer_Dto(customer.get(), new CustomersDto());
@@ -81,12 +82,6 @@ public class CustomersServiceImpl implements CustomersServiceI {
         accountsRepository.save(accounts);
         sendCommunication(accounts,customers);
         return CustomersMapper.entity_AccountCustomer_Map_To_CustomerDto(customers,accounts,new CustomersDto());
-    }
-    private void sendCommunication(Accounts account, Customers customer) {
-        AccountMsgDto accountMsgDto = new AccountMsgDto(Long.valueOf(account.getAccountnumber()),customer.getCustomerName(),customer.getEmailId(),customer.getMobilenumber());
-        System.out.println("Sending Communication request for the details: {}"+ accountMsgDto);
-        var result = streamBridge.send(BankConstants.EVENT_EXCHANGE.SENDCOMMUNICATION_OUT_0.getExchangeName(),accountMsgDto);
-        System.out.println("Is the Communication request successfully triggered ? : {}"+ result);
     }
     @Transactional
     @Override
@@ -115,5 +110,22 @@ public class CustomersServiceImpl implements CustomersServiceI {
             throw new ResourceNotFoundException("Mobile Number ["+mobileNumber+"] not found");
         }
     }
-
+    @Override
+    public void updateCommunication(String mobileNumber) {
+        System.out.println("Updating Communication Customer Service {}"+ mobileNumber);
+        Optional<Customers> customers = customersRepository.findBymobilenumber(mobileNumber);
+        if (customers.isPresent()) {
+            customers.get().setCommunicationSwitch(true);
+            customersRepository.save(customers.get());
+        }
+         else {
+            throw new ResourceNotFoundException("Mobile Number ["+mobileNumber+"] not found");
+        }
+    }
+    private void sendCommunication(Accounts account, Customers customer) {
+        AccountMsgDto accountMsgDto = new AccountMsgDto(Long.valueOf(account.getAccountnumber()),customer.getCustomerName(),customer.getEmailId(),customer.getMobilenumber());
+        System.out.println("Sending Communication request for the details: {}"+ accountMsgDto);
+        var result = streamBridge.send(BankConstants.EVENT_EXCHANGE.SENDCOMMUNICATION_OUT_0.getExchangeName(),accountMsgDto);
+        System.out.println("Is the Communication request successfully triggered ? : {}"+ result);
+    }
 }
