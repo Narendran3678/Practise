@@ -1,0 +1,67 @@
+Kafka Setup Docs:
+1. Refer this For Theoretical Knowledge
+    https://www.conduktor.io/kafka/what-is-apache-kafka/
+
+2. For Apache Kafa Installation:
+    https://www.conduktor.io/kafka/how-to-install-apache-kafka-on-mac/
+
+3. Install Kafka without Zookeeper
+    https://www.conduktor.io/kafka/how-to-install-apache-kafka-on-mac-without-zookeeper-kraft-mode/
+
+4. Upstash Kafka Cluster Setup by referring https://www.conduktor.io/alternatives-for-conduktor-playground/ 
+    1. Install Docker and Execute below 
+        curl -L https://releases.conduktor.io/quick-start -o docker-compose.yml && docker compose up -d --wait && echo "Conduktor started on http://localhost:6080"
+        ( or )
+        Copy the Docker Compose data from https://releases.conduktor.io/quick-start and store in docker-compose.yaml and change the port as you need.
+            - ports:
+                "6080:8080"
+    2. Now Sign in to Conduktor Console 
+        Username : naren@gmail.com  
+        Password : naren
+        
+    2. https://upstash.com -> Create Kafka Cluster with 3 partition.
+    
+    3. Create playground.config in user defined folder location.
+    
+    4. Copy the Properties From Details tab in Upstash and paste in playground.config.
+    
+    5. Create a new Cluster with Below Details:
+        - Cluster icon & name : my-kafka-playground
+        - Technical ID : my-kafka-playground
+        - Bootstrap servers : native-crawdad-13875-us1-kafka.upstash.io:9092 (bootstrap.servers from Upstash Properties)
+        - Username : bmF0aXZlLWNyYXdkYWQtMTM4NzUkcjT0tsf08zZH49ujrl5F7RyWwm8f_wf01zI (from Upstash Properties))
+        - Password : ZThjNzMyZTQtN2ExYi00ZGQ2LTg4YTYtNTIwZmNjZDQ3YTI4 (from Upstash Properties))
+
+5. Once Kafka Cluster Setup Done, Move to Folder Location of playground.config, then run the below command to list the topic created
+    kafka-topics.sh --command-config playground.config --bootstrap-server native-crawdad-13875-us1-kafka.upstash.io:9092 --list
+
+6. Run the below command to create the topic created with partition
+    kafka-topics.sh --command-config playground.config --bootstrap-server native-crawdad-13875-us1-kafka.upstash.io:9092 --create --topic my-second-topic --partitions 3
+
+7. Run the below command to create the topic created with partition and replication factory
+    kafka-topics.sh --command-config playground.config --bootstrap-server native-crawdad-13875-us1-kafka.upstash.io:9092 --create --topic my-third-topic --partitions 3 --replication-factor 2
+
+8. To Describe Topic
+    kafka-topics.sh --command-config playground.config --bootstrap-server native-crawdad-13875-us1-kafka.upstash.io:9092  --topic my-third-topic --describe
+
+8. To Delete Topic
+    kafka-topics.sh --command-config playground.config --bootstrap-server native-crawdad-13875-us1-kafka.upstash.io:9092 --topic my-second-topic --delete
+
+9. To Produce Data without key to Topic
+    kafka-console-producer.sh --producer.config playground.config --bootstrap-server native-crawdad-13875-us1-kafka.upstash.io:9092 --topic my-first-topic
+    >Hello Kakfa
+
+9. To Produce Data with key to Topic
+    kafka-console-producer.sh --producer.config playground.config --bootstrap-server native-crawdad-13875-us1-kafka.upstash.io:9092 --topic my-first-topic --property parse.key=true --property key.separator=:
+    >name:naren
+
+10. To Consume Data 
+    kafka-console-consumer.sh --consumer.config playground.config --bootstrap-server native-crawdad-13875-us1-kafka.upstash.io:9092 --topic my-first-topic
+
+11. To Produce Data to partition in RoundRobin Fashion
+    kafka-console-producer.sh --producer.config playground.config --bootstrap-server native-crawdad-13875-us1-kafka.upstash.io:9092 --producer-property partitioner.class=org.apache.kafka.clients.producer.RoundRobinPartitioner --topic my-first-topic
+
+12. To Consume Data with more detailed
+    kafka-console-consumer.sh --consumer.config playground.config --bootstrap-server native-crawdad-13875-us1-kafka.upstash.io:9092 --topic my-first-topic --formatter kafka.tools.DefaultMessageFormatter --property print.timestamp=true --property print.key=true --property print.value=true --property print.partition=true --from-beginning
+
+

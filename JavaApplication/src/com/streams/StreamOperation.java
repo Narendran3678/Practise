@@ -58,7 +58,22 @@ public class StreamOperation {
 		System.out.println(map9);
 
 	}
+	static void flatMapOperation() {
+		List<Integer> PrimeNumbers = Arrays.asList(5, 7, 11,13);
+		// Creating a list of Odd Numbers
+		List<Integer> OddNumbers = Arrays.asList(1, 3, 5);
+		// Creating a list of Even Numbers
+		List<Integer> EvenNumbers = Arrays.asList(2, 4, 6, 8);
 
+		List<List<Integer>> listOfListofInts =  Arrays.asList(PrimeNumbers, OddNumbers, EvenNumbers);
+
+		listOfListofInts.stream()
+			.flatMap(list -> list.stream())
+			.filter(s ->{
+				System.out.print(s+"-");
+				return s%2==0;
+			}).forEach(s-> System.out.println("#"+s+"#"));
+	}
 	static void collect(List<Book> bookList) {
 		System.out.println("Collect Reduction");
 		System.out.println(Arrays.stream(new String[] { "A", "B", "C" }).parallel().collect(() -> new StringBuilder(),
@@ -289,6 +304,7 @@ public class StreamOperation {
 		
 		//integerMaxMin();
 		
-		secondLargestAndSmallest();
+		//secondLargestAndSmallest();
+		flatMapOperation();
 	}
 }
