@@ -20,9 +20,9 @@ public class ProducerDemo {
     public static void main(String[] args) throws Exception {
         if(properties==null)
             throw new Exception("Properties Not Initialized");
-        producerWithCallBack(true);
+        producerWithCallBack(true,true);
     }
-    public static void producerWithCallBack(boolean enableCallback) {
+    public static void producerWithCallBack(boolean enableCallback,boolean enableMessageWithKey) {
         logger.info("Producer Demo With Callback Start");
         KafkaProducer<String,String> producer = null;
         int messageCount = 20;
@@ -34,6 +34,14 @@ public class ProducerDemo {
             for(int i=1;i<=messageCount;i++) {
                 //Create a Producer Record
                 ProducerRecord<String,String> producerRecord = new ProducerRecord<>(KafkaTopic.KAFKA_MY_THIRD_TOPIC.getValue(), "Kafka-Message-"+i);
+                if(enableMessageWithKey)
+                {
+                    producerRecord = new ProducerRecord<>(KafkaTopic.KAFKA_MY_THIRD_TOPIC.getValue(), "Kafka-Key","Kafka-Message-"+i);
+                }
+                else
+                {
+                    producerRecord = new ProducerRecord<>(KafkaTopic.KAFKA_MY_THIRD_TOPIC.getValue(), "Kafka-Message-"+i);
+                }
                 final int index = i;
                 if (enableCallback) {
                     if(index==1)
@@ -43,7 +51,7 @@ public class ProducerDemo {
                         public void onCompletion(RecordMetadata recordMetadata, Exception exception) {
                             if (exception == null) {
                                 logger.info("Topic\t\t\tPartition\tKeySize\tValueSize\tOffset\t\tTimestamp");
-                                logger.info(recordMetadata.topic() + "\t" + recordMetadata.partition() + "\t\t\t" + recordMetadata.serializedKeySize() + "\t\t" + recordMetadata.serializedValueSize() + "\t\t\t" + recordMetadata.offset() + "\t\t\t" + recordMetadata.timestamp());
+                                System.out.println(recordMetadata.topic() + "\t" + recordMetadata.partition() + "\t\t\t" + recordMetadata.serializedKeySize() + "\t\t" + recordMetadata.serializedValueSize() + "\t\t\t" + recordMetadata.offset() + "\t\t\t" + recordMetadata.timestamp());
 
                                 if(index==messageCount)
                                     logger.info("============== Received Metadata with Callback Ends ==============");

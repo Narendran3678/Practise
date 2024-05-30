@@ -1,7 +1,7 @@
 package com.conduktor.kafka.util;
 
 import com.conduktor.kafka.constant.KafkaConstants;
-
+import com.conduktor.kafka.constant.KafkaPropertyConstants;
 import java.util.Properties;
 
 public class KafkaUtil {
@@ -10,16 +10,25 @@ public class KafkaUtil {
         if(properties == null ){
             properties = new Properties();
             //Connect to Conduktor-Upstash PlayGround
-            properties.setProperty(KafkaConstants.BOOSTRAP_SERVERS_KEY.getValue(),KafkaConstants.BOOSTRAP_SERVERS_VALUE.getValue());
-            properties.setProperty(KafkaConstants.SASL_MECHANISM_KEY.getValue(),KafkaConstants.SASL_MECHANISM_VALUE.getValue());
-            properties.setProperty(KafkaConstants.SECURITY_PROTOCOL_KEY.getValue(),KafkaConstants.SECURITY_PROTOCOL_VALUE.getValue());
-            properties.setProperty(KafkaConstants.SASL_JAAS_CONFIG_KEY.getValue(),KafkaConstants.SASL_JAAS_CONFIG_VALUE.getValue());
+            properties.setProperty(KafkaPropertyConstants.BOOSTRAP_SERVERS_KEY.getValue(), KafkaPropertyConstants.BOOSTRAP_SERVERS_VALUE.getValue());
+            properties.setProperty(KafkaPropertyConstants.SASL_MECHANISM_KEY.getValue(), KafkaPropertyConstants.SASL_MECHANISM_VALUE.getValue());
+            properties.setProperty(KafkaPropertyConstants.SECURITY_PROTOCOL_KEY.getValue(), KafkaPropertyConstants.SECURITY_PROTOCOL_VALUE.getValue());
+            properties.setProperty(KafkaPropertyConstants.SASL_JAAS_CONFIG_KEY.getValue(), KafkaPropertyConstants.SASL_JAAS_CONFIG_VALUE.getValue());
 
             //Set Producer Properties
-            properties.setProperty(KafkaConstants.KEY_SERIALIZER.getValue(),KafkaConstants.STRING_SERIALIZER_CLASS.getValue());
-            properties.setProperty(KafkaConstants.VALUE_SERIALIZER.getValue(),KafkaConstants.STRING_SERIALIZER_CLASS.getValue());
+            properties.setProperty(KafkaPropertyConstants.KEY_SERIALIZER.getValue(), KafkaPropertyConstants.STRING_SERIALIZER_CLASS.getValue());
+            properties.setProperty(KafkaPropertyConstants.VALUE_SERIALIZER.getValue(), KafkaPropertyConstants.STRING_SERIALIZER_CLASS.getValue());
 
-            properties.setProperty(KafkaConstants.BATCH_SIZE_KEY.getValue(),KafkaConstants.BATCH_SIZE_VALUE.getValue());
+            //Set Consumer Properties
+            properties.setProperty(KafkaPropertyConstants.KEY_DESERIALIZER.getValue(), KafkaPropertyConstants.STRING_DESERIALIZER_CLASS.getValue());
+            properties.setProperty(KafkaPropertyConstants.VALUE_DESERIALIZER.getValue(), KafkaPropertyConstants.STRING_DESERIALIZER_CLASS.getValue());
+
+            //For Producer Config
+            properties.setProperty(KafkaPropertyConstants.BATCH_SIZE_KEY.getValue(), KafkaConstants.BATCH_SIZE_DEFAULT);
+
+            //For Consumer Config
+            properties.setProperty(KafkaPropertyConstants.GROUP_ID_KEY.getValue(), KafkaConstants.GROUP_ID_DEFAULT);
+            properties.setProperty(KafkaPropertyConstants.AUTO_OFFSET_RESET_KEY.getValue(), KafkaConstants.AUTO_OFFSET_RESET_EARLIEST);
             return properties;
         }
         else {
