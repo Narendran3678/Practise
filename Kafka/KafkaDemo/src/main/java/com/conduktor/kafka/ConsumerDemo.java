@@ -22,20 +22,45 @@ public class ConsumerDemo {
     public static void main(String[] args) throws Exception {
         if(properties==null)
             throw new Exception("Properties Not Initialized");
+
         consumeData();
+
+
     }
     public static void consumeData() {
         KafkaConsumer<String,String> consumer = new KafkaConsumer<>(properties);
-        consumer.subscribe(Arrays.asList(KafkaTopic.KAFKA_MY_THIRD_TOPIC.getValue()));
-        int i=1;
-        logger.info("Topic\t\t\tPartition\tKey\tValue\tOffset\t\tTimestamp");
-        while(true) {
-            logger.info("Pulling Call "+i++);
-            ConsumerRecords<String,String> records = consumer.poll(Duration.ofMillis(1000));
-            for(ConsumerRecord<String,String> record : records)
-            {
-                System.out.println(record.topic()+"\t"+record.partition()+"\t\t\t"+record.key()+"\t\t"+record.value()+"\t\t\t"+record.offset()+"\t\t\t"+record.timestamp());
+
+        final Thread mainThread = Thread.currentThread();
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            @Override
+            public void run() {
+                logger.info("Detected Shutdown Let Exit by Wake UP Call which throw Exception");
+                consumer.wakeup();
+
+                try {
+                    mainThread.join();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
+        });
+
+        consumer.subscribe(Arrays.asList(KafkaTopic.KAFKA_MY_THIRD_TOPIC.getValue()));
+        System.out.println("Topic\t\t\tPartition\tKey\tValue\tOffset\t\tTimestamp");
+        try {
+            while (true) {
+                ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1000));
+                for (ConsumerRecord<String, String> record : records) {
+                    System.out.println(record.topic() + "\t" + record.partition() + "\t\t\t" + record.key() + "\t\t" + record.value() + "\t\t\t" + record.offset() + "\t\t\t" + record.timestamp());
+                }
+            }
+        }
+        catch(Exception exception) {
+            logger.error(""+exception);
+        }
+        finally {
+            logger.info("Closing Consumer Gracefully");
+            consumer.close();
         }
     }
 }

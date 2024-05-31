@@ -25,7 +25,7 @@ public class ProducerDemo {
     public static void producerWithCallBack(boolean enableCallback,boolean enableMessageWithKey) {
         logger.info("Producer Demo With Callback Start");
         KafkaProducer<String,String> producer = null;
-        int messageCount = 20;
+        int messageCount = 3;
         try {
             //Create a Producer
             producer = new KafkaProducer<>(properties);
@@ -50,7 +50,7 @@ public class ProducerDemo {
                         @Override
                         public void onCompletion(RecordMetadata recordMetadata, Exception exception) {
                             if (exception == null) {
-                                logger.info("Topic\t\t\tPartition\tKeySize\tValueSize\tOffset\t\tTimestamp");
+                                System.out.println("Topic\t\t\tPartition\tKeySize\tValueSize\tOffset\t\tTimestamp");
                                 System.out.println(recordMetadata.topic() + "\t" + recordMetadata.partition() + "\t\t\t" + recordMetadata.serializedKeySize() + "\t\t" + recordMetadata.serializedValueSize() + "\t\t\t" + recordMetadata.offset() + "\t\t\t" + recordMetadata.timestamp());
 
                                 if(index==messageCount)

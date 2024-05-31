@@ -15,7 +15,9 @@ public enum KafkaPropertyConstants {
 
     // For Consumer
     KEY_DESERIALIZER("key.deserializer"), VALUE_DESERIALIZER("value.deserializer"), STRING_DESERIALIZER_CLASS(StringDeserializer.class.getName()),
-    GROUP_ID_KEY("group.id") , AUTO_OFFSET_RESET_KEY("auto.offset.reset")
+    GROUP_ID_KEY("group.id") , AUTO_OFFSET_RESET_KEY("auto.offset.reset"), PARTITION_ASSIGNMENT_STRATEGY("partition.assignment.strategy"),
+    GROUP_INSTANCE_ID("group.instance.id"), SESSION_TIMEOUT_MS("session.timeout.ms"), AUT0_C0MMIT_INTERVAL_MS("auto.commit.interval.ms"),
+    ENABLE_AUTO_COMMIT("enable.auto.commit")
     ;
     private final String value;
     KafkaPropertyConstants(String value){
