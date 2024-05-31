@@ -24,7 +24,7 @@ Kafka Setup Docs:
             - ports:
                 "6080:8080"
     2. Now Sign in to Conduktor Console 
-        Username : naren@conduktor.io (User Defined at Docker Instance Creation)
+        Username : naren
         Password : naren
         
     2. https://upstash.com -> Create Kafka Cluster with 3 partition.
