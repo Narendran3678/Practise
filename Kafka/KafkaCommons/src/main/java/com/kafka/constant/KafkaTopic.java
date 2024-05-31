@@ -1,4 +1,4 @@
-package com.conduktor.kafka.constant;
+package com.kafka.constant;
 
 public enum KafkaTopic {
     KAFKA_MY_FIRST_TOPIC("my-first-topic"),

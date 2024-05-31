@@ -1,4 +1,5 @@
-package com.conduktor.kafka.constant;
+package com.kafka.constant;
+
 
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;

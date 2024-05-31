@@ -1,4 +1,4 @@
-package com.conduktor.kafka.constant;
+package com.kafka.constant;
 
 public class KafkaConstants {
     public static final String BATCH_SIZE_DEFAULT = "10";
@@ -8,5 +8,5 @@ public class KafkaConstants {
     public static final String PARTITION_ASSIGNMENT_STRATEGY_ROUNDROBIN ="RoundRobin";
     public static final String PARTITION_ASSIGNMENT_STRATEGY_STICKYASSIGNOR ="StickyAssignor";
     public static final String PARTITION_ASSIGNMENT_STRATEGY_COOPERATIVESTICKYASSIGNOR ="CooperativeStickyAssignor";
-
+    public static final String WIKIMEDIA_DATA_STREAM_URL="https://stream.wikimedia.org/v2/stream/recentchange";
 }

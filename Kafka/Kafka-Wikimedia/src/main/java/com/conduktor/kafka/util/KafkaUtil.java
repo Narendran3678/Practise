@@ -2,7 +2,6 @@ package com.conduktor.kafka.util;
 
 import com.kafka.constant.KafkaConstants;
 import com.kafka.constant.KafkaPropertyConstants;
-
 import java.util.Properties;
 
 public class KafkaUtil {
@@ -30,6 +29,7 @@ public class KafkaUtil {
             //For Consumer Config
             properties.setProperty(KafkaPropertyConstants.GROUP_ID_KEY.getValue(), KafkaConstants.GROUP_ID_DEFAULT);
             properties.setProperty(KafkaPropertyConstants.AUTO_OFFSET_RESET_KEY.getValue(), KafkaConstants.AUTO_OFFSET_RESET_EARLIEST);
+
             return properties;
         }
         else {

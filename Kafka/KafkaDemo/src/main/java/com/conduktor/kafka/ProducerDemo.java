@@ -1,7 +1,7 @@
 package com.conduktor.kafka;
 
-import com.conduktor.kafka.constant.KafkaTopic;
 import com.conduktor.kafka.util.KafkaUtil;
+import com.kafka.constant.KafkaTopic;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
