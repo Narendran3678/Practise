@@ -8,6 +8,14 @@ Kafka Setup Docs:
 3. Install Kafka without Zookeeper
     https://www.conduktor.io/kafka/how-to-install-apache-kafka-on-mac-without-zookeeper-kraft-mode/
 
+   Refer For Advanced Concepts:
+    https://www.conduktor.io/kafka/advanced-kafka-consumer-with-java/
+
+   For Live Kafka Data Stream:
+    https://stream.wikimedia.org/v2/stream/recentchange
+    https://codepen.io/Krinkle/pen/BwEKgW?editors=1010
+    https://esjewett.github.io/wm-eventsource-demo/
+
 4. Upstash Kafka Cluster Setup by referring https://www.conduktor.io/alternatives-for-conduktor-playground/ 
     1. Install Docker and Execute below 
         curl -L https://releases.conduktor.io/quick-start -o docker-compose.yml && docker compose up -d --wait && echo "Conduktor started on http://localhost:6080"
@@ -16,7 +24,7 @@ Kafka Setup Docs:
             - ports:
                 "6080:8080"
     2. Now Sign in to Conduktor Console 
-        Username : naren@gmail.com  
+        Username : naren@conduktor.io (User Defined at Docker Instance Creation)
         Password : naren
         
     2. https://upstash.com -> Create Kafka Cluster with 3 partition.
