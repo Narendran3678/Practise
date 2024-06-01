@@ -30,6 +30,14 @@ public class KafkaUtil {
             //For Consumer Config
             properties.setProperty(KafkaPropertyConstants.GROUP_ID_KEY.getValue(), KafkaConstants.GROUP_ID_DEFAULT);
             properties.setProperty(KafkaPropertyConstants.AUTO_OFFSET_RESET_KEY.getValue(), KafkaConstants.AUTO_OFFSET_RESET_EARLIEST);
+
+            //Recommended Safe Producer
+            properties.setProperty(KafkaPropertyConstants.ACKS.getValue(),KafkaConstants.ACKS_ALL);
+            properties.setProperty(KafkaPropertyConstants.MIN_INSYNC_REPLICAS.getValue(),String.valueOf(5));
+            properties.setProperty(KafkaPropertyConstants.ENABLE_IDEMPOTENCE.getValue(), Boolean.TRUE.toString());
+            properties.setProperty(KafkaPropertyConstants.RETRIES.getValue(), String.valueOf(Integer.MAX_VALUE));
+            properties.setProperty(KafkaPropertyConstants.DELIVERY_TIMEOUT_MS.getValue(), String.valueOf(120000));
+            properties.setProperty(KafkaPropertyConstants.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION.getValue(), String.valueOf(5));
             return properties;
         }
         else {

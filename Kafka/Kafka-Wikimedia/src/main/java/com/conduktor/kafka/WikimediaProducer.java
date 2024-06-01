@@ -1,10 +1,16 @@
 package com.conduktor.kafka;
 
 import com.conduktor.kafka.util.KafkaUtil;
+import com.kafka.constant.KafkaConstants;
+import com.kafka.constant.KafkaTopic;
+import com.launchdarkly.eventsource.EventSource;
+import com.launchdarkly.eventsource.background.BackgroundEventSource;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.net.URI;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 public class WikimediaProducer {
     static Properties properties;
@@ -18,7 +24,16 @@ public class WikimediaProducer {
             throw new Exception("Properties Not Initialized");
         wikiMediaEvent(true,true);
     }
-    public static void wikiMediaEvent(boolean enableCallback,boolean enableMessageWithKey) {
+    public static void wikiMediaEvent(boolean enableCallback,boolean enableMessageWithKey) throws InterruptedException {
+        KafkaProducer<String,String> producer = new KafkaProducer<>(properties);
+        WikimediaHandler eventHandler = new WikimediaHandler(producer);
+        eventHandler.setTopic(KafkaTopic.KAFKA_MY_THIRD_TOPIC.getValue());
+        eventHandler.setEnableCallback(true);
 
+        EventSource.Builder eventSourceBuilder = new EventSource.Builder( URI.create(KafkaConstants.WIKIMEDIA_DATA_STREAM_URL));
+        BackgroundEventSource backgroundEventSource = new BackgroundEventSource.Builder(eventHandler,eventSourceBuilder).build();
+        backgroundEventSource.start();
+
+        TimeUnit.SECONDS.sleep(5);
     }
 }
