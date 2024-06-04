@@ -4,7 +4,6 @@ import com.kafka.constant.KafkaConstants;
 import com.kafka.constant.KafkaTopic;
 import com.kafka.util.KafkaUtil;
 import com.kafka.util.OpenSearchUtil;
-import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -15,9 +14,7 @@ import org.opensearch.client.RestHighLevelClient;
 import org.opensearch.common.xcontent.XContentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.time.Duration;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Properties;
 
@@ -34,20 +31,17 @@ public class OpenSearchConsumer {
         if(properties==null)
             throw new Exception("Properties Not Initialized");
 
-        consumer();
         Thread mainThread = Thread.currentThread();
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            @Override
-            public void run() {
-                logger.info("Detected Shutdown Let Exit by Wake UP Call which throw Exception");
-                consumer.wakeup();
-                try {
-                    mainThread.join();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            logger.info("Detected Shutdown Let Exit by Wake UP Call which throw Exception");
+            consumer.wakeup();
+            try {
+                mainThread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
-        });
+        }));
+        consumer();
     }
     public static void consumer() throws Exception {
         if(!OpenSearchUtil.createIndexes(KafkaConstants.OPEN_SEARCH_WIKIMEDIA_INDEX)) {
