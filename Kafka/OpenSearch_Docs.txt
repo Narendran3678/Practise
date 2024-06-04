@@ -1,0 +1,20 @@
+URL : https://opensearch.org/docs/latest/security/configuration/demo-configuration/
+1. Download Docker-Compose.yml file in website.
+
+2. Run docker-compose up -d inside the folder where docker compose file exist.
+
+3. In Docker Compose Under Environment Add Below Property
+    - OPENSEARCH_INITIAL_ADMIN_PASSWORD - <Password Must Pass Validation in https://lowe.github.io/tryzxcvbn/>
+
+4. Create Index by below method
+    https://<host>:<port>/<index-name>
+    i.e localhost:9200/my-first-index
+
+5.  Fetch Index with Document Id by below method
+    https://<host>:<port>/<index-name>
+
+6.  Create Index with Document Id by below method
+    https://<host>:<port>/<index-name>/_doc/1
+
+7.  Fetch Index with Document Id by below method
+    https://<host>:<port>/<index-name>/_doc/1
