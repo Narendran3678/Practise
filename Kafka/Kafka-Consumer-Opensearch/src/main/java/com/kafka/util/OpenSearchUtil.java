@@ -42,27 +42,6 @@ public class OpenSearchUtil {
         );
         return restHighLevelClient;
     }
-    public static boolean createIndexes(String osIndex) throws Exception {
-        osIndex = osIndex.toLowerCase();
-        restHighLevelClient = getRestHighLevelClient();
-        try {
-            if(!checkIndexExist(osIndex)) {
-                restHighLevelClient.indices().create(new CreateIndexRequest(osIndex),RequestOptions.DEFAULT);
-                logger.error("Index ["+osIndex+"] Created");
-            }
-            else {
-                logger.error("Index Already Exist");
-            }
-        }
-        catch(Exception exception) {
-            exception.printStackTrace();
-        }
-        return false;
-    }
-    public static boolean checkIndexExist(String osIndex) throws Exception {
-        restHighLevelClient = getRestHighLevelClient();
-        return restHighLevelClient.indices().exists(new GetIndexRequest(osIndex), RequestOptions.DEFAULT);
-    }
     public static RestHighLevelClient getRestHighLevelClient() throws Exception {
         if(restHighLevelClient == null) {
             restHighLevelClient = createOpenSearchClient();
@@ -72,4 +51,21 @@ public class OpenSearchUtil {
         }
         return restHighLevelClient;
     }
+    public static boolean createIndexes(String osIndex) throws Exception {
+        osIndex = osIndex.toLowerCase();
+        restHighLevelClient = getRestHighLevelClient();
+        if(!checkIndexExist(osIndex)) {
+            restHighLevelClient.indices().create(new CreateIndexRequest(osIndex),RequestOptions.DEFAULT);
+            logger.error("Index ["+osIndex+"] Created");
+        }
+        else {
+            logger.error("Index Already Exist");
+        }
+        return true;
+    }
+    public static boolean checkIndexExist(String osIndex) throws Exception {
+        restHighLevelClient = getRestHighLevelClient();
+        return restHighLevelClient.indices().exists(new GetIndexRequest(osIndex), RequestOptions.DEFAULT);
+    }
+
 }

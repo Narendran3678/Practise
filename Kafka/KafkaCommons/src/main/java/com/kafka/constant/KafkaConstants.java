@@ -7,7 +7,7 @@ public class KafkaConstants {
     public static final String WIKIMEDIA_DATA_STREAM_URL="https://stream.wikimedia.org/v2/stream/recentchange";
     public static final String OPENSEARCH_URL="https://localhost:9200";
     public static final String ACKS_ALL="all";
-    public static String OPEN_SEARCH_INDEX ="wikimedia";
+    public static String OPEN_SEARCH_WIKIMEDIA_INDEX ="wikimedia";
     public static String TRUSTSTORE_PATH = "/Users/narendran.babu/Eclipse_Workspace/MyRepo/Practise/truststore.jks";
     public static String TRUSTSTORE_PASSWORD = "password";
 

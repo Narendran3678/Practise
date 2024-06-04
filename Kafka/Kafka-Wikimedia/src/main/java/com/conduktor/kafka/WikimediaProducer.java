@@ -27,13 +27,13 @@ public class WikimediaProducer {
     public static void wikiMediaEvent(boolean enableCallback,boolean enableMessageWithKey) throws InterruptedException {
         KafkaProducer<String,String> producer = new KafkaProducer<>(properties);
         WikimediaHandler eventHandler = new WikimediaHandler(producer);
-        eventHandler.setTopic(KafkaTopic.KAFKA_MY_THIRD_TOPIC.getValue());
+        eventHandler.setTopic(KafkaTopic.KAFKA_MY_FIRST_TOPIC.getValue());
         eventHandler.setEnableCallback(true);
 
         EventSource.Builder eventSourceBuilder = new EventSource.Builder( URI.create(KafkaConstants.WIKIMEDIA_DATA_STREAM_URL));
         BackgroundEventSource backgroundEventSource = new BackgroundEventSource.Builder(eventHandler,eventSourceBuilder).build();
         backgroundEventSource.start();
 
-        TimeUnit.SECONDS.sleep(5);
+        TimeUnit.SECONDS.sleep(10);
     }
 }
