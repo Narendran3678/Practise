@@ -1,0 +1,17 @@
+Follow Step to Setup Keystore
+1.  To Create Keystore and enter password and Info manually
+    keytool -keystore <truststore-name> -genkey -keyalg RSA -alias <alias-to-call-cert> -validity <EXPIRY TIME IN DAYS>
+    Ex: keytool -keystore /Users/narendran.babu/Eclipse_Workspace/MyRepo/Practise/truststore.jks -genkey -keyalg RSA -alias keystore -validity 365000
+
+2. To Create Keystore with Password and Other Information
+    keytool -genkey -alias <ALIAS-NAME> -keyalg RSA -keystore <KEYSTORE-NAME> -dname "CN=<NAME>, OU=<ORGANISATION UNIT>, O=<ORGANISATION>, L=<CITY>, S=<STATE>, C=<COUNTRY" -storepass <PASSWORD> -keypass <PASSWORD> -validity <EXPIRY TIME IN DAYS>
+    EX: keytool -genkey -alias replserver -keyalg RSA -keystore /Users/narendran.babu/Eclipse_Workspace/MyRepo/Practise/truststore.jks -dname "CN=Narendran, OU=Java, O=Infy, L=Bangalore, S=Karnataka, C=India" -storepass password -keypass password -validity 365
+
+3. If you running the Opensearch from Docker, then need to copy root-ca.pem from docker container to keystore location.
+    docker cp {container-id}:{home}/config/root-ca.pem ./opensearch-root-ca.pem
+    docker cp fab2f3c68a207b669eca9dc23079b25b9a2566087684aa3f1394ad7774f0894e:/usr/share/opensearch/config/root-ca.pem ./opensearch-root-ca.pem
+    {container-id} -> Can get from Container
+    {home} - In Docker -> Containter -> Files (/usr/share/opensearch)
+
+4. keytool -import -keystore <keystore-name> <path-to-cert> -file <pem file copied from docker> -alias <alias-to-call-cert>
+    Ex: keytool -import -keystore /Users/narendran.babu/Eclipse_Workspace/MyRepo/Practise/truststore.jks -file /Users/narendran.babu/Eclipse_Workspace/MyRepo/Practise/opensearch-root-ca.pem -alias truststore

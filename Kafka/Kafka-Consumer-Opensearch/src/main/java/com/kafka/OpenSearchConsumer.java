@@ -7,10 +7,10 @@ import org.slf4j.LoggerFactory;
 
 public class OpenSearchConsumer {
     public static final Logger logger = LoggerFactory.getLogger(OpenSearchConsumer.class.getSimpleName());
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         createIndex();
     }
-    public static void createIndex() {
+    public static void createIndex() throws Exception {
         OpenSearchUtil.createIndexes(KafkaConstants.OPEN_SEARCH_INDEX);
     }
 }

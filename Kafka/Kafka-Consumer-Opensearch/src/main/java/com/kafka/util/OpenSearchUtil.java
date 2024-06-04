@@ -14,46 +14,37 @@ import org.opensearch.client.indices.CreateIndexRequest;
 import org.opensearch.client.indices.GetIndexRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.io.IOException;
 import java.net.URI;
 public class OpenSearchUtil {
     public static final Logger logger = LoggerFactory.getLogger(OpenSearchUtil.class.getSimpleName());
     private static RestHighLevelClient restHighLevelClient;
-    public static RestHighLevelClient createOpenSearchClient() {
+    private static RestHighLevelClient createOpenSearchClient() {
+        System.setProperty("javax.net.ssl.trustStore", KafkaConstants.TRUSTSTORE_PATH);
+        System.setProperty("javax.net.ssl.trustStorePassword", KafkaConstants.TRUSTSTORE_PASSWORD);
+        CredentialsProvider credentialsProvider = new BasicCredentialsProvider() ;
         URI uriConnection = URI.create(KafkaConstants.OPENSEARCH_URL);
-        logger.info("Url..."+uriConnection.getHost()+", Port..."+uriConnection.getPort());
+
         // extract login information if it exists
         String userInfo = uriConnection.getUserInfo();
-
-        if(userInfo==null) {
-            restHighLevelClient = new RestHighLevelClient(
-                    RestClient.builder(
-                            new HttpHost(uriConnection.getHost(), uriConnection.getPort(), uriConnection.getScheme())
-                    )
-            );
-        }
-        else {
+        logger.info("Url..."+uriConnection.getHost()+", Port..."+uriConnection.getPort()+", Scheme..."+uriConnection.getScheme()+", userInfo..."+userInfo);
+        credentialsProvider.setCredentials(AuthScope.ANY,new UsernamePasswordCredentials("admin","#1KafElasSrh"));
+        if(userInfo!=null) {
             // REST client with security
             String[] auth = userInfo.split(":");
             logger.info("Username..."+auth[0]+", Password..."+auth[1]);
-            CredentialsProvider credentialsProvider = new BasicCredentialsProvider() ;
             credentialsProvider.setCredentials(AuthScope.ANY,new UsernamePasswordCredentials(auth[0],auth[1]));
-            restHighLevelClient = new RestHighLevelClient(
-                    RestClient.builder(
-                            new HttpHost(uriConnection.getHost(), uriConnection.getPort(), uriConnection.getScheme())
-                    ).setHttpClientConfigCallback(httpClientBuilder -> {
-                        return httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider)
-                                .setKeepAliveStrategy(new DefaultConnectionKeepAliveStrategy());
-                    })
-            );
         }
+        restHighLevelClient = new RestHighLevelClient(
+                RestClient.builder(
+                        new HttpHost(uriConnection.getHost(), uriConnection.getPort(), uriConnection.getScheme())
+                ).setHttpClientConfigCallback(httpClientBuilder -> httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider)
+                        .setKeepAliveStrategy(new DefaultConnectionKeepAliveStrategy()))
+        );
         return restHighLevelClient;
     }
-    public static boolean createIndexes(String osIndex) {
+    public static boolean createIndexes(String osIndex) throws Exception {
         osIndex = osIndex.toLowerCase();
-        if(restHighLevelClient == null) {
-            restHighLevelClient = createOpenSearchClient();
-        }
+        restHighLevelClient = getRestHighLevelClient();
         try {
             if(!checkIndexExist(osIndex)) {
                 restHighLevelClient.indices().create(new CreateIndexRequest(osIndex),RequestOptions.DEFAULT);
@@ -68,10 +59,17 @@ public class OpenSearchUtil {
         }
         return false;
     }
-    public static boolean checkIndexExist(String osIndex) throws IOException {
+    public static boolean checkIndexExist(String osIndex) throws Exception {
+        restHighLevelClient = getRestHighLevelClient();
+        return restHighLevelClient.indices().exists(new GetIndexRequest(osIndex), RequestOptions.DEFAULT);
+    }
+    public static RestHighLevelClient getRestHighLevelClient() throws Exception {
         if(restHighLevelClient == null) {
             restHighLevelClient = createOpenSearchClient();
         }
-        return restHighLevelClient.indices().exists(new GetIndexRequest(osIndex), RequestOptions.DEFAULT);
+        if(restHighLevelClient==null) {
+            throw new Exception("Client Generation is Null");
+        }
+        return restHighLevelClient;
     }
 }
