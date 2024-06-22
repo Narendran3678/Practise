@@ -5,7 +5,7 @@ URL : https://opensearch.org/docs/latest/security/configuration/demo-configurati
 
 3. In Docker Compose Under Environment Add Below Property
     - OPENSEARCH_INITIAL_ADMIN_PASSWORD - <Password Must Pass Validation in https://lowe.github.io/tryzxcvbn/>
-
+    Verified using Above Url - OPENSEARCH_INITIAL_ADMIN_PASSWORD=#1KafElasSrh
 4. Create Index by below method
     https://<host>:<port>/<index-name>
     i.e localhost:9200/my-first-index

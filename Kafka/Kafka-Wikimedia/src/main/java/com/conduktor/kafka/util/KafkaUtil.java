@@ -34,6 +34,7 @@ public class KafkaUtil {
             properties.setProperty(ProducerConfig.BATCH_SIZE_CONFIG,Integer.toString(32 * 1024));
 
             //For Consumer Config
+            properties.setProperty(KafkaPropertyConstants.ENABLE_AUTO_COMMIT.getValue(), "false");
             properties.setProperty(KafkaPropertyConstants.GROUP_ID_KEY.getValue(), KafkaConstants.GROUP_ID_DEFAULT);
             properties.setProperty(KafkaPropertyConstants.AUTO_OFFSET_RESET_KEY.getValue(), KafkaConstants.AUTO_OFFSET_RESET_EARLIEST);
 

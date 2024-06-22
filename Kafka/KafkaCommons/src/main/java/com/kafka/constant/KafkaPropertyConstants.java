@@ -28,7 +28,10 @@ public enum KafkaPropertyConstants {
     KEY_DESERIALIZER("key.deserializer"), VALUE_DESERIALIZER("value.deserializer"), STRING_DESERIALIZER_CLASS(StringDeserializer.class.getName()),
     GROUP_ID_KEY("group.id") , AUTO_OFFSET_RESET_KEY("auto.offset.reset"), PARTITION_ASSIGNMENT_STRATEGY("partition.assignment.strategy"),
     GROUP_INSTANCE_ID("group.instance.id"), SESSION_TIMEOUT_MS("session.timeout.ms"), AUT0_C0MMIT_INTERVAL_MS("auto.commit.interval.ms"),
-    ENABLE_AUTO_COMMIT("enable.auto.commit")
+    ENABLE_AUTO_COMMIT("enable.auto.commit"),HEARTBEAT_INTERVAL_MS("heartbeat.interval.ms"),MAX_POLL_INTERVAL_MS("max.poll.interval.ms"),
+    MAX_POLL_RECORDS("max.poll.records"),FETCH_MIN_BYTES("fetch.min.bytes"),FETCH_MAX_WAIT_MS("fetch.max.wait.ms"),
+    MAX_PARTITION_FETCH_BYTES("max.partition.fetch.bytes"),FETCH_MAX_BYTES("fetch.max.bytes"),
+    REPLICA_SELECTOR_CLASS_KEY("replica.selector.class"),REPLICA_SELECTOR_CLASS_VALUE("org.apache.kafka.common.replica.RackAwareReplicaSelector")
     ;
     private final String value;
     KafkaPropertyConstants(String value){
