@@ -4,13 +4,13 @@ import java.util.Arrays;
 
 
 @SuppressWarnings("unchecked")
-public class Stack<T> {
+public class Stacks<T> {
 	private int size=5;
 	private T arr[];
 	private int pointer ;
 	private int minValue = 99999;
 	private int maxValue = 0;
-	public Stack()
+	public Stacks()
 	{
 		arr = (T[]) new Object[size];
 		pointer=-1;
@@ -89,7 +89,7 @@ public class Stack<T> {
 	}
 	public static void main(String args[])
 	{
-		Stack<Integer> stack = new Stack<>();
+		Stacks<Integer> stack = new Stacks<>();
 		stack.push(1);
 		stack.push(2);
 		stack.push(3);

@@ -53,14 +53,9 @@ public class CircularLinkedList<T> {
     }
     public void iterate() {
         Node<T> itr = head;
-        for(int i =1;i<=size;i++) {
-            if(itr==null)
-               break;
-            System.out.print(itr.value);
-            if(i<size) {
-               System.out.print(" > ");
-            }
-            itr= itr.next;
+        while(itr.next!=head) {
+            System.out.print(" > "+itr.value);
+            itr=itr.next;
         }
         System.out.println();
     }
