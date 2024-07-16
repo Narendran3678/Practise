@@ -29,7 +29,6 @@ public class BinaryTreeNode<T> {
     }
 	
 	// Pre Order Traversal= -> DRINKS -> HOT -> TEA -> GREENTEA -> BLACKTEA -> COFFEE -> LATTE -> CAPPACHINA -> COLD -> NONALCOHOLIC -> MOGGITO -> STING -> STING1 -> STING2 -> ALCOHOLIC -> RUM -> GIN
-	 
 	public void preOrderTraversal(BinaryTreeNode<T> node)
 	{
 		BinaryTreeNode<T> currNode=node;
@@ -44,7 +43,6 @@ public class BinaryTreeNode<T> {
 	}
 	
 	// In Order Traversal= -> GREENTEA -> TEA -> BLACKTEA -> HOT -> LATTE -> COFFEE -> CAPPACHINA -> DRINKS -> MOGGITO -> NONALCOHOLIC -> STING1 -> STING -> STING2 -> COLD -> RUM -> ALCOHOLIC -> GIN
-		
 	public void inOrderTraversal(BinaryTreeNode<T> node)
 	{
 		BinaryTreeNode<T> currNode=node;
@@ -59,7 +57,6 @@ public class BinaryTreeNode<T> {
 	}
 	
 	// Post Order Traversal= -> GREENTEA -> BLACKTEA -> TEA -> LATTE -> CAPPACHINA -> COFFEE -> HOT -> MOGGITO -> STING1 -> STING2 -> STING -> NONALCOHOLIC -> RUM -> GIN -> ALCOHOLIC -> COLD -> DRINKS
-			
 	public void postOrderTraversal(BinaryTreeNode<T> node)
 	{
 		BinaryTreeNode<T> currNode=node;
