@@ -1,6 +1,8 @@
 package com.tree;
 
-public class TreeLinkedList<T> {
+import com.queue.QueueLinkedList;
+
+public class CustomTreeLinkedList<T> {
     Node<T> rootNode;
     Node<T> currentNode;
     private static class Node<T> {
@@ -49,7 +51,7 @@ public class TreeLinkedList<T> {
         }
         return getCurrentNode(newNode.siblingLeft);
     }
-    public void iterate(TreeLinkedList<T> treeLinkedList) {
+    public void iterate(CustomTreeLinkedList<T> treeLinkedList) {
         iterate(treeLinkedList.rootNode,"");
     }
 
@@ -77,7 +79,22 @@ public class TreeLinkedList<T> {
         preorderTraversal(iterNode.left);
         preorderTraversal(iterNode.right);
     }
+    public void levelOrderTraversal(Node<T> iterNode) {
 
+        QueueLinkedList<Node<T>> queueLinkedList = new QueueLinkedList<>();
+        queueLinkedList.push(iterNode);
+        while(!queueLinkedList.isEmpty()) {
+            Node<T> node = queueLinkedList.remove();
+            if(node==null)
+                return;
+            String leftData = node.left!=null ? (String)node.left.data : "NULL";
+            String rightData = node.right!=null ? (String)node.right.data : "NULL";
+            System.out.println( leftData +"<-"+node.data+"->"+rightData );
+            queueLinkedList.push(node.left);
+            queueLinkedList.push(node.right);
+        }
+
+    }
     public void iterate(Node<T> iterNode,String space) {
         if (iterNode==null || (iterNode.left == null && iterNode.right == null)) {
             if(iterNode!=null)
@@ -103,7 +120,7 @@ public class TreeLinkedList<T> {
 */
     
     public static void main(String[] args) {
-        TreeLinkedList<String> treeList = new TreeLinkedList<String>() ;
+        CustomTreeLinkedList<String> treeList = new CustomTreeLinkedList<String>() ;
         treeList.addByLevel("A");
         treeList.addByLevel("B");
         treeList.addByLevel("C");
@@ -120,7 +137,7 @@ public class TreeLinkedList<T> {
         treeList.addByLevel("N");
         treeList.addByLevel("O");
         //treeList.iterate(treeList);
-        treeList.inorderTraversal(treeList.rootNode);
+        treeList.levelOrderTraversal(treeList.rootNode);
 
     }
 }

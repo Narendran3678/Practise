@@ -1,14 +1,14 @@
 package com.queue;
 
 @SuppressWarnings("unchecked")
-public class QueueList<T> {
+public class QueueArray<T> {
 	
 	private int front;
 	private int rear;
 	private T[] arr;
 	private int MAX_SIZE=10;
 	private int currSize=0;
-	public QueueList()
+	public QueueArray()
 	{
 		arr = (T[]) new Object[MAX_SIZE];
 		front=rear=-1;
@@ -126,7 +126,7 @@ public class QueueList<T> {
 	}
 	public static void main(String args[])
 	{
-		QueueList<Integer> queue = new QueueList<>();		
+		QueueArray<Integer> queue = new QueueArray<>();
 		queue.push(1);
 		
 		queue.push(2);
