@@ -12,7 +12,7 @@ public class TreeLinkedList<T> {
         public Node<T> siblingRight;
     }
 
-    public void add(T data) {
+    public void addByLevel(T data) {
         Node<T> newNode = new Node<T>();
         newNode.data = data;
         if(rootNode==null) {
@@ -52,18 +52,7 @@ public class TreeLinkedList<T> {
     public void iterate(TreeLinkedList<T> treeLinkedList) {
         iterate(treeLinkedList.rootNode,"");
     }
-/*
-                                                           101 | A | 102
-                                                                100
-                        103| B |104                                                                105| C |106
-                            101                                                                        102
 
-        107| D |108                          109| E |110                       111| F |112                        113| G |114
-            103                                  104                               105                                106
-
-0 | H | 0        0 | I | 0           0 | J | 0         0 | K | 0       0 | L | 0       0 | M | 0        0 | N | 0           0 | O | 0
-   107              108                 109               110              111             112             113                 114
-*/
     // LEFT -> ROOT -> RIGHT
     // H D I B J E K A L F M C N G O
     public void inorderTraversal(Node<T> iterNode) {
@@ -89,9 +78,10 @@ public class TreeLinkedList<T> {
         preorderTraversal(iterNode.right);
     }
 
-    private void iterate(Node<T> iterNode,String space) {
-        if (iterNode.left == null && iterNode.right == null) {
-            System.out.println(space + iterNode.data);
+    public void iterate(Node<T> iterNode,String space) {
+        if (iterNode==null || (iterNode.left == null && iterNode.right == null)) {
+            if(iterNode!=null)
+                System.out.println(space + iterNode.data);
             return;
         }
         System.out.println(space+iterNode.data);
@@ -99,25 +89,38 @@ public class TreeLinkedList<T> {
         iterate(iterNode.left,space);
         iterate(iterNode.right,space);
     }
+/*
+                                                           101 | A | 102
+                                                                100
+                        103| B |104                                                                105| C |106
+                            101                                                                        102
 
+        107| D |108                          109| E |110                       111| F |112                        113| G |114
+            103                                  104                               105                                106
+
+0 | H | 0        0 | I | 0           0 | J | 0         0 | K | 0       0 | L | 0       0 | M | 0        0 | N | 0           0 | O | 0
+   107              108                 109               110              111             112             113                 114
+*/
+    
     public static void main(String[] args) {
         TreeLinkedList<String> treeList = new TreeLinkedList<String>() ;
-        treeList.add("A");
-        treeList.add("B");
-        treeList.add("C");
-        treeList.add("D");
-        treeList.add("E");
-        treeList.add("F");
-        treeList.add("G");
-        treeList.add("H");
-        treeList.add("I");
-        treeList.add("J");
-        treeList.add("K");
-        treeList.add("L");
-        treeList.add("M");
-        treeList.add("N");
-        treeList.add("O");
+        treeList.addByLevel("A");
+        treeList.addByLevel("B");
+        treeList.addByLevel("C");
+        treeList.addByLevel("D");
+        treeList.addByLevel("E");
+        treeList.addByLevel("F");
+        treeList.addByLevel("G");
+        treeList.addByLevel("H");
+        treeList.addByLevel("I");
+        treeList.addByLevel("J");
+        treeList.addByLevel("K");
+        treeList.addByLevel("L");
+        treeList.addByLevel("M");
+        treeList.addByLevel("N");
+        treeList.addByLevel("O");
         //treeList.iterate(treeList);
         treeList.inorderTraversal(treeList.rootNode);
+
     }
 }

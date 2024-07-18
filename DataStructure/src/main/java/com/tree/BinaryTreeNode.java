@@ -118,6 +118,11 @@ public class BinaryTreeNode<T> {
 			print(currNode.right,space);
 		}
 	}
+	/*
+												DRINK
+					Hot															  Cold
+		Tea 					 Coffee							Non-Alcoholic 		  		Alcoholic
+	*/
 	public void insertByLevel(T data) {
 		Queue<BinaryTreeNode<T>> nodeQueue = new LinkedList<BinaryTreeNode<T>>();
 		nodeQueue.add(this);
@@ -163,11 +168,6 @@ public class BinaryTreeNode<T> {
 		}
 		System.out.println("\nData ["+data+"] Not Found");
 	}
-	/*
-												DRINK
-					Hot															  Cold
-		Tea 					 Coffee							Non-Alcoholic 		  		Alcoholic
-	*/
 
 	public void delete()
 	{
@@ -245,8 +245,8 @@ public class BinaryTreeNode<T> {
 		DRINK.delete();
 		System.out.println();
 		DRINK.print(DRINK);
-		DRINK.deleteFullTree();
-		DRINK.print(DRINK);
+		//DRINK.deleteFullTree();
+		//DRINK.print(DRINK);
 	}
 	
 	public static void drinkTree()
@@ -343,8 +343,8 @@ public class BinaryTreeNode<T> {
 		DRINK.insertChild(COLD);
 	}
 	public static void main(String[] args) {
-		//genericInsertTree();
-		drinkTree();
+		genericInsertTree();
+		//drinkTree();
 		//traversal();
 		System.exit(0);
 	}
