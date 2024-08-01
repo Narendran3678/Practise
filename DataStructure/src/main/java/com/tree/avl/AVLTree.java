@@ -1,4 +1,4 @@
-package com.tree;
+package com.tree.avl;
 
 public class AVLTree<T> {
     public Node<T> rootNode = null;

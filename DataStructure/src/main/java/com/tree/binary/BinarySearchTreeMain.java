@@ -1,4 +1,4 @@
-package com.tree;
+package com.tree.binary;
 
 class BinarySearchTree {
 	private int value = 0;
