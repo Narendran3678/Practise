@@ -3,9 +3,56 @@ package com.tree.avl;
 public class AVLTest {
 
     public static void main(String[] args) {
-        dataSet1();
+        dataSet4();
+        //30 , 25, 35, 20, 15, 5, 10, 50, 60, 70, 65
     }
-    //30 , 25, 35, 20, 15, 5, 10, 50, 60, 70, 65
+    /*
+                     30                                      30                                 20                                        20
+             25              35         ->           20              35        ->       15               30           ->            15             30               Continued Down
+        20                                      15        25                        5              25         35                10            25       35
+    15*                                      5*                                         10*                                 5
+
+                   20                                                       20                                                           20
+           10              30                       ->              10               30                           ->          10                       50
+       5        15     25       35                              5       15       25        50                           5           15          30              60
+                                    50                                                 35       60                                          25       35              70
+                                        60*                                                         70*
+*/
+    private static void dataSet4() {
+        //Rotate Right Strategy
+        AVLTree<Integer> avlTree = new AVLTree<>();
+        avlTree.insert(30);
+        avlTree.insert(25);
+        avlTree.insert(35);
+        avlTree.insert(20);
+        avlTree.insert(15);
+        avlTree.insert(5);
+        avlTree.insert(10);
+        avlTree.insert(50);
+        avlTree.insert(60);
+        avlTree.insert(70);
+        avlTree.insert(65);
+        //avlTree.print();
+        //avlTree.levelOrder();
+    }
+/*
+                    15                              10
+            10              20      ->         5            15
+        5       12                          3           12      20
+    3
+*/
+    private static void dataSet3() {
+        //Rotate Right Strategy
+        AVLTree<Integer> avlTree = new AVLTree<>();
+        avlTree.insert(15);
+        avlTree.insert(10);
+        avlTree.insert(20);
+        avlTree.insert(5);
+        avlTree.insert(12);
+        avlTree.insert(3);
+        avlTree.print();
+    }
+
 /*
             50                                   65
         40         65                     50           70
@@ -13,6 +60,7 @@ public class AVLTest {
                          75
 */
     private static void dataSet1() {
+        //Rotate Left Strategy
         AVLTree<Integer> avlTree = new AVLTree<>();
         avlTree.insert(50);
         avlTree.insert(40);

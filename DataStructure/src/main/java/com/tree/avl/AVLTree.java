@@ -1,9 +1,12 @@
 package com.tree.avl;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class AVLTree<T> {
     public Node<T> rootNode = null;
 
-    public class Node<T> {
+    public static class Node<T> {
         public Integer height = 1;
         public T data;
         public Node<T> parent;
@@ -82,6 +85,7 @@ public class AVLTree<T> {
             if (currentNode.left != null)
                 insert(currentNode.left, data);
             else {
+                System.out.println("Adding..."+data);
                 currentNode.left = newNode;
                 newNode.parent = currentNode;
             }
@@ -89,13 +93,14 @@ public class AVLTree<T> {
             if (currentNode.right != null)
                 insert(currentNode.right, data);
             else {
+                System.out.println("Adding..."+data);
                 currentNode.right = newNode;
                 newNode.parent = currentNode;
             }
         }
         currentNode.height = 1 + Math.max(height(currentNode.left),height(currentNode.right)); // To set max height is node of each subtree.
         int heightDifference = getHeightDifferenceForRotation(currentNode);
-        //System.out.println(heightDifference+"-"+currentNode.data);
+        System.out.println(heightDifference+"-"+currentNode.data);
         if(heightDifference< -1 && !compare(data, currentNode.right.data)) { //>= Right Right Condition
 /*
         5                            10
@@ -128,21 +133,31 @@ public class AVLTree<T> {
             rotateRight(currentNode);
         }
     }
-
 /*
-1.        5                            10
-              10          ->       5      15
-                 15
+    1.        5                            10
+                  10          ->       5      15
+                     15
 
-2.
-             50                                 65
-        40         65                     50           70
-                60    70       ->      40    60             75
-                         75
+    2.
+                 50                                 65
+            40         65                     50           70
+                    60    70       ->      40    60             75
+                             75
+ */
+ /*
+                     30                                      30                                 20                                        20
+             25              35         ->           20              35        ->       15               30           ->            15             30               Continued Down
+        20                                      15        25                        5              25         35                10            25       35
+    15*                                      5*                                         10*                                 5
+
+                   20                                                       20                                                           20
+           10              30                       ->              10               30                           ->          10                       50
+       5        15     25       35                              5       15       25        50                           5           15          30              60
+                                    50                                                 35       60                                          25       35              70
+                                        60*                                                         70*
 */
-
     private void rotateLeft(Node<T> disbalanceNode) {
-        System.out.println("Reached..."+disbalanceNode.data);
+        System.out.println("Rotate Left For Root Node ["+disbalanceNode.data+"]");
         Node<T> tempNode =  disbalanceNode.right;
         disbalanceNode.right=tempNode.left; // This line if for to rotate from root element
         tempNode.left = disbalanceNode;
@@ -150,17 +165,47 @@ public class AVLTree<T> {
             rootNode = tempNode;
         }
         else {
-            disbalanceNode.parent.right=tempNode;
+            if(compare(disbalanceNode.data,this.rootNode.data)) {
+                disbalanceNode.parent.left = tempNode;
+            } else {
+                if(disbalanceNode.parent!=null)
+                    disbalanceNode.parent.right = tempNode;
+            }
             tempNode.parent = disbalanceNode.parent;
         }
         disbalanceNode.parent=tempNode;
         disbalanceNode.height=1+Math.max(height(disbalanceNode.left),height(disbalanceNode.right));
         tempNode.height = 1+Math.max(height(tempNode.left),height(tempNode.right));
-
+        disbalanceNode=tempNode;
     }
+/*
+                           15                               10
+                   10              20      ->         5            15
+               5       12                         3            12      20
+           3
 
-    private void rotateRight(Node<T> currentNode ) {
+                            30                                    30
+                    25              35     ->           20                   35
+               20                                  15         25
+           15
+       */
 
+    private void rotateRight(Node<T> disbalanceNode ) {
+        System.out.println("Rotate Right For Root Node ["+disbalanceNode.data+"]");
+        Node<T> tempNode =  disbalanceNode.left;
+        if(disbalanceNode==rootNode) {
+            rootNode=tempNode;
+        }
+        else {
+            disbalanceNode.parent.left=tempNode;
+            tempNode.parent = disbalanceNode.parent;
+        }
+        disbalanceNode.parent = tempNode;
+        disbalanceNode.left = tempNode.right;
+        tempNode.right=disbalanceNode;
+        disbalanceNode.height=1+Math.max(height(disbalanceNode.left),height(disbalanceNode.right));
+        tempNode.height = 1+Math.max(height(tempNode.left),height(tempNode.right));
+        disbalanceNode=tempNode;
     }
     private int getHeightDifferenceForRotation(Node<T> node) {
         if(node==null)
@@ -181,7 +226,20 @@ public class AVLTree<T> {
             print(currNode.right, space);
         }
     }
-
+    void levelOrder() {
+        Queue<Node<T>> queue = new LinkedList<Node<T>>();
+        queue.add(this.rootNode);
+        while (!queue.isEmpty()) {
+            Node<T> presentNode = queue.remove();
+            System.out.print(presentNode.data + " ");
+            if (presentNode.left != null) {
+                queue.add(presentNode.left);
+            }
+            if (presentNode.right != null) {
+                queue.add(presentNode.right);
+            }
+        }
+    }
     public boolean search(T data) {
         return search(this.rootNode, data);
     }
