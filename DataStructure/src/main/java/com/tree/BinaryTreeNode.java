@@ -342,6 +342,7 @@ public class BinaryTreeNode<T> {
 		DRINK.insertChild(HOT);
 		DRINK.insertChild(COLD);
 	}
+
 	public static void main(String[] args) {
 		genericInsertTree();
 		//drinkTree();

@@ -80,7 +80,6 @@ public class CustomTreeLinkedList<T> {
         preorderTraversal(iterNode.right);
     }
     public void levelOrderTraversal(Node<T> iterNode) {
-
         QueueLinkedList<Node<T>> queueLinkedList = new QueueLinkedList<>();
         queueLinkedList.push(iterNode);
         while(!queueLinkedList.isEmpty()) {
@@ -93,7 +92,35 @@ public class CustomTreeLinkedList<T> {
             queueLinkedList.push(node.left);
             queueLinkedList.push(node.right);
         }
+    }
+    /*
+                                                           101 | A | 102
+                                                                100
+                        103| B |104                                                                105| C |106
+                            101                                                                        102
+        107| D |108                          109| E |110                       111| F |112                        113| G |114
+            103                                  104                               105                                106
+0 | H | 0
+   107
+*/
+    private int maxDepth(Node<T> node,int length) {
+        if(node==null)
+            return 0;
+        if(node.left==null && node.right==null) {
+            return length;
+        }
 
+        int leftDepth=0;
+        int rightDepth=0;
+        leftDepth = maxDepth(node.left,length);
+        rightDepth = maxDepth(node.right,length);
+
+        if(node.left!=null && node.right!=null)
+            System.out.println(node.left.data+"="+leftDepth+", "+node.right.data+"="+rightDepth);
+        if(leftDepth>=rightDepth)
+            return leftDepth+1;
+        else
+            return rightDepth+1;
     }
     public void iterate(Node<T> iterNode,String space) {
         if (iterNode==null || (iterNode.left == null && iterNode.right == null)) {
@@ -129,15 +156,17 @@ public class CustomTreeLinkedList<T> {
         treeList.addByLevel("F");
         treeList.addByLevel("G");
         treeList.addByLevel("H");
-        treeList.addByLevel("I");
+        /*treeList.addByLevel("I");
         treeList.addByLevel("J");
         treeList.addByLevel("K");
         treeList.addByLevel("L");
         treeList.addByLevel("M");
         treeList.addByLevel("N");
         treeList.addByLevel("O");
+        */
         //treeList.iterate(treeList);
         treeList.levelOrderTraversal(treeList.rootNode);
+        System.out.println(treeList.maxDepth(treeList.rootNode,0));
 
     }
 }
