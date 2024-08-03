@@ -6,7 +6,7 @@ public class AVLTest {
         dataSet4();
         //30 , 25, 35, 20, 15, 5, 10, 50, 60, 70, 65
     }
-    /*
+/*
                      30                                      30                                 20                                        20
              25              35         ->           20              35        ->       15               30           ->            15             30               Continued Down
         20                                      15        25                        5              25         35                10            25       35
@@ -17,6 +17,12 @@ public class AVLTest {
        5        15     25       35                              5       15       25        50                           5           15          30              60
                                     50                                                 35       60                                          25       35              70
                                         60*                                                         70*
+
+                        20                                                     20                                                                   20
+            10                       50                             10                       50                     ->                  10                        50
+        5       15          30              60           ->    5         15          30              60                            5         15           30                65
+                        25      35              70                               25      35               65                                         25         35      50      70
+                                            65*                                                                70
 */
     private static void dataSet4() {
         //Rotate Right Strategy
@@ -32,7 +38,7 @@ public class AVLTest {
         avlTree.insert(60);
         avlTree.insert(70);
         avlTree.insert(65);
-        //avlTree.print();
+        avlTree.print();
         //avlTree.levelOrder();
     }
 /*

@@ -115,6 +115,7 @@ public class AVLTree<T> {
                 10    ->        7            ->    5        10
             7                       10
 */          rotateRight(currentNode.right);
+            //print();
             rotateLeft(currentNode);
         }
         else  if(heightDifference>1 && compare(data, currentNode.left.data)) { // <=Left Left Condition
@@ -155,6 +156,12 @@ public class AVLTree<T> {
        5        15     25       35                              5       15       25        50                           5           15          30              60
                                     50                                                 35       60                                          25       35              70
                                         60*                                                         70*
+
+                        20                                                     20                                                                   20
+            10                       50                             10                       50                     ->                  10                        50
+        5       15          30              60           ->    5         15          30              60                            5         15           30                65
+                        25      35              70                               25      35               65                                         25         35      50      70
+                                            65*                                                                70
 */
     private void rotateLeft(Node<T> disbalanceNode) {
         System.out.println("Rotate Left For Root Node ["+disbalanceNode.data+"]");
@@ -197,7 +204,12 @@ public class AVLTree<T> {
             rootNode=tempNode;
         }
         else {
-            disbalanceNode.parent.left=tempNode;
+            if(compare(disbalanceNode.data,this.rootNode.data)) {
+                disbalanceNode.parent.left = tempNode;
+            } else {
+                if(disbalanceNode.parent!=null)
+                    disbalanceNode.parent.right = tempNode;
+            }
             tempNode.parent = disbalanceNode.parent;
         }
         disbalanceNode.parent = tempNode;
