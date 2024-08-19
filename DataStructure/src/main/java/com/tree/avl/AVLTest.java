@@ -3,9 +3,71 @@ package com.tree.avl;
 public class AVLTest {
 
     public static void main(String[] args) {
-        dataSet4();
+        dataSet5();
         //30 , 25, 35, 20, 15, 5, 10, 50, 60, 70, 65
     }
+/*
+1.                       70                                 50
+                  50           90(Remove)   ->         30       70
+             30
+
+2.                  70                              60
+            50             90(Remove)    ->    50       70
+                60
+*/
+
+    private static void dataSet6() {
+        AVLTree<Integer> avlTree = new AVLTree<>();
+        /*avlTree.insert(70);
+        avlTree.insert(90);
+        avlTree.insert(50);
+        avlTree.insert(30);
+        avlTree.delete(90);*/
+        avlTree.insert(70);
+        avlTree.insert(90);
+        avlTree.insert(50);
+        avlTree.insert(60);
+        //avlTree.insert(30);
+        avlTree.delete(90);
+        avlTree.print();
+        // System.out.println(avlTree.rootNode.data);
+        // System.out.println(avlTree.rootNode.right.data);
+
+    }
+/*
+                            70
+                  50                  90
+             30       60          80      100
+         20      40       65                  110
+    15
+*/
+    private static void dataSet5() {
+        //Issue with this case
+        AVLTree<Integer> avlTree = new AVLTree<>();
+        avlTree.insert(70);
+        avlTree.insert(90);
+        avlTree.insert(50);
+        avlTree.insert(30);
+        avlTree.insert(60);
+        avlTree.insert(80);
+        avlTree.insert(100);
+        avlTree.insert(110);
+        avlTree.insert(65);
+        avlTree.insert(20);
+        avlTree.insert(40);
+        //avlTree.print();
+
+        avlTree.delete(70);
+        System.out.println();
+        avlTree.print();
+        System.out.println(avlTree.rootNode.data);
+        System.out.println(avlTree.rootNode.left.data);
+        System.out.println(avlTree.rootNode.right.data);
+        System.out.println(avlTree.rootNode.right.parent.data);
+        System.out.println(avlTree.rootNode.right.parent.right.data);
+
+    }
+
 /*
                      30                                      30                                 20                                        20
              25              35         ->           20              35        ->       15               30           ->            15             30               Continued Down

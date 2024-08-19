@@ -34,23 +34,7 @@ public class AVLTree<T> {
         }
     }
 
-    public boolean compare(T data1, T data2) {
-        try {
-            double value1 = Double.parseDouble(String.valueOf(data1));
-            double value2 = Double.parseDouble(String.valueOf(data2));
-            return value1 <= value2;
-        } catch (Exception e) {
-            System.out.println("Error Converting to Double..." + e);
-        }
-        try {
-            String value1 = String.valueOf(data1);
-            String value2 = String.valueOf(data2);
-            return value1.compareTo(value2) <= 0;
-        } catch (Exception e) {
-            System.out.println("Error Converting to String");
-        }
-        return false;
-    }
+
 
     /*
                     70
@@ -163,7 +147,7 @@ public class AVLTree<T> {
                         25      35              70                               25      35               65                                         25         35      50      70
                                             65*                                                                70
 */
-    private void rotateLeft(Node<T> disbalanceNode) {
+    private Node<T> rotateLeft(Node<T> disbalanceNode) {
         System.out.println("Rotate Left For Root Node ["+disbalanceNode.data+"]");
         Node<T> tempNode =  disbalanceNode.right;
         disbalanceNode.right=tempNode.left; // This line if for to rotate from root element
@@ -184,6 +168,7 @@ public class AVLTree<T> {
         disbalanceNode.height=1+Math.max(height(disbalanceNode.left),height(disbalanceNode.right));
         tempNode.height = 1+Math.max(height(tempNode.left),height(tempNode.right));
         disbalanceNode=tempNode;
+        return disbalanceNode;
     }
 /*
                            15                               10
@@ -197,7 +182,7 @@ public class AVLTree<T> {
            15
        */
 
-    private void rotateRight(Node<T> disbalanceNode ) {
+    private Node<T> rotateRight(Node<T> disbalanceNode ) {
         System.out.println("Rotate Right For Root Node ["+disbalanceNode.data+"]");
         Node<T> tempNode =  disbalanceNode.left;
         if(disbalanceNode==rootNode) {
@@ -218,6 +203,7 @@ public class AVLTree<T> {
         disbalanceNode.height=1+Math.max(height(disbalanceNode.left),height(disbalanceNode.right));
         tempNode.height = 1+Math.max(height(tempNode.left),height(tempNode.right));
         disbalanceNode=tempNode;
+        return disbalanceNode;
     }
     private int getHeightDifferenceForRotation(Node<T> node) {
         if(node==null)
@@ -226,6 +212,7 @@ public class AVLTree<T> {
     }
     public void print() {
         print(this.rootNode, "");
+        System.out.println();
     }
 
     private void print(Node<T> node, String space) {
@@ -256,7 +243,7 @@ public class AVLTree<T> {
         return search(this.rootNode, data);
     }
 
-    public boolean search(Node<T> avlTreeNode, T data) {
+    private boolean search(Node<T> avlTreeNode, T data) {
         if (avlTreeNode == null)
             return false;
         if (avlTreeNode.data == data)
@@ -267,5 +254,96 @@ public class AVLTree<T> {
         } else {
             return search(avlTreeNode.right, data);
         }
+    }
+    public void delete(T data) {
+        delete(this.rootNode,data);
+    }
+/*
+                            70
+                  50                  90
+             30       60          80      100
+         20      40       65                  110
+*/
+
+    private Node<T> minimumNode(Node<T> node) {
+        if(node.left==null)
+            return node;
+        return minimumNode(node.left);
+    }
+    private Node<T> delete(Node<T> currentNode, T data)  {
+        if(currentNode==null) {
+            return null;
+        }
+        if(compare(data ,currentNode.data)){
+            currentNode.left = delete(currentNode.left, data);
+        } else if(compare(currentNode.data,data)) {
+            currentNode.right = delete(currentNode.right, data);
+        } else {
+            if(currentNode.left!=null && currentNode.right!=null) {
+                Node<T> tempNode = currentNode;
+                Node<T> minimumRightNode = minimumNode(currentNode.right);
+                currentNode.data=minimumRightNode.data;
+                currentNode.right=delete(currentNode.right,minimumRightNode.data);
+            } else if(currentNode.left!=null) {
+                currentNode=currentNode.left;
+
+            } else if(currentNode.right!=null) {
+                currentNode=currentNode.right;
+            }
+            else {
+                return null;
+            }
+        }
+        currentNode.height=1+Math.max(height(currentNode.left),height(currentNode.right));
+        int heightDifference = getHeightDifferenceForRotation(currentNode);
+        System.out.println(heightDifference+" = "+currentNode.data);
+        if(heightDifference>1 && getHeightDifferenceForRotation(currentNode.left)>0) {
+            return rotateRight(currentNode);
+        } else if(heightDifference>1 && getHeightDifferenceForRotation(currentNode.left)<0) {
+            rotateLeft(currentNode.left);
+            return rotateRight(currentNode);
+        } else if(heightDifference< -1 && getHeightDifferenceForRotation(currentNode.right)>0) {
+            rotateRight(currentNode.right);
+            return rotateLeft(currentNode);
+        }else if(heightDifference< -1 && getHeightDifferenceForRotation(currentNode.right)<0) {
+            return rotateLeft(currentNode);
+        }
+
+        return currentNode;
+    }
+    public boolean checkEqual(T data1, T data2) {
+        try {
+            double value1 = Double.parseDouble(String.valueOf(data1));
+            double value2 = Double.parseDouble(String.valueOf(data2));
+            return value1==value2;
+        } catch (Exception e) {
+            System.out.println("CheckEqual::Error Converting to Double..." + e);
+        }
+        try {
+            String value1 = String.valueOf(data1);
+            String value2 = String.valueOf(data2);
+            return value1.equals(value2);
+        } catch (Exception e) {
+            System.out.println("CheckEqual::Error Converting to String");
+        }
+        return false;
+    }
+
+    public boolean compare(T data1, T data2) {
+        try {
+            double value1 = Double.parseDouble(String.valueOf(data1));
+            double value2 = Double.parseDouble(String.valueOf(data2));
+            return value1 < value2;
+        } catch (Exception e) {
+            System.out.println("Compare::Error Converting to Double..." + e);
+        }
+        try {
+            String value1 = String.valueOf(data1);
+            String value2 = String.valueOf(data2);
+            return value1.compareTo(value2) < 0;
+        } catch (Exception e) {
+            System.out.println("Compare::Error Converting to String");
+        }
+        return false;
     }
 }
