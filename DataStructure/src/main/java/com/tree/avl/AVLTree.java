@@ -84,7 +84,7 @@ public class AVLTree<T> {
         }
         currentNode.height = 1 + Math.max(height(currentNode.left),height(currentNode.right)); // To set max height is node of each subtree.
         int heightDifference = getHeightDifferenceForRotation(currentNode);
-        System.out.println(heightDifference+"-"+currentNode.data);
+        //System.out.println(heightDifference+"-"+currentNode.data);
         if(heightDifference< -1 && !compare(data, currentNode.right.data)) { //>= Right Right Condition
 /*
         5                            10
@@ -296,7 +296,7 @@ public class AVLTree<T> {
         }
         currentNode.height=1+Math.max(height(currentNode.left),height(currentNode.right));
         int heightDifference = getHeightDifferenceForRotation(currentNode);
-        System.out.println(heightDifference+" = "+currentNode.data);
+        //System.out.println(heightDifference+" = "+currentNode.data);
         if(heightDifference>1 && getHeightDifferenceForRotation(currentNode.left)>0) {
             return rotateRight(currentNode);
         } else if(heightDifference>1 && getHeightDifferenceForRotation(currentNode.left)<0) {
@@ -310,6 +310,11 @@ public class AVLTree<T> {
         }
 
         return currentNode;
+    }
+    public boolean delete() {
+        this.rootNode=null;
+        System.out.println("Entire Node Deleted");
+        return true;
     }
     public boolean checkEqual(T data1, T data2) {
         try {
@@ -346,4 +351,5 @@ public class AVLTree<T> {
         }
         return false;
     }
+
 }

@@ -60,12 +60,8 @@ public class AVLTest {
         avlTree.delete(70);
         System.out.println();
         avlTree.print();
-        System.out.println(avlTree.rootNode.data);
-        System.out.println(avlTree.rootNode.left.data);
-        System.out.println(avlTree.rootNode.right.data);
-        System.out.println(avlTree.rootNode.right.parent.data);
-        System.out.println(avlTree.rootNode.right.parent.right.data);
-
+        avlTree.delete();
+        avlTree.print();
     }
 
 /*
