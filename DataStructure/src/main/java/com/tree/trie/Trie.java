@@ -58,6 +58,7 @@ public class Trie {
                 TrieNode tempTrieNode = new TrieNode(ch);
                 nextTrieNodes.add(tempTrieNode);
                 currentNode = tempTrieNode;
+                break;
             }
         }
         return currentNode;
@@ -79,20 +80,21 @@ public class Trie {
       B T S
    */
     public void print() {
+        String str = "";
+
         for(TrieNode printNode : this.rootNode) {
-            System.out.println();
-            System.out.println(printNode.getCharacter());
-            print(printNode.getNextCharacters());
+            str+=printNode.getCharacter();
+            print(printNode.getNextCharacters(),str);
+            str="";
         }
     }
-    public void print(Set<TrieNode> tempNode) {
+    public void print(Set<TrieNode> tempNode,String word) {
         if(tempNode.isEmpty()){
-            System.out.println();
+            System.out.println(word);
             return;
         }
         for(TrieNode trieNode: tempNode) {
-            System.out.print(trieNode.getCharacter()+"-");
-            print(trieNode.getNextCharacters());
+            print(trieNode.getNextCharacters(),word+trieNode.getCharacter());
         }
     }
     public boolean contains(String searchTxt) {
@@ -103,7 +105,9 @@ public class Trie {
         Trie trie = new Trie();
         trie.add("APISIS");
         trie.add("APIB");
+        trie.add("APIT");
         trie.add("BTS");
+        trie.add("CTS");
         trie.print();
     }
 
