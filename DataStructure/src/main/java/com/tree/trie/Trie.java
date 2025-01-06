@@ -8,6 +8,27 @@ public class Trie {
     private List<TrieNode> rootNode = new ArrayList<>();
     public Trie() {
     }
+
+    public boolean search(String searchTxt) {
+        for(TrieNode trieNode:rootNode) {
+            if(trieNode.getCharacter().equals(searchTxt.charAt(0))) {
+                return search(trieNode.getNextCharacters(),searchTxt,1);
+            }
+        }
+        return true;
+    }
+
+    public boolean search(Set<TrieNode> trieNodes , String srhChar,int index) {
+        if((trieNodes==null || trieNodes.isEmpty()) && srhChar.length()<index+1){
+            return true;
+        }
+        for(TrieNode nextTrieNode:trieNodes) {
+            if(nextTrieNode.getCharacter().equals(srhChar.charAt(index))) {
+                return search(nextTrieNode.getNextCharacters(),srhChar,index+1);
+            }
+        }
+        return false;
+    }
     public void add(String word) {
         boolean isNewStr =true;
         TrieNode currentNode = null;
@@ -97,9 +118,6 @@ public class Trie {
             print(trieNode.getNextCharacters(),word+trieNode.getCharacter());
         }
     }
-    public boolean contains(String searchTxt) {
-        return false;
-    }
 
     public static void main(String[] args) {
         Trie trie = new Trie();
@@ -109,10 +127,7 @@ public class Trie {
         trie.add("BTS");
         trie.add("CTS");
         trie.print();
-    }
 
-    public boolean search(String searchTxt) {
-        return false;
+        System.out.println(trie.search("APIS"));
     }
-
 }
