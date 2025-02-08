@@ -128,6 +128,6 @@ public class Trie {
         trie.add("CTS");
         trie.print();
 
-        System.out.println(trie.search("APIS"));
+        System.out.println(trie.search("APIS")); // Not completely Fixed
     }
 }
