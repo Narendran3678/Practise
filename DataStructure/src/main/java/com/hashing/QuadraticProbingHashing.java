@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class LinearProbingHashing {
+public class QuadraticProbingHashing {
     private String[] hashTable;
     private int hashTableSize;
     private int usedIndexCount=0;
 
-    public LinearProbingHashing(int size) {
+    public QuadraticProbingHashing(int size) {
         this.hashTableSize=size;
         hashTable = new String[size];
     }
@@ -48,9 +48,10 @@ public class LinearProbingHashing {
         if(loadFactor>=0.75) {
             rehash(word);
         } else {
+            int counter=0;
             int index = getHashingIndex(word);
             for(int i=index;i<index+hashTableSize;i++) {
-                int tempIndex = i%hashTableSize;
+                int tempIndex = (index+(counter*counter)) % hashTableSize;
                 if (hashTable[tempIndex] == null) {
                     hashTable[tempIndex] = word;
                     //System.out.println("Inserted ["+word+"]");
@@ -58,48 +59,34 @@ public class LinearProbingHashing {
                 } else {
                     //System.out.println("Array's Position is Filled");
                 }
+                counter++;
             }
         }
         usedIndexCount++;
     }
 
-    public void search(String searchTxt) {
-        int indexPosition = getHashingIndex(searchTxt);
-        for(int i=indexPosition ;i<indexPosition+hashTableSize;i++) {
-            int tempIndex = i%hashTableSize;
-            if(searchTxt.equalsIgnoreCase(hashTable[tempIndex]) ) {
-                System.out.println(searchTxt+"="+tempIndex+"="+hashTable[tempIndex]);
-                break;
-            }
-        }
-    }
 
     public void print() {
         System.out.println(Arrays.toString(hashTable));
     }
-
     public static void main(String[] args) {
-        LinearProbingHashing hashing = new LinearProbingHashing(5);
-        hashing.insertIntoHashTable("Hi");
-        hashing.insertIntoHashTable("Hello");
-        hashing.insertIntoHashTable("World");
-        hashing.insertIntoHashTable("Java");
-        hashing.insertIntoHashTable("Java1");
-        hashing.insertIntoHashTable("Java2");
-        hashing.insertIntoHashTable("Java3");
-        hashing.insertIntoHashTable("Java4");
-        hashing.insertIntoHashTable("Java5");
-        hashing.print();
-
-        hashing.search("Hi");
-        hashing.search("Hello");
-        hashing.search("World");
-        hashing.search("Java");
-        hashing.search("Java1");
-        hashing.search("Java2");
-        hashing.search("Java3");
-        hashing.search("Java4");
-        hashing.search("Java5");
-
+        QuadraticProbingHashing quadraticProbingHashing = new QuadraticProbingHashing(5);
+        quadraticProbingHashing.insertIntoHashTable("Hi");
+        quadraticProbingHashing.insertIntoHashTable("Hello");
+        quadraticProbingHashing.insertIntoHashTable("World");
+        quadraticProbingHashing.insertIntoHashTable("Java");
+        quadraticProbingHashing.insertIntoHashTable("Java1");
+        quadraticProbingHashing.insertIntoHashTable("Java2");
+        quadraticProbingHashing.insertIntoHashTable("Java3");
+        quadraticProbingHashing.insertIntoHashTable("Java4");
+        quadraticProbingHashing.insertIntoHashTable("Java5");
+        quadraticProbingHashing.insertIntoHashTable("Java6");
+        quadraticProbingHashing.insertIntoHashTable("Java7");
+        quadraticProbingHashing.insertIntoHashTable("Java8");
+        quadraticProbingHashing.insertIntoHashTable("Java9");
+        quadraticProbingHashing.insertIntoHashTable("Java10");
+        quadraticProbingHashing.insertIntoHashTable("Java11");
+        quadraticProbingHashing.insertIntoHashTable("Java12");
+        quadraticProbingHashing.print();
     }
 }

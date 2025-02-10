@@ -4,28 +4,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class LinearProbingHashing {
+public class DoubleHashing {
     private String[] hashTable;
     private int hashTableSize;
     private int usedIndexCount=0;
 
-    public LinearProbingHashing(int size) {
+    public DoubleHashing(int size) {
         this.hashTableSize=size;
         hashTable = new String[size];
     }
 
-    private int getHashingIndex(String word) {
-        char[] wordCh = word.toCharArray();
-        int totalAsciiValue=0;
-        for(char ch: wordCh) {
-            totalAsciiValue+=ch;
-        }
-        return totalAsciiValue%hashTableSize;
-    }
-
-    private double getLoadFactor() {
-        return usedIndexCount * 1.0 / hashTable.length;
-    }
 
     private void rehash(String word) {
         usedIndexCount=0;
@@ -43,43 +31,78 @@ public class LinearProbingHashing {
         }
         //System.out.println("Hashtable Rehashed");
     }
+
     public void insertIntoHashTable(String word) {
         double loadFactor = getLoadFactor();
         if(loadFactor>=0.75) {
             rehash(word);
         } else {
-            int index = getHashingIndex(word);
-            for(int i=index;i<index+hashTableSize;i++) {
-                int tempIndex = i%hashTableSize;
+            int firstIndex = getFirstHashingIndex(word);
+            int secondIndex =getSecondHashingIndex(word);
+            for(int i=0;i<hashTableSize;i++) {
+                int tempIndex = (firstIndex + i + secondIndex) % hashTableSize;
                 if (hashTable[tempIndex] == null) {
                     hashTable[tempIndex] = word;
-                    //System.out.println("Inserted ["+word+"]");
+                    System.out.println(word +" inserted at location:" +tempIndex);
                     break;
                 } else {
-                    //System.out.println("Array's Position is Filled");
+                    System.out.println(tempIndex +" is occupied. Tryin next empty index..");
                 }
             }
         }
         usedIndexCount++;
     }
 
-    public void search(String searchTxt) {
-        int indexPosition = getHashingIndex(searchTxt);
-        for(int i=indexPosition ;i<indexPosition+hashTableSize;i++) {
-            int tempIndex = i%hashTableSize;
-            if(searchTxt.equalsIgnoreCase(hashTable[tempIndex]) ) {
-                System.out.println(searchTxt+"="+tempIndex+"="+hashTable[tempIndex]);
-                break;
-            }
+    private int getFirstHashingIndex(String word) {
+        char[] wordCh = word.toCharArray();
+        int totalAsciiValue=0;
+        for(char ch: wordCh) {
+            totalAsciiValue+=ch;
         }
+        return totalAsciiValue%hashTableSize;
+    }
+
+
+    private int getSecondHashingIndex(String word) {
+        char[] wordCh = word.toCharArray();
+        int totalAsciiValue=0;
+        for(char ch: wordCh) {
+            totalAsciiValue+=ch;
+        }
+        if(totalAsciiValue>hashTableSize) {
+            totalAsciiValue= addAllDigitsTogether(totalAsciiValue);
+        }
+        return totalAsciiValue%hashTableSize;
+    }
+    private int addAllDigitsTogether(int sum) {
+        int value = 0;
+        while (sum > 0) {
+            value = sum % 10;
+            sum = sum / 10;
+        }
+        return value;
+    }
+    private double getLoadFactor() {
+        return usedIndexCount * 1.0 / hashTable.length;
     }
 
     public void print() {
         System.out.println(Arrays.toString(hashTable));
     }
+    public void search(String word) {
+        int firstIndex = getFirstHashingIndex(word);
+        int secondIndex =getSecondHashingIndex(word);
+        for(int i=0;i<hashTableSize;i++) {
+            int tempIndex = (firstIndex + i + secondIndex) % hashTableSize;
+            if (word.equalsIgnoreCase(hashTable[tempIndex]) ) {
+                System.out.println(word+" Found");
+                break;
+            }
+        }
+    }
 
     public static void main(String[] args) {
-        LinearProbingHashing hashing = new LinearProbingHashing(5);
+        DoubleHashing hashing = new DoubleHashing(5);
         hashing.insertIntoHashTable("Hi");
         hashing.insertIntoHashTable("Hello");
         hashing.insertIntoHashTable("World");
@@ -90,7 +113,6 @@ public class LinearProbingHashing {
         hashing.insertIntoHashTable("Java4");
         hashing.insertIntoHashTable("Java5");
         hashing.print();
-
         hashing.search("Hi");
         hashing.search("Hello");
         hashing.search("World");
