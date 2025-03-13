@@ -1,3 +1,4 @@
 spring.application.name=SpringDemo
 spring.mvc.view.prefix=/WEB-INF/jsp/
 spring.mvc.view.suffix=.jsp
+server.servlet.context-path=/api

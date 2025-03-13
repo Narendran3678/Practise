@@ -24,8 +24,7 @@
 
   </c:when>
   <c:otherwise>
-    <link rel="stylesheet" href="${globalNavUrl}/api-www/global-elements/global-header/v1/assets/globalheader.css">
-
+      <link rel="stylesheet" href="${globalNavUrl}/api-www/global-elements/global-header/v1/assets/globalheader.css">
       <%  try { %>
       <c:import url="/WEB-INF/jspFragments/globalnav/ac-globalnav-${flagshipLocale}.jsp" charEncoding="UTF-8" />
       <%  } catch (Exception e) { } %>

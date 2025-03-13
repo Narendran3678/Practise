@@ -1,9 +1,12 @@
 package com.demo.springdemo.controllers;
 
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import java.io.File;
 
 @Controller
 public class IndexControllers {
@@ -25,10 +28,20 @@ public class IndexControllers {
     private static final String PATH = "/error";
     @GetMapping("/")
     public String indexPage(
-            @RequestParam(value = "locale", required = false) final String locale,
-            Model model) throws Exception {
-        //http://localhost:8080/?locale=en_US
-        System.out.println("Index Page");
+            @RequestParam(value = "language", required = false) String lanugage,
+            @RequestParam(value = "locale", required = false) String locale,
+            Model model, HttpServletRequest httpServletRequest) throws Exception {
+        //http://localhost:8080/?locale=en_US&language=en_ES
+
+        ServletContext context = httpServletRequest.getServletContext();
+        String fullPath = context.getRealPath("/WEB-INF/jspFragments/globalfooter/"+locale+"/footer.inc");
+        File file = new File(fullPath);
+        System.out.println("FullPath..."+fullPath);
+        if(!file.exists())
+            locale = "en_US";
+
+        System.out.println(locale);
+
         model.addAttribute(HEADERFEATURES_HEADERSUPPORTEDLOCALE,locale);;
         model.addAttribute(HEADERFEATURES_GLOBALNAVURL,"https://www.apple.com/");
         model.addAttribute(REQUESTSCOPE_APPLE_LOCALE_SITECOUNTRYCODE,"USA");
