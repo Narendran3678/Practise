@@ -34,7 +34,7 @@ public class IndexControllers {
         //http://localhost:8080/?locale=en_US&language=en_ES
 
         ServletContext context = httpServletRequest.getServletContext();
-        String fullPath = context.getRealPath("/WEB-INF/jspFragments/globalfooter/"+locale+"/footer.inc");
+        String fullPath = context.getRealPath("/WEB-INF/jspFragments/globalfooter/"+locale+"/footer.jsp");
         File file = new File(fullPath);
         System.out.println("FullPath..."+fullPath);
         if(!file.exists())
