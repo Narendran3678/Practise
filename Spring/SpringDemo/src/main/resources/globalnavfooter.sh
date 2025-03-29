@@ -1,4 +1,5 @@
 #!/bin/bash
+: '
 tarfilename=globalnav-globalfooter-6.6.2.tgz
 extractFolder=package
 curdir=$(pwd)
@@ -69,3 +70,4 @@ copyNavAndFooterFile
 removeExtractedPackage
 renameNavFile
 renameFooterFile
+'

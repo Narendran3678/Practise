@@ -1,7 +1,9 @@
 package com.demo.springdemo.controllers;
 
+import com.demo.springdemo.restTemplate.A3TokenService;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,8 +26,11 @@ public class IndexControllers {
     public static final String FOOTERFEATURES_HIDECHOOSECOUNTRY = "footerFeatures_hideChooseCountry";
     public static final String SOURCEAPPID = "sourceAppId";
     public static final String REQUESTSCOPE_APPLE_LOCALE_COUNTRY = "requestScope_apple_locale_country";
-
     private static final String PATH = "/error";
+
+    @Autowired
+    private A3TokenService a3TokenService;
+
     @GetMapping("/")
     public String indexPage(
             @RequestParam(value = "language", required = false) String lanugage,
@@ -57,6 +62,14 @@ public class IndexControllers {
         model.addAttribute(REQUESTSCOPE_APPLE_LOCALE_SITECOUNTRYCODE,"Espana");
         model.addAttribute(REQUESTSCOPE_APPLE_LOCALE_COUNTRY,"Espana");
         return "sample";
+    }
+
+    @GetMapping("/a3token")
+    public String a3Token(Model model) throws Exception {
+        System.out.println("A3Token Page");
+        String a3TokenResponse = a3TokenService.generateA3Token(187695L,"mdgxvaa5yadc3yat",901951L, "pDl1ny2NKS3YFrD3");
+        model.addAttribute("a3token",a3TokenResponse);
+        return "resttemplate";
     }
 
 }

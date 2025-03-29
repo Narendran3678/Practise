@@ -14,10 +14,9 @@
 </head>
 <body>
 
-    <div>
-        <h1>Hello World</h1>
-        <h3>${a3token}</h3>
-    </div>
-    <%@ include file="./globalNavFooterImports.jsp" %>
+<div>
+    <h1>Rest Template</h1>
+    <h3>${a3token}</h3>
+</div>
 </body>
 </html>
